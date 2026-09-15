@@ -3,14 +3,60 @@ import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-function DashboardVisual() {
-  const bars = [30, 44, 38, 55, 48, 66, 58, 74, 68, 86, 78, 96];
+function AreaChart() {
+  const points = [
+    [0, 78], [60, 70], [120, 74], [180, 58], [240, 62], [300, 48],
+    [360, 52], [420, 38], [480, 42], [540, 26], [600, 30], [660, 14],
+  ];
+  const line = points
+    .map(([x, y], i) => `${i === 0 ? "M" : "L"}${x},${y}`)
+    .join(" ");
+  const area = `${line} L660,100 L0,100 Z`;
 
+  return (
+    <svg
+      viewBox="0 0 660 100"
+      preserveAspectRatio="none"
+      className="h-28 w-full sm:h-32"
+    >
+      <defs>
+        <linearGradient id="limeFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#bafa04" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#bafa04" stopOpacity="0.02" />
+        </linearGradient>
+      </defs>
+      {[25, 50, 75].map((y) => (
+        <line
+          key={y}
+          x1="0"
+          y1={y}
+          x2="660"
+          y2={y}
+          stroke="rgba(255,255,255,0.06)"
+          strokeWidth="0.5"
+        />
+      ))}
+      <path d={area} fill="url(#limeFill)" />
+      <path
+        d={line}
+        fill="none"
+        stroke="#bafa04"
+        strokeWidth="2"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      <circle cx="660" cy="14" r="3.5" fill="#bafa04" />
+      <circle cx="660" cy="14" r="7" fill="#bafa04" opacity="0.25" />
+    </svg>
+  );
+}
+
+function DashboardVisual() {
   return (
     <div className="relative mx-auto mt-16 w-full max-w-5xl px-4 sm:px-0">
       <div
         aria-hidden
-        className="glow-dashboard absolute -inset-x-16 top-10 -bottom-24 blur-3xl"
+        className="glow-dashboard absolute -inset-x-16 top-16 -bottom-32 blur-3xl"
       />
       <div className="card-dark relative animate-float overflow-hidden rounded-2xl bg-panel shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]">
         <div className="flex items-center gap-2 border-b border-white/8 px-4 py-3">
@@ -51,6 +97,15 @@ function DashboardVisual() {
                 </div>
               ),
             )}
+            <div className="mt-6 rounded-lg border border-white/8 bg-white/[0.03] p-3">
+              <p className="text-[10px] text-mist">Weekly digest</p>
+              <p className="mt-1 text-[11px] font-medium text-white">
+                12 new decisions ready
+              </p>
+              <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/10">
+                <div className="h-full w-3/4 rounded-full bg-lime" />
+              </div>
+            </div>
           </div>
 
           <div className="col-span-12 p-4 md:col-span-9 sm:p-5">
@@ -95,16 +150,10 @@ function DashboardVisual() {
                 <p className="text-[11px] text-mist">Customer growth</p>
                 <p className="text-[10px] text-lime">Last 12 weeks</p>
               </div>
-              <div className="flex h-24 items-end gap-1.5 sm:h-28">
-                {bars.map((height, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 rounded-t-sm bg-gradient-to-t from-lime/25 to-lime"
-                    style={{
-                      height: `${height}%`,
-                      opacity: 0.4 + (i / bars.length) * 0.6,
-                    }}
-                  />
+              <AreaChart />
+              <div className="mt-2 flex justify-between text-[9px] text-mist">
+                {["Jan", "Feb", "Mar", "Apr", "May", "Jun"].map((m) => (
+                  <span key={m}>{m}</span>
                 ))}
               </div>
             </div>
@@ -120,7 +169,7 @@ export function Hero() {
     <section className="glow-hero relative overflow-hidden bg-ink pt-36 pb-24 sm:pt-44">
       <div className="grid-lines absolute inset-0" aria-hidden />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-4xl text-center">
           <Badge
             variant="outline"
             className="mb-6 rounded-full border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-normal text-mist"
@@ -129,7 +178,7 @@ export function Hero() {
             Introducing Veliqo 2.0
           </Badge>
 
-          <h1 className="text-balance text-[42px] font-semibold leading-[1.05] tracking-tight text-white sm:text-7xl">
+          <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-tight text-white sm:text-8xl">
             Understand your customers{" "}
             <span className="font-display text-lime-gradient">
               like never before.
