@@ -67,11 +67,11 @@ function CardVisual({ kind }: { kind: string }) {
           (text, i) => (
             <div
               key={text}
-              className="flex items-center gap-2 rounded-lg border border-white/8 bg-white/[0.03] px-3 py-2"
+              className="flex items-center gap-2 rounded-lg border border-black/6 bg-white px-3 py-2"
               style={{ opacity: 1 - i * 0.25 }}
             >
-              <span className="size-1.5 rounded-full bg-accent" />
-              <span className="text-[11px] text-mist">{text}</span>
+              <span className="size-1.5 rounded-full bg-lime-600" style={{ background: "#7ea300" }} />
+              <span className="text-[11px] text-smoke">{text}</span>
             </div>
           ),
         )}
@@ -84,7 +84,7 @@ function CardVisual({ kind }: { kind: string }) {
         {[40, 65, 45, 80, 55, 92, 70].map((h, i) => (
           <div
             key={i}
-            className="flex-1 rounded-t-sm bg-gradient-to-t from-accent/25 to-accent"
+            className="flex-1 rounded-t-sm bg-gradient-to-t from-black/15 to-black/80"
             style={{ height: `${h * 0.56}px` }}
           />
         ))}
@@ -94,14 +94,13 @@ function CardVisual({ kind }: { kind: string }) {
   if (kind === "segments") {
     return (
       <div className="mt-5 flex -space-x-3">
-        {["from-accent", "from-accent-blue", "from-accent-soft", "from-white/40"].map(
-          (color, i) => (
-            <span
-              key={i}
-              className={`size-9 rounded-full border border-white/15 bg-gradient-to-br ${color} to-transparent`}
-            />
-          ),
-        )}
+        {[0, 1, 2, 3].map((i) => (
+          <span
+            key={i}
+            className="size-9 rounded-full border border-black/10 bg-gradient-to-br from-lime to-black/60"
+            style={{ opacity: 1 - i * 0.18 }}
+          />
+        ))}
       </div>
     );
   }
@@ -110,17 +109,17 @@ function CardVisual({ kind }: { kind: string }) {
 
 export function Features() {
   return (
-    <section id="features" className="py-24 sm:py-32">
+    <section id="features" className="bg-paper py-24 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent-soft">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-smoke">
             Features
           </p>
-          <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-black sm:text-5xl">
             Everything you need to{" "}
-            <span className="font-display text-gradient">see clearly</span>
+            <span className="font-display">see clearly</span>
           </h2>
-          <p className="mt-4 text-pretty text-mist">
+          <p className="mt-4 text-pretty leading-relaxed text-smoke">
             One workspace replaces the dashboards, spreadsheets, and gut-feel
             meetings your team runs on today.
           </p>
@@ -130,16 +129,16 @@ export function Features() {
           {features.map((feature) => (
             <Card
               key={feature.title}
-              className="card-surface card-surface-hover rounded-2xl border-white/8 bg-transparent"
+              className="card-light card-light-hover rounded-2xl border-black/5"
             >
               <CardHeader>
-                <div className="mb-2 flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                  <feature.icon className="size-5 text-accent-soft" />
+                <div className="mb-2 flex size-10 items-center justify-center rounded-xl bg-black">
+                  <feature.icon className="size-5 text-lime" />
                 </div>
-                <CardTitle className="text-base text-white">
+                <CardTitle className="text-base text-black">
                   {feature.title}
                 </CardTitle>
-                <CardDescription className="text-sm leading-relaxed text-mist">
+                <CardDescription className="text-sm leading-relaxed text-smoke">
                   {feature.description}
                 </CardDescription>
               </CardHeader>

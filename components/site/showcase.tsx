@@ -30,22 +30,25 @@ const stats = [
 
 export function Showcase() {
   return (
-    <section id="how-it-works" className="border-t border-white/8 py-24 sm:py-32">
+    <section
+      id="how-it-works"
+      className="bg-ink py-24 sm:py-32"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent-soft">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-lime">
               How it works
             </p>
-            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-white sm:text-5xl">
               From scattered data to{" "}
-              <span className="font-display text-gradient">decision</span> in
-              minutes
+              <span className="font-display text-lime-gradient">decision</span>{" "}
+              in minutes
             </h2>
             <div className="mt-10 space-y-8">
               {steps.map((item) => (
                 <div key={item.step} className="flex gap-5">
-                  <span className="font-display text-2xl text-accent-soft">
+                  <span className="font-display text-2xl text-lime">
                     {item.step}
                   </span>
                   <div>
@@ -59,20 +62,20 @@ export function Showcase() {
             </div>
           </div>
 
-          <div className="card-surface relative overflow-hidden rounded-2xl p-6 sm:p-8">
+          <div className="card-dark relative overflow-hidden rounded-2xl bg-panel p-6 sm:p-8">
             <div
               aria-hidden
-              className="absolute -top-24 right-0 size-64 rounded-full bg-accent/20 blur-3xl"
+              className="absolute -top-24 right-0 size-64 rounded-full bg-lime/15 blur-3xl"
             />
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-mist">
               Today&apos;s decision
             </p>
-            <div className="mt-5 rounded-xl border border-accent/25 bg-accent/8 p-5">
+            <div className="mt-5 rounded-xl border border-lime/25 bg-lime/8 p-5">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-white">
                   Expansion signal — Acme Corp
                 </p>
-                <span className="rounded-full bg-emerald-400/15 px-2.5 py-1 text-[10px] font-medium text-emerald-300">
+                <span className="rounded-full bg-lime/15 px-2.5 py-1 text-[10px] font-medium text-lime">
                   High confidence
                 </span>
               </div>
@@ -88,12 +91,12 @@ export function Showcase() {
                   "Renewal window opens in 45 days",
                 ].map((point) => (
                   <div key={point} className="flex items-start gap-2">
-                    <Check className="mt-0.5 size-3.5 shrink-0 text-accent-soft" />
+                    <Check className="mt-0.5 size-3.5 shrink-0 text-lime" />
                     <span className="text-xs text-mist">{point}</span>
                   </div>
                 ))}
               </div>
-              <button className="mt-5 w-full rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-white/90">
+              <button className="mt-5 w-full rounded-full bg-lime px-4 py-2.5 text-sm font-semibold text-lime-ink transition-colors hover:bg-lime-soft">
                 Send to account owner
               </button>
             </div>
@@ -106,7 +109,7 @@ export function Showcase() {
         <div className="mt-24 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 lg:grid-cols-4">
           {stats.map((stat) => (
             <div key={stat.label} className="bg-panel px-6 py-8 text-center">
-              <p className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              <p className="text-3xl font-semibold tracking-tight text-lime sm:text-4xl">
                 {stat.value}
               </p>
               <p className="mt-1.5 text-sm text-mist">{stat.label}</p>

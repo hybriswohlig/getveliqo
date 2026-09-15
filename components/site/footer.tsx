@@ -21,15 +21,15 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/8">
+    <footer className="border-t border-white/8 bg-ink">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="flex size-7 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-blue text-[13px] font-bold text-white">
+              <span className="flex size-7 items-center justify-center rounded-lg bg-lime text-[13px] font-bold text-lime-ink">
                 V
               </span>
-              <span className="text-[15px] font-semibold tracking-[0.18em]">
+              <span className="text-[15px] font-semibold tracking-[0.18em] text-white">
                 VELIQO
               </span>
             </div>
@@ -49,7 +49,7 @@ export function Footer() {
                   <li key={link}>
                     <Link
                       href="#"
-                      className="text-sm text-mist transition-colors hover:text-white"
+                      className="text-sm text-mist transition-colors hover:text-lime"
                     >
                       {link}
                     </Link>
@@ -65,13 +65,13 @@ export function Footer() {
             © 2026 Veliqo, Inc. · getveliqo.com
           </p>
           <div className="flex items-center gap-5 text-xs text-mist">
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link href="#" className="transition-colors hover:text-lime">
               X / Twitter
             </Link>
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link href="#" className="transition-colors hover:text-lime">
               LinkedIn
             </Link>
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link href="#" className="transition-colors hover:text-lime">
               GitHub
             </Link>
           </div>
