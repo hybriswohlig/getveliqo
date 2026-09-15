@@ -25,12 +25,14 @@ export const metadata: Metadata = {
     url: "https://getveliqo.com",
     siteName: "Veliqo",
     type: "website",
+    images: [{ url: "/assets/og.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Veliqo",
     description:
       "Veliqo turns scattered customer data into clear, real-time decisions.",
+    images: ["/assets/og.png"],
   },
 };
 

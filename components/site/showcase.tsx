@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import Image from "next/image";
 
 const steps = [
   {
@@ -21,100 +21,58 @@ const steps = [
   },
 ];
 
-const stats = [
-  { value: "12x", label: "faster decisions" },
-  { value: "98%", label: "data coverage" },
-  { value: "2.1B", label: "events processed daily" },
-  { value: "4.9/5", label: "customer rating" },
-];
-
 export function Showcase() {
   return (
-    <section
-      id="how-it-works"
-      className="bg-ink py-24 sm:py-32"
-    >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid items-center gap-14 lg:grid-cols-2">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-lime">
-              How it works
-            </p>
-            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-              From scattered data to{" "}
-              <span className="font-display text-lime-gradient">decision</span>{" "}
-              in minutes
-            </h2>
-            <div className="mt-10 space-y-8">
-              {steps.map((item) => (
-                <div key={item.step} className="flex gap-5">
-                  <span className="font-display text-2xl text-lime">
-                    {item.step}
-                  </span>
-                  <div>
-                    <h3 className="font-medium text-white">{item.title}</h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-mist">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="card-dark relative overflow-hidden rounded-2xl bg-panel p-6 sm:p-8">
-            <div
-              aria-hidden
-              className="absolute -top-24 right-0 size-64 rounded-full bg-lime/15 blur-3xl"
-            />
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-mist">
-              Today&apos;s decision
-            </p>
-            <div className="mt-5 rounded-xl border border-lime/25 bg-lime/8 p-5">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-white">
-                  Expansion signal — Acme Corp
-                </p>
-                <span className="rounded-full bg-lime/15 px-2.5 py-1 text-[10px] font-medium text-lime">
-                  High confidence
-                </span>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-mist">
-                Usage up 3.2x this month, two new departments onboarded, and
-                renewal in 45 days. Recommend an expansion conversation this
-                week.
-              </p>
-              <div className="mt-4 space-y-2">
-                {[
-                  "Product usage up 3.2x month-over-month",
-                  "2 new departments activated seats",
-                  "Renewal window opens in 45 days",
-                ].map((point) => (
-                  <div key={point} className="flex items-start gap-2">
-                    <Check className="mt-0.5 size-3.5 shrink-0 text-lime" />
-                    <span className="text-xs text-mist">{point}</span>
-                  </div>
-                ))}
-              </div>
-              <button className="mt-5 w-full rounded-full bg-lime px-4 py-2.5 text-sm font-semibold text-lime-ink transition-colors hover:bg-lime-soft">
-                Send to account owner
-              </button>
-            </div>
-            <p className="mt-4 text-center text-[11px] text-mist">
-              Decisions ship with the reasoning attached — always.
-            </p>
-          </div>
+    <section id="how-it-works" className="bg-ink py-24 sm:py-32">
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
+        <div className="max-w-2xl">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-lime">
+            How it works
+          </p>
+          <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+            From scattered data to{" "}
+            <span className="font-display text-lime-gradient">decision</span> in
+            minutes
+          </h2>
+          <p className="mt-4 max-w-xl text-pretty leading-relaxed text-mist">
+            Three steps. No implementation project, no data team required.
+          </p>
         </div>
 
-        <div className="mt-24 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="bg-panel px-6 py-8 text-center">
-              <p className="text-3xl font-semibold tracking-tight text-lime sm:text-4xl">
-                {stat.value}
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
+          {steps.map((item) => (
+            <div
+              key={item.step}
+              className="card-dark card-dark-hover rounded-2xl bg-panel p-6"
+            >
+              <span className="font-display text-3xl text-lime">
+                {item.step}
+              </span>
+              <h3 className="mt-4 font-medium text-white">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-mist">
+                {item.description}
               </p>
-              <p className="mt-1.5 text-sm text-mist">{stat.label}</p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-4 overflow-hidden rounded-2xl">
+          <Image
+            src="/assets/showcase-visual.png"
+            alt="Veliqo decision feed"
+            width={1280}
+            height={290}
+            className="w-full"
+          />
+        </div>
+
+        <div className="mt-4 flex flex-col items-start justify-between gap-4 rounded-2xl bg-lime px-6 py-5 sm:flex-row sm:items-center sm:px-8">
+          <p className="text-lg font-semibold tracking-tight text-lime-ink">
+            Teams make 12x faster decisions with Veliqo
+          </p>
+          <p className="text-sm font-medium text-lime-ink/70">
+            Measured across 2.1B events processed daily
+          </p>
         </div>
       </div>
     </section>

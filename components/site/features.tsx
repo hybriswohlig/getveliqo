@@ -1,117 +1,55 @@
-import {
-  Activity,
-  Blocks,
-  BrainCircuit,
-  ShieldCheck,
-  Users,
-  Zap,
-} from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import Image from "next/image";
+import { Blocks, ShieldCheck, Zap } from "lucide-react";
 
-const features = [
-  {
-    icon: Activity,
-    title: "Real-time signal stream",
-    description:
-      "Every click, purchase, and support ticket flows into one live stream — normalized and deduplicated in milliseconds.",
-    visual: "feed",
-  },
-  {
-    icon: BrainCircuit,
-    title: "Decision engine",
-    description:
-      "Veliqo scores every account against your goals and surfaces the single next best action, with the reasoning attached.",
-    visual: "score",
-  },
-  {
-    icon: Users,
-    title: "Living segments",
-    description:
-      "Segments that update themselves as behavior changes. No stale lists, no nightly syncs, no CSV exports.",
-    visual: "segments",
-  },
+const companies = [
+  "Northwind",
+  "Acme Corp",
+  "Lumina",
+  "Statler",
+  "Vertex Labs",
+  "Osmo",
+];
+
+const bottomCards = [
   {
     icon: Zap,
     title: "One-click automations",
     description:
       "Turn any insight into a workflow — alert the owner, sync to your CRM, or trigger a campaign without leaving Veliqo.",
-    visual: "flow",
   },
   {
     icon: Blocks,
     title: "60+ integrations",
     description:
       "Stripe, Salesforce, HubSpot, Segment, Zendesk and more connect in minutes with zero engineering required.",
-    visual: "grid",
   },
   {
     icon: ShieldCheck,
     title: "Enterprise-grade trust",
     description:
       "SOC 2 Type II, GDPR-ready, SSO/SAML, and granular roles. Your data stays yours — never used for training.",
-    visual: "shield",
   },
 ];
 
-function CardVisual({ kind }: { kind: string }) {
-  if (kind === "feed") {
-    return (
-      <div className="mt-5 space-y-2">
-        {["Upgrade intent detected", "Churn risk resolved", "New buying signal"].map(
-          (text, i) => (
-            <div
-              key={text}
-              className="flex items-center gap-2 rounded-lg border border-black/6 bg-white px-3 py-2"
-              style={{ opacity: 1 - i * 0.25 }}
-            >
-              <span className="size-1.5 rounded-full bg-lime-600" style={{ background: "#7ea300" }} />
-              <span className="text-[11px] text-smoke">{text}</span>
-            </div>
-          ),
-        )}
-      </div>
-    );
-  }
-  if (kind === "score") {
-    return (
-      <div className="mt-5 flex items-end gap-1">
-        {[40, 65, 45, 80, 55, 92, 70].map((h, i) => (
-          <div
-            key={i}
-            className="flex-1 rounded-t-sm bg-gradient-to-t from-black/15 to-black/80"
-            style={{ height: `${h * 0.56}px` }}
-          />
-        ))}
-      </div>
-    );
-  }
-  if (kind === "segments") {
-    return (
-      <div className="mt-5 flex -space-x-3">
-        {[0, 1, 2, 3].map((i) => (
-          <span
-            key={i}
-            className="size-9 rounded-full border border-black/10 bg-gradient-to-br from-lime to-black/60"
-            style={{ opacity: 1 - i * 0.18 }}
-          />
-        ))}
-      </div>
-    );
-  }
-  return null;
-}
-
 export function Features() {
   return (
-    <section id="features" className="bg-paper py-24 sm:py-28">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
+    <section id="features" className="bg-paper px-3 py-6 sm:px-5">
+      <div className="mx-auto max-w-[1400px] rounded-[2rem] bg-cream px-6 py-16 sm:px-12 sm:py-20">
+        <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-smoke">
+          Trusted by teams at
+        </p>
+        <div className="mt-7 grid grid-cols-2 items-center justify-items-center gap-x-8 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
+          {companies.map((name) => (
+            <span
+              key={name}
+              className="text-sm font-semibold tracking-wide text-black/35 transition-colors hover:text-black/70"
+            >
+              {name}
+            </span>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-20 max-w-2xl text-center">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-smoke">
             Features
           </p>
@@ -125,29 +63,43 @@ export function Features() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <Card
-              key={feature.title}
-              className="card-light card-light-hover rounded-2xl border-black/5"
-            >
-              <CardHeader>
-                <div className="mb-2 flex size-10 items-center justify-center rounded-xl bg-black">
-                  <feature.icon className="size-5 text-lime" />
-                </div>
-                <CardTitle className="text-base text-black">
-                  {feature.title}
-                </CardTitle>
-                <CardDescription className="text-sm leading-relaxed text-smoke">
-                  {feature.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <CardVisual kind={feature.visual} />
-              </CardContent>
-            </Card>
-          ))}
+        <div className="mt-14 grid gap-4 lg:grid-cols-2">
+          <div className="overflow-hidden rounded-2xl">
+            <Image
+              src="/assets/feature-dark-card.png"
+              alt="Real-time signal stream"
+              width={420}
+              height={218}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="overflow-hidden rounded-2xl bg-white">
+            <Image
+              src="/assets/feature-chart-card.png"
+              alt="Decision engine analytics"
+              width={470}
+              height={227}
+              className="h-full w-full object-cover"
+            />
+          </div>
         </div>
+      </div>
+
+      <div className="mx-auto mt-4 grid max-w-[1400px] gap-4 md:grid-cols-3">
+        {bottomCards.map((card) => (
+          <div
+            key={card.title}
+            className="rounded-2xl bg-cream p-6 transition-shadow hover:shadow-[0_16px_40px_-18px_rgba(0,0,0,0.18)]"
+          >
+            <div className="mb-4 flex size-10 items-center justify-center rounded-xl bg-black">
+              <card.icon className="size-5 text-lime" />
+            </div>
+            <h3 className="text-base font-semibold text-black">{card.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-smoke">
+              {card.description}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );
