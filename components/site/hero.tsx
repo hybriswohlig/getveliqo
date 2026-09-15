@@ -15,19 +15,20 @@ export function Hero() {
             className="mb-6 rounded-full border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-normal text-mist"
           >
             <span className="mr-2 size-1.5 rounded-full bg-lime" />
-            Introducing Veliqo 2.0
+            Accepting new clients for Q4 2026
           </Badge>
 
           <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-tight text-white sm:text-8xl">
-            Understand your customers{" "}
+            We make your brand{" "}
             <span className="font-display text-lime-gradient">
-              like never before.
+              impossible to ignore.
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-mist sm:text-lg">
-            Veliqo turns your customer data into real-time answers — so you
-            always know what to do next.
+            Veliqo is a full-funnel marketing agency — SEO, GEO, product
+            marketing, and Amazon FBA — built to grow your revenue, not just
+            your traffic.
           </p>
 
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -37,7 +38,7 @@ export function Hero() {
               className="w-full rounded-full bg-lime px-7 font-semibold text-lime-ink hover:bg-lime-soft sm:w-auto"
             >
               <Link href="#cta">
-                Get started free
+                Book a free audit
                 <ArrowRight className="ml-1 size-4" />
               </Link>
             </Button>
@@ -49,7 +50,7 @@ export function Hero() {
             >
               <Link href="#how-it-works">
                 <Play className="mr-1 size-4" />
-                Book a demo
+                See how we work
               </Link>
             </Button>
           </div>
@@ -63,7 +64,7 @@ export function Hero() {
         />
         <Image
           src="/assets/hero-visual.png"
-          alt="Veliqo product overview"
+          alt="Veliqo client growth dashboard"
           width={1319}
           height={388}
           priority

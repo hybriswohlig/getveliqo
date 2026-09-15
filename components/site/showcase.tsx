@@ -3,21 +3,21 @@ import Image from "next/image";
 const steps = [
   {
     step: "01",
-    title: "Connect your stack",
+    title: "Audit & strategy",
     description:
-      "Point Veliqo at your CRM, billing, and product tools. First insights land in under ten minutes — no engineers needed.",
+      "We tear down your funnel, rankings, and listings — then hand you a growth plan ranked by revenue impact, not vanity metrics.",
   },
   {
     step: "02",
-    title: "Watch signals surface",
+    title: "Execute & launch",
     description:
-      "The decision engine reads every event in context and surfaces what actually moves revenue, ranked by impact.",
+      "Our senior team ships the work: content, technical fixes, campaigns, and listings — weekly, not quarterly.",
   },
   {
     step: "03",
-    title: "Act with one click",
+    title: "Measure & scale",
     description:
-      "Push the action back to the tools your team already lives in, and measure the lift automatically.",
+      "Every win is tracked to revenue in your dashboard. What works gets scaled, what doesn't gets cut.",
   },
 ];
 
@@ -27,15 +27,16 @@ export function Showcase() {
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
         <div className="max-w-2xl">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-lime">
-            How it works
+            How we work
           </p>
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-            From scattered data to{" "}
-            <span className="font-display text-lime-gradient">decision</span> in
-            minutes
+            From audit to{" "}
+            <span className="font-display text-lime-gradient">growth</span> in
+            weeks
           </h2>
           <p className="mt-4 max-w-xl text-pretty leading-relaxed text-mist">
-            Three steps. No implementation project, no data team required.
+            No six-month onboarding. No junior account managers. Just a senior
+            team shipping work you can measure.
           </p>
         </div>
 
@@ -59,7 +60,7 @@ export function Showcase() {
         <div className="mt-4 overflow-hidden rounded-2xl">
           <Image
             src="/assets/showcase-visual.png"
-            alt="Veliqo decision feed"
+            alt="Client growth reporting"
             width={1280}
             height={290}
             className="w-full"
@@ -68,10 +69,10 @@ export function Showcase() {
 
         <div className="mt-4 flex flex-col items-start justify-between gap-4 rounded-2xl bg-lime px-6 py-5 sm:flex-row sm:items-center sm:px-8">
           <p className="text-lg font-semibold tracking-tight text-lime-ink">
-            Teams make 12x faster decisions with Veliqo
+            Clients see an average of 12x ROI in year one
           </p>
           <p className="text-sm font-medium text-lime-ink/70">
-            Measured across 2.1B events processed daily
+            Across SEO, GEO, product marketing, and Amazon FBA programs
           </p>
         </div>
       </div>

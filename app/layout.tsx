@@ -15,13 +15,13 @@ const instrument = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://getveliqo.com"),
-  title: "Veliqo — The intelligence layer for modern commerce",
+  title: "Veliqo — Marketing agency for SEO, GEO & product marketing",
   description:
-    "Veliqo turns scattered customer data into clear, real-time decisions. One workspace for signals, insights, and action.",
+    "Veliqo grows brands with SEO, GEO (AI search), product marketing, and Amazon FBA services — built to grow revenue, not just traffic.",
   openGraph: {
-    title: "Veliqo — The intelligence layer for modern commerce",
+    title: "Veliqo — Marketing agency for SEO, GEO & product marketing",
     description:
-      "Veliqo turns scattered customer data into clear, real-time decisions. One workspace for signals, insights, and action.",
+      "Veliqo grows brands with SEO, GEO (AI search), product marketing, and Amazon FBA services — built to grow revenue, not just traffic.",
     url: "https://getveliqo.com",
     siteName: "Veliqo",
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Veliqo",
     description:
-      "Veliqo turns scattered customer data into clear, real-time decisions.",
+      "Veliqo grows brands with SEO, GEO (AI search), product marketing, and Amazon FBA services.",
     images: ["/assets/og.png"],
   },
 };

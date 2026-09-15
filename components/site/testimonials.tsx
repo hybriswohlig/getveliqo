@@ -3,14 +3,14 @@ import Image from "next/image";
 const sideCards = [
   {
     quote:
-      "The first week, it flagged a churn risk we'd completely missed. That one save paid for the year several times over.",
+      "Our Amazon listings went from page 4 to the top row in eight weeks. PPC spend down, revenue up — the reporting proves every euro.",
     name: "Jonas Berger",
-    role: "Head of CS, Lumina",
+    role: "Founder, Lumina",
     avatar: "/assets/avatar-2.png",
   },
   {
     quote:
-      "Setup genuinely took an afternoon. It's the first 'intelligence' tool that actually tells us what to do next.",
+      "Veliqo got us cited in ChatGPT and Perplexity answers for our category. Organic pipeline is up 3x and still climbing.",
     name: "Priya Nair",
     role: "COO, Vertex Labs",
     avatar: "/assets/avatar-3.png",
@@ -18,10 +18,10 @@ const sideCards = [
 ];
 
 const stats = [
-  { value: "12x", label: "faster decisions" },
-  { value: "98%", label: "data coverage" },
-  { value: "2.1B", label: "events daily" },
-  { value: "4.9/5", label: "customer rating" },
+  { value: "12x", label: "average client ROI" },
+  { value: "98%", label: "client retention" },
+  { value: "$210M", label: "client revenue driven" },
+  { value: "4.9/5", label: "client rating" },
 ];
 
 export function Testimonials() {
@@ -30,10 +30,10 @@ export function Testimonials() {
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
         <div className="max-w-2xl">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-smoke">
-            Testimonials
+            Results
           </p>
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-black sm:text-5xl">
-            Teams that stopped <span className="font-display">guessing</span>
+            Brands that stopped <span className="font-display">guessing</span>
           </h2>
         </div>
 
@@ -42,16 +42,16 @@ export function Testimonials() {
             <div className="overflow-hidden rounded-xl">
               <Image
                 src="/assets/testimonial-visual.png"
-                alt="Veliqo in practice at Northwind"
+                alt="Northwind growth results with Veliqo"
                 width={650}
                 height={310}
                 className="w-full"
               />
             </div>
             <p className="mt-5 px-2 text-base leading-relaxed text-black/85">
-              &ldquo;Veliqo replaced four dashboards and a weekly meeting. The
-              team just opens it in the morning and knows exactly where to
-              focus.&rdquo;
+              &ldquo;Veliqo rebuilt our SEO and took us from page 3 to position
+              1 for our money keywords. Organic is now our biggest revenue
+              channel — by far.&rdquo;
             </p>
             <div className="mt-5 flex items-center gap-3 px-2 pb-2">
               <Image
@@ -63,7 +63,7 @@ export function Testimonials() {
               />
               <div>
                 <p className="text-sm font-medium text-black">Maya Chen</p>
-                <p className="text-xs text-smoke">VP Revenue, Northwind</p>
+                <p className="text-xs text-smoke">VP Growth, Northwind</p>
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Blocks, ShieldCheck, Zap } from "lucide-react";
+import { Rocket, ShoppingCart, TrendingUp } from "lucide-react";
 
 const companies = [
   "Northwind",
@@ -12,22 +12,22 @@ const companies = [
 
 const bottomCards = [
   {
-    icon: Zap,
-    title: "One-click automations",
+    icon: Rocket,
+    title: "Product marketing",
     description:
-      "Turn any insight into a workflow — alert the owner, sync to your CRM, or trigger a campaign without leaving Veliqo.",
+      "Positioning, messaging, and launches that make your product the obvious choice — from narrative to sales enablement.",
   },
   {
-    icon: Blocks,
-    title: "60+ integrations",
+    icon: ShoppingCart,
+    title: "Amazon FBA growth",
     description:
-      "Stripe, Salesforce, HubSpot, Segment, Zendesk and more connect in minutes with zero engineering required.",
+      "Listing optimization, PPC management, and ranking strategies that win the buy box and compound marketplace share.",
   },
   {
-    icon: ShieldCheck,
-    title: "Enterprise-grade trust",
+    icon: TrendingUp,
+    title: "Reporting that proves it",
     description:
-      "SOC 2 Type II, GDPR-ready, SSO/SAML, and granular roles. Your data stays yours — never used for training.",
+      "Weekly dashboards tied to revenue — rankings, traffic, conversions, and ROI. You always know what your spend earns.",
   },
 ];
 
@@ -36,7 +36,7 @@ export function Features() {
     <section id="features" className="bg-paper px-3 py-6 sm:px-5">
       <div className="mx-auto max-w-[1400px] rounded-[2rem] bg-cream px-6 py-16 sm:px-12 sm:py-20">
         <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-smoke">
-          Trusted by teams at
+          Trusted by brands like
         </p>
         <div className="mt-7 grid grid-cols-2 items-center justify-items-center gap-x-8 gap-y-6 sm:grid-cols-3 lg:grid-cols-6">
           {companies.map((name) => (
@@ -51,15 +51,15 @@ export function Features() {
 
         <div className="mx-auto mt-20 max-w-2xl text-center">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-smoke">
-            Features
+            What we do
           </p>
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-black sm:text-5xl">
-            Everything you need to{" "}
-            <span className="font-display">see clearly</span>
+            Everything your brand needs to{" "}
+            <span className="font-display">grow</span>
           </h2>
           <p className="mt-4 text-pretty leading-relaxed text-smoke">
-            One workspace replaces the dashboards, spreadsheets, and gut-feel
-            meetings your team runs on today.
+            One senior team across search, AI answers, product, and marketplace
+            — no handoffs, no agencies-within-agencies.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export function Features() {
           <div className="overflow-hidden rounded-2xl">
             <Image
               src="/assets/feature-dark-card.png"
-              alt="Real-time signal stream"
+              alt="SEO and GEO growth programs"
               width={420}
               height={218}
               className="h-full w-full object-cover"
@@ -76,7 +76,7 @@ export function Features() {
           <div className="overflow-hidden rounded-2xl bg-white">
             <Image
               src="/assets/feature-chart-card.png"
-              alt="Decision engine analytics"
+              alt="Client growth analytics"
               width={470}
               height={227}
               className="h-full w-full object-cover"

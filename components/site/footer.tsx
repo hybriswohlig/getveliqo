@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const columns = [
   {
-    title: "Product",
-    links: ["Features", "Integrations", "Changelog", "Roadmap", "Security"],
+    title: "Services",
+    links: ["SEO", "GEO / AI search", "Product marketing", "Amazon FBA", "Analytics"],
   },
   {
     title: "Company",
@@ -11,11 +11,11 @@ const columns = [
   },
   {
     title: "Resources",
-    links: ["Documentation", "API reference", "Guides", "Status", "Community"],
+    links: ["Case studies", "Growth guides", "Glossary", "Newsletter"],
   },
   {
     title: "Legal",
-    links: ["Privacy", "Terms", "DPA", "Cookies"],
+    links: ["Privacy", "Terms", "Imprint", "Cookies"],
   },
 ];
 
@@ -34,8 +34,8 @@ export function Footer() {
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-mist">
-              The intelligence layer for modern commerce. See every signal,
-              make every decision count.
+              The growth agency for SEO, GEO, product marketing, and Amazon
+              FBA. Make your brand impossible to ignore.
             </p>
           </div>
 

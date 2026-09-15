@@ -2,10 +2,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "FAQ", href: "#cta" },
+  { label: "Services", href: "#features" },
+  { label: "Process", href: "#how-it-works" },
+  { label: "Results", href: "#testimonials" },
+  { label: "Contact", href: "#cta" },
 ];
 
 export function Navbar() {
@@ -38,7 +38,7 @@ export function Navbar() {
             asChild
             className="rounded-full bg-lime px-5 text-sm font-semibold text-lime-ink hover:bg-lime-soft"
           >
-            <Link href="#cta">Get started</Link>
+            <Link href="#cta">Book a call</Link>
           </Button>
         </nav>
       </div>
