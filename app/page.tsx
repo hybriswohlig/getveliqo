@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/site/navbar";
 import { Hero } from "@/components/site/hero";
+import { Marquee } from "@/components/site/marquee";
 import { LogoCloud } from "@/components/site/logo-cloud";
 import { Features } from "@/components/site/features";
 import { Showcase } from "@/components/site/showcase";
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <Marquee />
         <LogoCloud />
         <Features />
         <Showcase />

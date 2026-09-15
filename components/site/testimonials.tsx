@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 const testimonials = [
@@ -6,21 +7,21 @@ const testimonials = [
       "Veliqo replaced four dashboards and a weekly meeting. The team just opens it in the morning and knows exactly where to focus.",
     name: "Maya Chen",
     role: "VP Revenue, Northwind",
-    initials: "MC",
+    avatar: "/assets/avatar-1.png",
   },
   {
     quote:
       "The first week, it flagged a churn risk we'd completely missed. That one save paid for the year several times over.",
     name: "Jonas Berger",
     role: "Head of CS, Lumina",
-    initials: "JB",
+    avatar: "/assets/avatar-2.png",
   },
   {
     quote:
       "Setup genuinely took an afternoon. It's the first 'intelligence' tool that actually tells us what to do next.",
     name: "Priya Nair",
     role: "COO, Vertex Labs",
-    initials: "PN",
+    avatar: "/assets/avatar-3.png",
   },
 ];
 
@@ -50,9 +51,13 @@ export function Testimonials() {
                 </p>
               </CardContent>
               <CardFooter className="flex items-center gap-3 pb-6">
-                <span className="flex size-10 items-center justify-center rounded-full bg-black text-xs font-semibold text-lime">
-                  {item.initials}
-                </span>
+                <Image
+                  src={item.avatar}
+                  alt={item.name}
+                  width={40}
+                  height={40}
+                  className="size-10 rounded-full object-cover"
+                />
                 <div>
                   <p className="text-sm font-medium text-black">{item.name}</p>
                   <p className="text-xs text-smoke">{item.role}</p>

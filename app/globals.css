@@ -18,6 +18,7 @@
 
   --animate-float: float 7s ease-in-out infinite;
   --animate-pulse-slow: pulse 5s ease-in-out infinite;
+  --animate-marquee: marquee 28s linear infinite;
 
   @keyframes float {
     0%,
@@ -26,6 +27,15 @@
     }
     50% {
       transform: translateY(-10px);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
     }
   }
 }
