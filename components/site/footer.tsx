@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const columns = [
@@ -25,13 +26,14 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(4,1fr)]">
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="flex size-7 items-center justify-center rounded-lg bg-lime text-[13px] font-bold text-lime-ink">
-                V
-              </span>
-              <span className="text-[15px] font-semibold tracking-[0.18em] text-white">
-                VELIQO
-              </span>
+            <div className="flex items-center">
+              <Image
+                src="/assets/logo.png"
+                alt="Veliqo"
+                width={195}
+                height={40}
+                className="h-7 w-auto"
+              />
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-mist">
               The growth agency for SEO, GEO, product marketing, and Amazon

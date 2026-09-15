@@ -63,14 +63,14 @@ export function Features() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-4 lg:grid-cols-2">
+        <div className="mt-14 grid items-start gap-4 lg:grid-cols-2">
           <div className="overflow-hidden rounded-2xl">
             <Image
               src="/assets/feature-dark-card.png"
               alt="SEO and GEO growth programs"
               width={420}
               height={218}
-              className="h-full w-full object-cover"
+              className="h-auto w-full"
             />
           </div>
           <div className="overflow-hidden rounded-2xl bg-white">
@@ -79,7 +79,7 @@ export function Features() {
               alt="Client growth analytics"
               width={470}
               height={227}
-              className="h-full w-full object-cover"
+              className="h-auto w-full"
             />
           </div>
         </div>

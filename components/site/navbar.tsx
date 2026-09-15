@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -13,13 +14,15 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <nav className="mt-4 flex items-center justify-between rounded-full border border-white/10 bg-black/60 py-2.5 pl-5 pr-2.5 backdrop-blur-xl">
-          <Link href="/" className="flex items-center gap-2.5">
-            <span className="flex size-7 items-center justify-center rounded-lg bg-lime text-[13px] font-bold text-lime-ink">
-              V
-            </span>
-            <span className="text-[15px] font-semibold tracking-[0.18em] text-white">
-              VELIQO
-            </span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/assets/logo.png"
+              alt="Veliqo"
+              width={195}
+              height={40}
+              priority
+              className="h-7 w-auto"
+            />
           </Link>
 
           <div className="hidden items-center gap-1 md:flex">
