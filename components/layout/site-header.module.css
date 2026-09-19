@@ -1,0 +1,143 @@
+/*
+ * Navbar from the velyqo-hero frame. Sizes are in stage units so the navbar
+ * scales with the hero; outside a stage --u falls back to 1px.
+ */
+
+.header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px;
+  --unit: var(--u, 1px);
+}
+
+.brand {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--unit) * 8.33);
+  color: #fff;
+}
+
+.mark {
+  position: relative;
+  width: calc(var(--unit) * 36);
+  height: calc(var(--unit) * 36);
+  border: 1px solid #000;
+  background: #000;
+  flex: none;
+}
+
+.wordmark {
+  font-family: var(--font-archivo);
+  font-weight: 700;
+  font-size: calc(var(--unit) * 28);
+  letter-spacing: calc(var(--unit) * 4);
+  line-height: normal;
+}
+
+.nav {
+  display: none;
+}
+
+.navList {
+  display: flex;
+  gap: calc(var(--unit) * 48);
+}
+
+.navLink,
+.lang {
+  font-weight: 600;
+  font-size: max(11px, calc(var(--unit) * 12));
+  letter-spacing: calc(var(--unit) * 2);
+  line-height: var(--leading-auto);
+  white-space: nowrap;
+}
+
+.navLink {
+  color: var(--color-mute);
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: #fff;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--unit) * 24);
+}
+
+.lang {
+  color: #fff;
+}
+
+.langDivider {
+  color: var(--color-rule-dark);
+}
+
+/* Hamburger: bars of 24 and 16 × 1.5, 6 apart. The padding enlarges the
+   hit area without moving the bars. */
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--unit) * 6);
+  width: calc(var(--unit) * 24 + 20px);
+  margin: -10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menuBar {
+  display: block;
+  width: calc(var(--unit) * 24);
+  height: max(1px, calc(var(--unit) * 1.5));
+  background: #fff;
+}
+
+.menuBarShort {
+  width: calc(var(--unit) * 16);
+}
+
+.menuPanel {
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  padding: 24px 28px;
+  border: 1px solid var(--color-rule-dark);
+  background: var(--color-night);
+}
+
+.menuPanel ul {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.menuPanel[hidden] {
+  display: none;
+}
+
+.menuPanel .navLink {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+@media (min-width: 1024px) {
+  .header {
+    position: absolute;
+    inset: 0 0 auto;
+    padding: calc(var(--unit) * 40) calc(var(--unit) * 92);
+  }
+
+  .nav {
+    display: block;
+  }
+
+  .menuPanel {
+    right: calc(var(--unit) * 92);
+  }
+}

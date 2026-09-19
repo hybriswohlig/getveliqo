@@ -1,0 +1,332 @@
+/*
+ * The hero is authored in the Figma frame's own 1536×864 coordinates.
+ * On desktop, one stage unit (--u) is 1/1536 of the hero width, so the
+ * whole frame scales with the viewport and stays pixel-exact at 1536px.
+ * Below 1024px the copy reflows and the composition is shown as a crop.
+ */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-night);
+}
+
+.frame {
+  position: relative;
+  max-width: 1920px;
+  margin-inline: auto;
+  container-type: inline-size;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.gridLine {
+  display: none;
+}
+
+.text {
+  display: flex;
+  padding: 24px 20px 0;
+}
+
+.indicator {
+  display: none;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+  max-width: 540px;
+}
+
+.title {
+  font-weight: 900;
+  font-size: clamp(56px, 15vw, 96px);
+  line-height: 0.917;
+  letter-spacing: -0.021em;
+  color: #fff;
+}
+
+.title span {
+  display: block;
+}
+
+.lead {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: var(--color-mute);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 28px;
+  border-radius: 30px;
+  background: var(--color-lime-hero);
+  color: var(--color-night);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: var(--leading-auto);
+  white-space: nowrap;
+}
+
+.cta svg {
+  width: 14px;
+  height: 14px;
+}
+
+.stamp {
+  order: 10;
+  padding: 0 20px 24px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--color-stamp);
+}
+
+/* The composition, cropped to x 480–1536 / y 60–864 of the frame. */
+.visual {
+  position: relative;
+  margin-top: 8px;
+  aspect-ratio: 1056 / 804;
+  overflow: hidden;
+  container-type: inline-size;
+  --u: calc(100cqw / 1056);
+}
+
+.composition {
+  position: absolute;
+  top: calc(var(--u) * -60);
+  left: calc(var(--u) * -480);
+  width: calc(var(--u) * 1536);
+  height: calc(var(--u) * 864);
+}
+
+.callouts {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .frame {
+    --u: calc(100cqw / 1536);
+  }
+
+  .stage {
+    display: block;
+    aspect-ratio: 1536 / 864;
+    overflow: hidden;
+  }
+
+  .gridLine {
+    display: block;
+    position: absolute;
+    background: rgb(51 51 51 / 0.3);
+  }
+
+  .gridTop,
+  .gridBottom {
+    left: 0;
+    width: 100%;
+    height: 1px;
+  }
+
+  .gridTop {
+    top: calc(var(--u) * 109);
+  }
+
+  .gridBottom {
+    top: calc(var(--u) * 779);
+  }
+
+  .gridLeft,
+  .gridRight {
+    top: 0;
+    width: 1px;
+    height: 100%;
+  }
+
+  .gridLeft {
+    left: calc(var(--u) * 92);
+  }
+
+  .gridRight {
+    left: calc(var(--u) * 1444);
+  }
+
+  .text {
+    position: absolute;
+    left: calc(var(--u) * 92);
+    top: calc(var(--u) * 210);
+    z-index: 1;
+    gap: calc(var(--u) * 40);
+    padding: 0;
+  }
+
+  .indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--u) * 16);
+    width: calc(var(--u) * 24);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: calc(var(--u) * 12);
+    line-height: normal;
+    color: var(--color-lime-hero);
+  }
+
+  .indicator::before,
+  .indicator::after {
+    content: "//";
+  }
+
+  .indicatorLine {
+    width: 1px;
+    height: calc(var(--u) * 280);
+    background: var(--color-rule-dark);
+  }
+
+  .copy {
+    width: calc(var(--u) * 540);
+    max-width: none;
+    gap: calc(var(--u) * 36);
+  }
+
+  .title {
+    font-size: calc(var(--u) * 96);
+    line-height: calc(var(--u) * 88);
+    letter-spacing: calc(var(--u) * -2);
+  }
+
+  .lead {
+    font-size: max(12px, calc(var(--u) * 15));
+    line-height: calc(var(--u) * 26);
+    letter-spacing: calc(var(--u) * 0.5);
+  }
+
+  .cta {
+    gap: calc(var(--u) * 8);
+    padding: calc(var(--u) * 16) calc(var(--u) * 28);
+    border-radius: calc(var(--u) * 30);
+    font-size: calc(var(--u) * 14);
+    letter-spacing: calc(var(--u) * 1);
+  }
+
+  .cta svg {
+    width: calc(var(--u) * 14);
+    height: calc(var(--u) * 14);
+  }
+
+  .stamp {
+    position: absolute;
+    left: calc(var(--u) * 92);
+    top: calc(var(--u) * 800);
+    padding: 0;
+    font-size: max(9px, calc(var(--u) * 11));
+    letter-spacing: calc(var(--u) * 1.5);
+    line-height: normal;
+  }
+
+  .visual {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    aspect-ratio: auto;
+    overflow: visible;
+    --u: calc(100cqw / 1536);
+  }
+
+  .composition {
+    top: 0;
+    left: 0;
+  }
+
+}
+
+/* The service callouts get too small to read below 1280px. */
+@media (min-width: 1280px) {
+  .callouts {
+    display: block;
+  }
+}
+
+/* Absolutely positioned layers, placed with inline stage-unit styles. */
+.layer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.layerInner {
+  position: relative;
+  flex: none;
+}
+
+.shadow {
+  flex: none;
+}
+
+.connector {
+  flex: none;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-lime-hero) 0 calc(var(--u) * 3),
+    transparent calc(var(--u) * 3) calc(var(--u) * 6)
+  );
+  background-position-x: calc(var(--u) * -1.5);
+}
+
+.dot {
+  position: absolute;
+  width: calc(var(--u) * 5);
+  height: calc(var(--u) * 5);
+  border-radius: 50%;
+  background: var(--color-lime-hero);
+}
+
+.label {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 6);
+  line-height: normal;
+}
+
+.labelEnd {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.labelNumber {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: calc(var(--u) * 11);
+  color: var(--color-lime-hero);
+  white-space: nowrap;
+}
+
+.labelTitle {
+  line-height: var(--leading-auto);
+  font-weight: 700;
+  font-size: calc(var(--u) * 14);
+  color: #fff;
+  white-space: nowrap;
+}
+
+.labelText {
+  line-height: var(--leading-auto);
+  font-size: calc(var(--u) * 12);
+  color: var(--color-mute);
+}

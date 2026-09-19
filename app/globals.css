@@ -1,43 +1,44 @@
 @import "tailwindcss";
 
+/*
+ * VELYQO design tokens, derived from the five homepage frames in Figma
+ * (the file defines no variables, so these are the raw values it uses).
+ */
 @theme {
+  /* Width of the Figma frames; at and above it sections match them 1:1 */
+  --breakpoint-frame: 90rem;
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-instrument), Georgia, "Times New Roman", serif;
+  --font-outfit: var(--font-outfit-family), var(--font-inter), sans-serif;
+  --font-archivo: var(--font-archivo-narrow), var(--font-inter), sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --color-ink: #000000;
-  --color-panel: #0e0e0e;
-  --color-card: #101111;
-  --color-line: rgba(255, 255, 255, 0.09);
-  --color-mist: #9c9c9c;
-  --color-lime: #bafa04;
-  --color-lime-soft: #d9ff66;
-  --color-lime-ink: #161c00;
+  /* Figma's "auto" line height for Inter; browsers round "normal" differently */
+  --leading-auto: 1.21;
+
+  /* Surfaces */
+  --color-night: #0b0b0b; /* hero */
+  --color-ink: #131315; /* dark sections; text on the footer */
+  --color-graphite: #111315; /* text on the white section */
   --color-paper: #ffffff;
-  --color-cream: #f4f5f5;
-  --color-smoke: #6b6b6b;
+  --color-fog: #e5e5e7; /* footer */
 
-  --animate-float: float 7s ease-in-out infinite;
-  --animate-pulse-slow: pulse 5s ease-in-out infinite;
-  --animate-marquee: marquee 28s linear infinite;
+  /* Text */
+  --color-mute: #a3a3a3;
+  --color-stamp: #999999;
+  --color-steel: #4a4d50;
+  --color-slate: #5f5f62;
 
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
+  /* Accents: the hero uses its own, slightly greener lime */
+  --color-lime: #d6f634;
+  --color-lime-hero: #c8ff18;
+  --color-glow-pink: #ff2a54;
+  --color-glow-orange: #ff5e3a;
 
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
+  /* Rules */
+  --color-rule-dark: #262626;
+  --color-rule-light: #e9ebef;
+  --color-rule-footer: #cccccc;
 }
 
 html {
@@ -45,78 +46,14 @@ html {
 }
 
 body {
-  background: var(--color-ink);
+  background: var(--color-night);
   color: #ffffff;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: rgba(186, 250, 4, 0.35);
-  color: #000;
-}
-
-.font-display {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-}
-
-.text-lime-gradient {
-  background: linear-gradient(92deg, #d9ff66 0%, #bafa04 55%, #9ede00 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.glow-hero {
-  background:
-    radial-gradient(ellipse 55% 40% at 50% -5%, rgba(186, 250, 4, 0.13), transparent 70%),
-    radial-gradient(ellipse 35% 30% at 50% 0%, rgba(186, 250, 4, 0.07), transparent 70%);
-}
-
-.glow-dashboard {
-  background: radial-gradient(ellipse 55% 60% at 50% 100%, rgba(186, 250, 4, 0.28), transparent 70%);
-}
-
-.glow-cta {
-  background:
-    radial-gradient(ellipse 55% 65% at 50% 115%, rgba(186, 250, 4, 0.22), transparent 70%),
-    radial-gradient(ellipse 35% 45% at 85% 100%, rgba(186, 250, 4, 0.1), transparent 70%);
-}
-
-.grid-lines {
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
-}
-
-.card-dark {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.09);
-}
-
-.card-dark-hover {
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.card-dark-hover:hover {
-  border-color: rgba(186, 250, 4, 0.4);
-  transform: translateY(-2px);
-}
-
-.card-light {
-  background: var(--color-cream);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.card-light-hover {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.card-light-hover:hover {
-  box-shadow: 0 16px 40px -18px rgba(0, 0, 0, 0.18);
-  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--color-lime) 45%, transparent);
+  color: var(--color-ink);
 }

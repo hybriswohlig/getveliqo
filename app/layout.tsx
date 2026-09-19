@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Archivo_Narrow, Geist_Mono, Inter, Outfit } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,44 +7,53 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  weight: "400",
+const outfit = Outfit({
+  variable: "--font-outfit-family",
+  weight: ["700", "900"],
   subsets: ["latin"],
 });
 
+const archivoNarrow = Archivo_Narrow({
+  variable: "--font-archivo-narrow",
+  weight: "700",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  weight: ["500", "600"],
+  subsets: ["latin"],
+});
+
+const description =
+  "VELYQO verbindet Webdesign, SEO/GEO und PR zu einer digitalen Präsenz, die Marken sichtbar macht und Wachstum schafft.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://getveliqo.com"),
-  title: "Veliqo — Marketing agency for SEO, GEO & product marketing",
-  description:
-    "Veliqo grows brands with SEO, GEO (AI search), product marketing, and Amazon FBA services — built to grow revenue, not just traffic.",
+  title: "VELYQO — Webdesign, SEO/GEO & PR",
+  description,
   openGraph: {
-    title: "Veliqo — Marketing agency for SEO, GEO & product marketing",
-    description:
-      "Veliqo grows brands with SEO, GEO (AI search), product marketing, and Amazon FBA services — built to grow revenue, not just traffic.",
-    url: "https://getveliqo.com",
-    siteName: "Veliqo",
+    title: "VELYQO — Webdesign, SEO/GEO & PR",
+    description,
+    url: "/",
+    siteName: "VELYQO",
+    locale: "de_DE",
     type: "website",
-    images: [{ url: "/assets/og.png", width: 1200, height: 630 }],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Veliqo",
-    description:
-      "Veliqo grows brands with SEO, GEO (AI search), product marketing, and Amazon FBA services.",
-    images: ["/assets/og.png"],
+    card: "summary",
+    title: "VELYQO",
+    description,
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
-      className={`${inter.variable} ${instrument.variable} h-full antialiased`}
+      lang="de"
+      className={`${inter.variable} ${outfit.variable} ${archivoNarrow.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-ink text-white">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
