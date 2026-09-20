@@ -56,9 +56,16 @@ export function CommunicationSection() {
           </h2>
 
           <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:gap-20">
-            {/* The 3D graphic composition is still a placeholder in Figma. */}
-            <div className="flex h-[240px] w-full flex-col items-center justify-center rounded-[16px] border-[1.5px] border-dashed border-white/10 bg-white/[0.04] md:h-[380px] lg:w-auto lg:flex-1">
-              <Image src="/assets/icons/image-placeholder.svg" alt="" width={40} height={40} unoptimized />
+            {/* Fills the "3D graphic composition" slot of the Figma frame (600×380). */}
+            <div className="w-full lg:w-auto lg:flex-1">
+              <Image
+                src="/assets/home/communication/laptop-dashboard.png"
+                alt="Laptop mit einem Dashboard, das Website-Traffic, Leads, Conversions und Umsatz zeigt"
+                width={891}
+                height={550}
+                sizes="(min-width: 1024px) 600px, 100vw"
+                className="h-auto w-full"
+              />
             </div>
             <div className="flex w-full flex-col gap-6 text-[16px] leading-[1.6] text-white/70 lg:w-auto lg:flex-1">
               {paragraphs.map((text) => (
