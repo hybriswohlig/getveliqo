@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { LogoMark } from "@/components/brand/logo-mark";
-import { footer, footerColumns, office, socials } from "@/content/home";
+import { footer, footerColumns, office } from "@/content/home";
 
 // Figma frame "velyqo-footer" (27:4), 1440×800.
 export function SiteFooter() {
@@ -48,19 +47,6 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <p className="text-[14px] leading-auto font-medium text-slate">{footer.copyright}</p>
-          <ul className="flex gap-3">
-            {socials.map((social) => (
-              <li key={social.label}>
-                <a
-                  href={social.href}
-                  aria-label={social.label}
-                  className="flex size-11 items-center justify-center rounded-full bg-lime"
-                >
-                  <Image src={social.icon} alt="" width={20} height={20} unoptimized />
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
 
         <div className="pt-5">

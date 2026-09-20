@@ -116,16 +116,6 @@ export const footerColumns = [
   },
 ];
 
-// TODO: profile URLs
-export const socials = [
-  { label: "LinkedIn", icon: "/assets/icons/linkedin.svg", href: "#" },
-  { label: "Facebook", icon: "/assets/icons/facebook.svg", href: "#" },
-  { label: "Instagram", icon: "/assets/icons/instagram.svg", href: "#" },
-  // Figma's SVG export of this icon drops the play triangle, so it's a 4x PNG
-  // render on the lime button colour.
-  { label: "YouTube", icon: "/assets/icons/youtube.png", href: "#" },
-];
-
 export const footer = {
   copyright: "© 2026 VELYQO LLC. Alle Rechte vorbehalten.",
   slogan: "BUILD. GROW. MATTER.",

@@ -1,5 +1,5 @@
 // Copy and assets shared by the light service subpages (PR/SEO/GEO, Webdesign,
-// E-Commerce): the footer address, legal links, socials and the logo.
+// E-Commerce): the footer address, legal links and the logo.
 
 import { office as siteOffice } from "./home";
 
@@ -76,14 +76,6 @@ export const legalColumn = {
 };
 
 export const copyright = "© 2026 VELYQO. Alle Rechte vorbehalten.";
-
-// TODO: profile URLs
-export const socials = [
-  { label: "Instagram", icon: "/assets/shared/icons/instagram.svg", href: "#" },
-  { label: "LinkedIn", icon: "/assets/shared/icons/linkedin.svg", href: "#" },
-  { label: "Twitter", icon: "/assets/shared/icons/twitter.svg", href: "#" },
-  { label: "Dribbble", icon: "/assets/shared/icons/dribbble.svg", href: "#" },
-];
 
 export type FooterContent = {
   columns: { title: string; links: Link[] }[];

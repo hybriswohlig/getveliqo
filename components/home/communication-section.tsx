@@ -30,16 +30,6 @@ export function CommunicationSection() {
         <Glow x={100} y={150} width={600} height={500} color="var(--color-glow-pink)" opacity={0.102} blur={60} />
         <Glow x={800} y={300} width={600} height={600} color="var(--color-lime)" opacity={0.0784} blur={70} />
 
-        <div className="absolute top-[400px] left-[28px] hidden flex-col items-center gap-5 lg:flex">
-          <span className="h-[60px] w-px bg-white/15" />
-          {/* TODO: LinkedIn profile URL */}
-          <a href="#" className="flex h-[42px] w-[11px] items-center justify-center">
-            <span className="-rotate-90 text-[9px] leading-auto font-semibold whitespace-nowrap text-white/25 uppercase">
-              LinkedIn
-            </span>
-          </a>
-          <span className="h-[60px] w-px bg-white/15" />
-        </div>
 
         <div className="relative flex flex-col items-center gap-12 px-5 pt-[clamp(96px,11.9444vw,172px)] pb-[60px] md:px-10 lg:gap-20 lg:px-[5.5556vw] frame:px-20">
           <h2
@@ -56,9 +46,16 @@ export function CommunicationSection() {
           </h2>
 
           <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:gap-20">
-            {/* The 3D graphic composition is still a placeholder in Figma. */}
-            <div className="flex h-[240px] w-full flex-col items-center justify-center rounded-[16px] border-[1.5px] border-dashed border-white/10 bg-white/[0.04] md:h-[380px] lg:w-auto lg:flex-1">
-              <Image src="/assets/icons/image-placeholder.svg" alt="" width={40} height={40} unoptimized />
+            {/* Fills the "3D graphic composition" slot of the Figma frame (600×380). */}
+            <div className="w-full lg:w-auto lg:flex-1">
+              <Image
+                src="/assets/home/communication/laptop-dashboard.png"
+                alt="Laptop mit einem Dashboard, das Website-Traffic, Leads, Conversions und Umsatz zeigt"
+                width={891}
+                height={550}
+                sizes="(min-width: 1024px) 600px, 100vw"
+                className="h-auto w-full"
+              />
             </div>
             <div className="flex w-full flex-col gap-6 text-[16px] leading-[1.6] text-white/70 lg:w-auto lg:flex-1">
               {paragraphs.map((text) => (
