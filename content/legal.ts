@@ -1,6 +1,7 @@
-// Legal page copy, taken verbatim from the Figma frames "VELYQO Impressum - DE
-// Desktop" and "VELYQO AGB — DE Desktop". A body entry is a paragraph, or an
-// array of lines that stay together as one block (addresses).
+// Legal page copy. Impressum and AGB are taken verbatim from the Figma frames
+// "VELYQO Impressum - DE Desktop" and "VELYQO AGB — DE Desktop", the
+// Datenschutzerklärung from the text supplied by the client. A body entry is a
+// paragraph, or an array of lines that stay together as one block (addresses).
 
 export type LegalSection = {
   number: string;
@@ -12,8 +13,12 @@ export type LegalDocument = {
   slug: string;
   title: string[];
   lead?: string;
+  /** Paragraph shown above the first section. */
+  intro?: string;
   metaDescription: string;
   sections: LegalSection[];
+  /** Closing remark shown below the last section. */
+  note?: string;
 };
 
 export const impressum: LegalDocument = {
@@ -337,4 +342,146 @@ export const agb: LegalDocument = {
       ],
     },
   ],
+};
+
+export const datenschutz: LegalDocument = {
+  slug: "datenschutz",
+  title: ["Datenschutzerklärung"],
+  lead: "VELYQO LLC | Stand: September 2026",
+  intro:
+    "Diese Datenschutzerklärung informiert darüber, wie VELYQO LLC personenbezogene Daten beim Besuch von getvelyqo.com sowie bei der Kontaktaufnahme mit uns verarbeitet. Sie ist auf den derzeit vorgesehenen Launch-Stack der Website zugeschnitten.",
+  metaDescription:
+    "Datenschutzerklärung der VELYQO LLC: Verarbeitung personenbezogener Daten auf getvelyqo.com.",
+  sections: [
+    {
+      number: "01",
+      title: "Verantwortliche Stelle",
+      body: [
+        ["VELYQO LLC", "30 N Gould St, Ste N", "Sheridan, WY 82801", "United States", "Vertretungsberechtigt: Karl Dämmer", "E-Mail: business@getvelyqo.com", "Website: getvelyqo.com"],
+        "VELYQO LLC ist die verantwortliche Stelle für die in dieser Datenschutzerklärung beschriebenen Verarbeitungsvorgänge, soweit nicht ausdrücklich anders angegeben.",
+      ],
+    },
+    {
+      number: "02",
+      title: "Welche Daten beim Websitebesuch verarbeitet werden",
+      body: [
+        "Beim Aufruf der Website können technisch erforderliche Verbindungs- und Protokolldaten verarbeitet werden. Dazu können insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene URL, Referrer-Informationen, Browser- und Geräteinformationen sowie technische Status- und Fehlerdaten gehören. Die Verarbeitung dient insbesondere der Auslieferung, Stabilität und Sicherheit der Website.",
+        "Soweit die Verarbeitung zur sicheren und funktionsfähigen Bereitstellung der Website erforderlich ist, stützen wir sie - soweit die DSGVO anwendbar ist - auf Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im sicheren, stabilen und effizienten Betrieb unseres Webangebots.",
+      ],
+    },
+    {
+      number: "03",
+      title: "Hosting über Vercel",
+      body: [
+        "Die Website wird über Vercel bereitgestellt. Anbieter ist Vercel Inc., USA. Im Rahmen des Hostings können insbesondere technische Verbindungs- und Protokolldaten verarbeitet werden. Vercel kann dabei als Auftragsverarbeiter für Kundendaten tätig werden. Vercel sieht in seinem Data Processing Addendum Mechanismen für grenzüberschreitende Datenübermittlungen und die Verarbeitung von Daten aus dem Europäischen Wirtschaftsraum vor.",
+        "Weitere Informationen: vercel.com/legal/privacy-notice und vercel.com/legal/dpa.",
+      ],
+    },
+    {
+      number: "04",
+      title: "Domain und DNS",
+      body: [
+        "Die Domain getvelyqo.com wurde über Northwest Registered Agent bezogen. Je nach technischer DNS-Konfiguration können bei der Auflösung und Verwaltung der Domain technische Daten verarbeitet werden. Soweit Northwest oder weitere Infrastruktur-Anbieter tatsächlich DNS-, Proxy- oder Sicherheitsleistungen für die Website erbringen, wird diese Datenschutzerklärung bei Bedarf entsprechend konkretisiert.",
+      ],
+    },
+    {
+      number: "05",
+      title: "Kontaktaufnahme per E-Mail",
+      body: [
+        "Auf der Website stellen wir einen E-Mail-Link zu business@getvelyqo.com bereit. Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen übermittelten Daten, insbesondere E-Mail-Adresse, Name, Inhalt der Nachricht und gegebenenfalls weitere von Ihnen freiwillig bereitgestellte Informationen.",
+        "Die Verarbeitung erfolgt zur Bearbeitung Ihrer Anfrage. Bezieht sich die Kommunikation auf die Anbahnung oder Durchführung eines Vertrags, erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO. In anderen Fällen kann sie auf unserem berechtigten Interesse an der Bearbeitung geschäftlicher Kommunikation gemäß Art. 6 Abs. 1 lit. f DSGVO beruhen.",
+      ],
+    },
+    {
+      number: "06",
+      title: "Google Tag Manager",
+      body: [
+        "Wir planen den Einsatz des Google Tag Managers. Anbieter für Nutzer im Europäischen Wirtschaftsraum ist grundsätzlich Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Der Google Tag Manager dient der Verwaltung von Tags und eingebundenen Diensten. Nach Angaben von Google erstellt der Tag Manager selbst keine Nutzerprofile und führt keine eigenständige Webanalyse durch; für technische Logs und Diagnostik können jedoch Daten verarbeitet werden.",
+        "Soweit über den Tag Manager einwilligungspflichtige Dienste eingebunden werden, sollen diese erst entsprechend der im Consent-System getroffenen Auswahl aktiviert werden.",
+      ],
+    },
+    {
+      number: "07",
+      title: "Google Analytics 4",
+      body: [
+        "Wir planen den Einsatz von Google Analytics 4 zur statistischen Analyse der Nutzung unserer Website. Dabei können insbesondere Informationen zu Seitenaufrufen, Interaktionen, ungefährem Standort, Browser, Gerät und Nutzungszeitpunkten verarbeitet werden. Google Analytics kann Cookies oder vergleichbare Technologien verwenden.",
+        "Google Analytics soll auf dieser Website erst nach entsprechender Einwilligung aktiviert werden. Rechtsgrundlage ist dann Art. 6 Abs. 1 lit. a DSGVO; soweit auf Informationen im Endgerät zugegriffen oder solche gespeichert werden, erfolgt dies zusätzlich auf Grundlage der einschlägigen Einwilligungsanforderungen des TDDDG. Die Einwilligung kann jederzeit über die Cookie-Einstellungen mit Wirkung für die Zukunft widerrufen werden.",
+        "Google beschreibt sich für die Verarbeitung von Google-Analytics-Daten im Auftrag seiner Kunden grundsätzlich als Auftragsverarbeiter. Abhängig von aktivierten Datenfreigabe-Einstellungen können zusätzliche Rollen und Verarbeitungen bestehen. Die konkreten Analytics-Einstellungen werden deshalb datensparsam konfiguriert.",
+        "Weitere Informationen: policies.google.com/privacy und support.google.com/analytics/answer/6004245.",
+      ],
+    },
+    {
+      number: "08",
+      title: "Google Search Console",
+      body: [
+        "Wir können die Google Search Console einsetzen, um die Auffindbarkeit und technische Darstellung unserer Website in der Google-Suche zu überwachen. Die Search Console wird nicht als Tracking-Skript für Besucher in die Website eingebunden. Soweit im Zusammenhang mit unserem Google-Konto oder den von Google bereitgestellten aggregierten Suchdaten personenbezogene Daten verarbeitet werden, gelten ergänzend die Datenschutzbestimmungen von Google.",
+      ],
+    },
+    {
+      number: "09",
+      title: "Cookies und Consent Management",
+      body: [
+        "Technisch notwendige Speicherungen oder Zugriffe können eingesetzt werden, soweit sie für die von Ihnen ausdrücklich gewünschte Nutzung der Website erforderlich sind. Nicht notwendige Analyse- oder Marketingtechnologien sollen erst nach Ihrer Einwilligung aktiviert werden.",
+        "Für Google Analytics und vergleichbare Dienste ist ein Consent-Management-System vorgesehen. Die Auswahl soll jederzeit über einen Link wie „Cookie-Einstellungen“ geändert oder widerrufen werden können. Für Google-Tags ist eine Implementierung vorgesehen, bei der Analyse-Tags vor einer entsprechenden Zustimmung blockiert bleiben.",
+      ],
+    },
+    {
+      number: "10",
+      title: "Externe Links und soziale Netzwerke",
+      body: [
+        "Unsere Website kann Links zu externen Websites und Social-Media-Profilen enthalten, beispielsweise LinkedIn oder Instagram. Solange es sich lediglich um normale Links handelt, wird durch die bloße Darstellung des Links grundsätzlich keine direkte Verbindung zu dem jeweiligen sozialen Netzwerk hergestellt. Erst wenn Sie den Link öffnen, verlassen Sie unsere Website und es gelten die Datenschutzbestimmungen des jeweiligen Anbieters.",
+      ],
+    },
+    {
+      number: "11",
+      title: "Empfänger und Dienstleister",
+      body: [
+        "Wir können personenbezogene Daten an technische und geschäftliche Dienstleister übermitteln, soweit dies für Hosting, IT-Betrieb, Kommunikation, Analyse oder die Erbringung unserer Leistungen erforderlich ist. Dienstleister, die personenbezogene Daten in unserem Auftrag verarbeiten, werden - soweit erforderlich - auf Grundlage entsprechender datenschutzrechtlicher Vereinbarungen eingesetzt.",
+      ],
+    },
+    {
+      number: "12",
+      title: "Datenübermittlung in Drittländer",
+      body: [
+        "VELYQO LLC hat ihren Sitz in den Vereinigten Staaten. Darüber hinaus können einzelne Dienstleister Daten außerhalb des Europäischen Wirtschaftsraums verarbeiten. Soweit die DSGVO auf eine solche Übermittlung anwendbar ist, erfolgt sie nur auf Grundlage eines zulässigen Übermittlungsmechanismus, etwa eines Angemessenheitsbeschlusses, einschließlich einer anwendbaren Zertifizierung nach dem EU-U.S. Data Privacy Framework, oder geeigneter Garantien wie den Standardvertragsklauseln der Europäischen Kommission, soweit erforderlich.",
+      ],
+    },
+    {
+      number: "13",
+      title: "Speicherdauer",
+      body: [
+        "Wir speichern personenbezogene Daten nur so lange, wie dies für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen. Entfällt der Zweck und besteht keine anderweitige Rechtsgrundlage oder Aufbewahrungspflicht, werden die Daten gelöscht oder anonymisiert. Für einzelne Dienste können abweichende Speicherfristen gelten, die von deren Konfiguration abhängen.",
+      ],
+    },
+    {
+      number: "14",
+      title: "Ihre Rechte",
+      body: [
+        "Soweit die DSGVO anwendbar ist und die jeweiligen gesetzlichen Voraussetzungen erfüllt sind, können Sie insbesondere Auskunft über Ihre personenbezogenen Daten, Berichtigung unrichtiger Daten, Löschung, Einschränkung der Verarbeitung sowie Datenübertragbarkeit verlangen. Sie können einer Verarbeitung auf Grundlage berechtigter Interessen aus Gründen, die sich aus Ihrer besonderen Situation ergeben, widersprechen. Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen.",
+        "Sie haben außerdem das Recht, sich bei einer zuständigen Datenschutzaufsichtsbehörde zu beschweren. Für Fragen oder zur Ausübung Ihrer Rechte können Sie uns unter business@getvelyqo.com kontaktieren.",
+      ],
+    },
+    {
+      number: "15",
+      title: "EU-Vertreter nach Art. 27 DSGVO",
+      body: [
+        "VELYQO LLC hat ihren Sitz außerhalb des Europäischen Wirtschaftsraums. Ob für die konkrete Verarbeitung ein Vertreter in der Europäischen Union nach Art. 27 DSGVO zu benennen ist, hängt insbesondere vom Anwendungsbereich der DSGVO und den tatsächlichen Verarbeitungsvorgängen ab. Sofern eine Benennung gesetzlich erforderlich ist, werden die Kontaktdaten des Vertreters an dieser Stelle ergänzt und öffentlich bereitgestellt.",
+      ],
+    },
+    {
+      number: "16",
+      title: "Sicherheit",
+      body: [
+        "Wir treffen angemessene technische und organisatorische Maßnahmen zum Schutz personenbezogener Daten. Die Website soll insbesondere verschlüsselt über HTTPS bereitgestellt werden. Ein absoluter Schutz elektronischer Datenübertragungen kann jedoch nicht garantiert werden.",
+      ],
+    },
+    {
+      number: "17",
+      title: "Änderungen dieser Datenschutzerklärung",
+      body: [
+        "Wir können diese Datenschutzerklärung anpassen, wenn sich unsere Website, die eingesetzten Dienste oder die rechtlichen Anforderungen ändern. Insbesondere werden neue Analyse-, Werbe-, CRM-, Newsletter- oder sonstige Drittanbieterdienste vor beziehungsweise mit ihrer Aktivierung in dieser Datenschutzerklärung berücksichtigt.",
+      ],
+    },
+  ],
+  note: "Hinweis: Diese Fassung ist auf den aktuell beschriebenen Launch-Stack zugeschnitten. Vor Aktivierung zusätzlicher Tracking-, Werbe-, CRM- oder Newsletter-Dienste sollte die Erklärung aktualisiert werden.",
 };
