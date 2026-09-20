@@ -33,7 +33,7 @@ export function ServicesSection() {
           </div>
         </div>
 
-        <ul className="relative flex snap-x snap-mandatory items-center gap-6 overflow-x-auto scroll-px-5 px-5 pb-16 md:scroll-px-10 md:px-10 lg:scroll-px-[5.5556vw] lg:px-[5.5556vw] xl:justify-center xl:overflow-visible xl:px-0 frame:justify-start frame:pr-[230px] frame:pl-[213px]">
+        <ul className="group/list relative flex snap-x snap-mandatory items-center gap-6 overflow-x-auto scroll-px-5 px-5 pb-16 md:scroll-px-10 md:px-10 lg:scroll-px-[5.5556vw] lg:px-[5.5556vw] xl:justify-center xl:overflow-visible xl:px-0 frame:justify-start frame:pr-[230px] frame:pl-[213px]">
           {services.items.map((service) => (
             <ServiceCard key={service.number} service={service} />
           ))}
