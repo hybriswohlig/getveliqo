@@ -9,7 +9,12 @@ export function CommunicationSection() {
   const { headline, paragraphs, tag } = communication;
 
   return (
-    <section id="one-voice" aria-labelledby="one-voice-title" className="relative overflow-hidden bg-ink">
+    <section
+      id="one-voice"
+      data-liquid-glass-surface="dark"
+      aria-labelledby="one-voice-title"
+      className="relative overflow-hidden bg-ink"
+    >
       <div className="relative mx-auto max-w-[1440px] frame:min-h-[1120px]">
         <div
           aria-hidden="true"

@@ -6,7 +6,7 @@ import { footer, footerColumns, office, socials } from "@/content/home";
 // Figma frame "velyqo-footer" (27:4), 1440×800.
 export function SiteFooter() {
   return (
-    <footer id="kontakt" className="bg-fog text-ink">
+    <footer id="kontakt" data-liquid-glass-surface="light" className="bg-fog text-ink">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-5 pt-20 pb-10 md:px-10 lg:gap-16 lg:px-[5.5556vw] frame:min-h-[800px] frame:px-20">
         <div className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-[5.5556vw] frame:gap-x-20">
           <div className="flex flex-col gap-8">
