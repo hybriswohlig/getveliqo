@@ -10,7 +10,12 @@ export function IntroSection() {
   const { headline } = intro;
 
   return (
-    <section id="ueber-uns" aria-labelledby="ueber-uns-title" className="relative overflow-hidden bg-paper text-graphite">
+    <section
+      id="ueber-uns"
+      data-liquid-glass-surface="light"
+      aria-labelledby="ueber-uns-title"
+      className="relative overflow-hidden bg-paper text-graphite"
+    >
       <div className="relative mx-auto max-w-[1440px] frame:min-h-[920px]">
         <Glow x={350} y={420} width={750} height={650} color="var(--color-lime)" opacity={0.3098} blur={80} />
         <Glow x={80} y={280} width={400} height={400} color="var(--color-glow-orange)" opacity={0.0314} blur={60} />

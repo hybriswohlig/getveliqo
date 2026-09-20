@@ -71,3 +71,74 @@ body {
   background: color-mix(in srgb, var(--color-lime) 45%, transparent);
   color: var(--color-ink);
 }
+
+.liquid-glass-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.liquid-glass-cursor__lens,
+.liquid-glass-cursor__ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.liquid-glass-cursor__lens {
+  width: 160px;
+  height: 160px;
+  transform: translate3d(
+    calc(var(--liquid-glass-lens-x) - 50%),
+    calc(var(--liquid-glass-lens-y) - 50%),
+    0
+  );
+  border: 1px solid rgb(214 246 52 / 0.13);
+  background: rgb(214 246 52 / 0.04);
+  box-shadow: 0 14px 34px rgb(214 246 52 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.16);
+  backdrop-filter: blur(1.5px) saturate(1.04);
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.liquid-glass-cursor[data-surface="light"] .liquid-glass-cursor__lens {
+  border-color: rgb(17 19 21 / 0.12);
+  background: rgb(255 255 255 / 0.05);
+  box-shadow: 0 14px 34px rgb(17 19 21 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.4);
+}
+
+.liquid-glass-cursor__ring {
+  width: 40px;
+  height: 40px;
+  transform: translate3d(
+    calc(var(--liquid-glass-ring-x) - 50%),
+    calc(var(--liquid-glass-ring-y) - 50%),
+    0
+  ) scale(1);
+  border: 1.5px solid var(--color-lime);
+  box-shadow: 0 6px 18px rgb(214 246 52 / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.26);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.liquid-glass-cursor[data-interactive] .liquid-glass-cursor__lens {
+  border-color: rgb(214 246 52 / 0.24);
+  box-shadow: 0 16px 38px rgb(214 246 52 / 0.15), inset 0 1px 0 rgb(255 255 255 / 0.2);
+}
+
+.liquid-glass-cursor[data-interactive] .liquid-glass-cursor__ring {
+  transform: translate3d(
+    calc(var(--liquid-glass-ring-x) - 50%),
+    calc(var(--liquid-glass-ring-y) - 50%),
+    0
+  ) scale(1.2);
+  box-shadow: 0 8px 24px rgb(214 246 52 / 0.38), inset 0 1px 0 rgb(255 255 255 / 0.32);
+}
+
+@media (max-width: 767px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .liquid-glass-cursor {
+    display: none;
+  }
+}
