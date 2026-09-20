@@ -6,7 +6,7 @@ import type { LegalDocument } from "@/content/legal";
 // Figma frames "VELYQO Impressum - DE Desktop" (82:653) and "VELYQO AGB — DE
 // Desktop" (80:8): a centred title above an 800px numbered reading column.
 export function LegalPage({ document }: { document: LegalDocument }) {
-  const { title, lead, sections } = document;
+  const { title, lead, intro, sections, note } = document;
 
   return (
     <>
@@ -30,6 +30,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
           </header>
 
           <div className="mx-auto w-full max-w-[800px] px-5 pt-10 pb-[100px] md:px-10 lg:px-0 lg:pt-[60px]">
+            {intro ? <p className="mb-10 text-[16px] leading-[1.65] text-white/70">{intro}</p> : null}
             <div className="flex flex-col border-t border-white/12">
               {sections.map((section) => (
                 <section
@@ -66,6 +67,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
                 </section>
               ))}
             </div>
+            {note ? <p className="mt-8 text-[14px] leading-[1.6] text-white/70">{note}</p> : null}
           </div>
         </main>
       </div>
