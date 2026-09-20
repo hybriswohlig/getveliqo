@@ -127,18 +127,6 @@
 }
 
 @media (min-width: 1024px) {
-  .scrollRange {
-    height: 300vh;
-  }
-
-  .sticky {
-    position: sticky;
-    top: 0;
-    display: flex;
-    align-items: center;
-    height: 100svh;
-  }
-
   .frame {
     /* Keep the whole 16:9 stage inside the pinned viewport: on short screens
        it scales down instead of cropping the navbar away. */
@@ -278,10 +266,26 @@
 
 }
 
-/* The service callouts get too small to read below 1280px. */
+/* The callouts get too small to read below 1280px, so the pinned, scroll-driven
+   hero starts at the same width. Below it the hero is a normal block and the
+   scene builds up on a timer — otherwise the whole choreography would scroll
+   past with no callouts in it. */
 @media (min-width: 1280px) {
   .callouts {
     display: block;
+  }
+
+  .scrollRange {
+    /* Room for the laptop to open and the scene to build up while pinned. */
+    height: 480vh;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100svh;
   }
 }
 
