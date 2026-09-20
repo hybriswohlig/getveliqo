@@ -7,8 +7,18 @@
 
 .hero {
   position: relative;
-  overflow: hidden;
   background: var(--color-night);
+}
+
+/* Below 1024px the hero is a normal block; on desktop .scrollRange adds the
+   scroll distance that the pinned .sticky scrubs the build-up through. */
+.scrollRange {
+  position: relative;
+}
+
+.sticky {
+  position: relative;
+  overflow: hidden;
 }
 
 .frame {
@@ -117,7 +127,22 @@
 }
 
 @media (min-width: 1024px) {
+  .scrollRange {
+    height: 300vh;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100svh;
+  }
+
   .frame {
+    /* Keep the whole 16:9 stage inside the pinned viewport: on short screens
+       it scales down instead of cropping the navbar away. */
+    width: min(100%, calc(100svh * 1536 / 864));
     --u: calc(100cqw / 1536);
   }
 
@@ -287,6 +312,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .scrollRange {
+    height: auto;
+  }
+
+  .sticky {
+    position: relative;
+    height: auto;
+  }
+
   .intro {
     display: none;
   }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useAnimate, useReducedMotion, type AnimationSequence } from "motion/react";
+import { motion, scroll, useAnimate, useReducedMotion, type AnimationSequence } from "motion/react";
 import { Fragment, useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { entrances, layers, pedestalBox, type Box, type Layer } from "./hero-layers";
 import styles from "./hero.module.css";
@@ -148,10 +148,10 @@ function enter(id: string, at: number, duration: number): AnimationSequence {
   ];
 }
 
-// After the laptop has opened (video), the scene builds up in the order of
-// the Figma animation-state frames.
+// After the laptop has opened, the scene builds up in the order of the Figma
+// animation-state frames. On desktop this timeline is scrubbed by scroll, so
+// each step flies in as the visitor scrolls; below that it plays on a timer.
 const buildUp: AnimationSequence = [
-  ["[data-intro]", { opacity: 0 }, { duration: 0.5, at: 0 }],
   ...calloutSegments(1, 0.35),
   ...enter("google", 1.0, 1.1),
   ...enter("chatgpt", 1.15, 1.1),
@@ -161,6 +161,8 @@ const buildUp: AnimationSequence = [
   ...calloutSegments(3, 3.85),
 ];
 
+const DESKTOP = "(min-width: 1024px)";
+
 export function HeroScene() {
   const [scope, animate] = useAnimate<HTMLDivElement>();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -169,35 +171,62 @@ export function HeroScene() {
   useEffect(() => {
     if (reducedMotion) return;
     const video = videoRef.current;
-    if (!video) return;
+    const scene = scope.current;
+    if (!video || !scene) return;
 
-    let started = false;
-    const start = async () => {
-      if (started) return;
-      started = true;
-      // Make sure the open-laptop layers are ready before the video fades out.
-      const images = scope.current?.querySelectorAll("img") ?? [];
-      await Promise.race([
-        Promise.all([...images].map((img) => img.decode().catch(() => undefined))),
-        new Promise((resolve) => setTimeout(resolve, 1500)),
-      ]);
-      animate(buildUp);
+    const scrubbed = window.matchMedia(DESKTOP).matches;
+    // Always paused to begin with: nothing animates while the video plays.
+    const timeline = animate(buildUp, { autoplay: false });
+
+    let introDone = false;
+    const finishIntro = (duration: number) => {
+      if (introDone) return;
+      introDone = true;
+      video.pause();
+      animate("[data-intro]", { opacity: 0 }, { duration });
+      // On a timer, the build-up starts as soon as the intro is out of the way.
+      if (!scrubbed) timeline.play();
     };
 
-    // If the video can't play (blocked autoplay, e.g. iOS low-power mode, or
-    // a failed download), skip straight to the build-up.
+    // Wait for the open-laptop layers before the video gives way to them.
+    const ready = Promise.race([
+      Promise.all([...scene.querySelectorAll("img")].map((img) => img.decode().catch(() => undefined))),
+      new Promise((resolve) => setTimeout(resolve, 1500)),
+    ]);
+    const onEnded = () => ready.then(() => finishIntro(0.5));
+
+    // If the video can't play (blocked autoplay, e.g. iOS low-power mode, or a
+    // failed download), go straight to the built-up scene.
     const lastSource = video.querySelector("source:last-of-type");
-    video.addEventListener("ended", start);
-    lastSource?.addEventListener("error", start);
-    video.play().catch(start);
+    video.addEventListener("ended", onEnded);
+    lastSource?.addEventListener("error", onEnded);
+    video.play().catch(onEnded);
     const fallback = setTimeout(() => {
-      if (video.currentTime === 0) start();
+      if (video.currentTime === 0) onEnded();
     }, 4000);
 
+    let stopScroll: VoidFunction | undefined;
+    if (scrubbed) {
+      const range = scene.closest("[data-scroll-range]") ?? undefined;
+      stopScroll = scroll(
+        (progress: number) => {
+          // Scrolling never runs alongside the video: it cuts the intro short.
+          if (!introDone) {
+            if (progress <= 0.001) return;
+            finishIntro(0.35);
+          }
+          timeline.time = progress * timeline.duration;
+        },
+        { target: range as Element | undefined, offset: ["start start", "end end"] },
+      );
+    }
+
     return () => {
-      video.removeEventListener("ended", start);
-      lastSource?.removeEventListener("error", start);
+      video.removeEventListener("ended", onEnded);
+      lastSource?.removeEventListener("error", onEnded);
       clearTimeout(fallback);
+      stopScroll?.();
+      timeline.stop();
     };
   }, [animate, reducedMotion, scope]);
 
