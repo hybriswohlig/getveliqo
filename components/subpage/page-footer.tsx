@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
-import { copyright, email, office, socials, type FooterContent } from "@/content/subpage";
+import { copyright, email, office, type FooterContent } from "@/content/subpage";
 
 // Figma frame "velyqo-footer", 1440×881. Its column set and the giant slogan
-// differ from the homepage footer, so it is its own component. The address,
-// legal links and socials are the same on every subpage; the two link
+// differ from the homepage footer, so it is its own component. The address
+// and legal links are the same on every subpage; the two link
 // columns and the slogan come from the page.
 export function PageFooter({ content }: { content: FooterContent }) {
   return (
@@ -56,19 +55,6 @@ export function PageFooter({ content }: { content: FooterContent }) {
 
         <div className="flex flex-col gap-6 pb-10 md:flex-row md:items-center md:justify-between">
           <p className="text-[12px] leading-[normal] text-[#8a8a95]">{copyright}</p>
-          <ul className="flex items-center gap-3">
-            {socials.map((social) => (
-              <li key={social.label}>
-                <a
-                  href={social.href}
-                  aria-label={social.label}
-                  className="flex size-9 items-center justify-center rounded-full border border-[#e2e2e8] bg-white"
-                >
-                  <Image src={social.icon} alt="" width={16} height={16} unoptimized />
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
 
         <p
