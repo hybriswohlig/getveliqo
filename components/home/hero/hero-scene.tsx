@@ -143,18 +143,36 @@ const stepAt = (index: number) => index * (STEP + REST);
 function callout(n: number, index: number): AnimationSequence {
   const at = stepAt(index);
   return [
-    [`[data-anim="dot-${n}"]`, { scale: 1 }, { duration: 0.25, at, ease: easeOut }],
-    [`[data-anim="line-${n}"]`, { clipPath: "inset(0 0 0 0%)" }, { duration: 0.45, at: at + 0.15, ease: easeOut }],
-    [`[data-anim="label-${n}"]`, { opacity: 1, y: 0 }, { duration: 0.4, at: at + 0.45, ease: easeOut }],
+    [`[data-anim="dot-${n}"]`, { scale: [0, 1] }, { duration: 0.25, at, ease: easeOut }],
+    [
+      `[data-anim="line-${n}"]`,
+      { clipPath: ["inset(0 0 0 100%)", "inset(0 0 0 0%)"] },
+      { duration: 0.45, at: at + 0.15, ease: easeOut },
+    ],
+    [
+      `[data-anim="label-${n}"]`,
+      { opacity: [0, 1], y: ["12%", "0%"] },
+      { duration: 0.4, at: at + 0.45, ease: easeOut },
+    ],
   ];
 }
 
 // The layers travel out of the laptop rather than fading in, so there is no
 // opacity track here: they are simply hidden behind the laptop until they clear
-// its screen.
+// its screen. Every track spells out its start value: a scrubbed timeline is
+// read at time 0 before it ever plays, and without an explicit first keyframe
+// the transforms resolve to "none" — which drops the layers at their end
+// position (that is what shipped to production and not to the dev server).
 function enter(ids: string[], index: number): AnimationSequence {
   const at = stepAt(index);
-  return ids.map((id) => [`[data-anim="${id}"]`, { x: "0%", y: "0%" }, { duration: STEP, at, ease: easeOut }]);
+  return ids.map((id) => {
+    const from = entrances[id];
+    return [
+      `[data-anim="${id}"]`,
+      { x: [from.x, "0%"], y: [from.y, "0%"] },
+      { duration: STEP, at, ease: easeOut },
+    ];
+  });
 }
 
 // The build-up, step by step, following the Figma frames "velyqo-hero-animation
