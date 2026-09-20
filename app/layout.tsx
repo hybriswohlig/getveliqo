@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo_Narrow, Geist_Mono, Inter, Outfit } from "next/font/google";
+import { Archivo_Narrow, Geist, Geist_Mono, Inter, Outfit } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,9 +7,15 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+// Variable, since the PR/SEO/GEO subpage uses 400 to 900
 const outfit = Outfit({
   variable: "--font-outfit-family",
-  weight: ["700", "900"],
+  subsets: ["latin"],
+});
+
+// Body font of the PR/SEO/GEO subpage
+const geist = Geist({
+  variable: "--font-geist-family",
   subsets: ["latin"],
 });
 
@@ -51,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${inter.variable} ${outfit.variable} ${archivoNarrow.variable} ${geistMono.variable} antialiased`}
+      className={`${inter.variable} ${outfit.variable} ${geist.variable} ${archivoNarrow.variable} ${geistMono.variable} antialiased`}
     >
       <body>{children}</body>
     </html>

@@ -60,7 +60,7 @@ export const services = {
       // TODO: copy not in Figma - placeholder text, please review
       description:
         "Wir machen Ihre Marke sichtbar - in Suchmaschinen, in KI-Antworten und in den Medien, die Ihre Zielgruppe wirklich liest.",
-      link: { label: "mehr erfahren", href: anchors.contact }, // TODO: pr-seo-geo subpage
+      link: { label: "mehr erfahren", href: "/pr-seo-geo" },
     },
     {
       number: "02",
