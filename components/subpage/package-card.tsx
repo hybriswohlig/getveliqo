@@ -1,10 +1,9 @@
 import { ArrowRightIcon } from "@/components/ui/arrow-right-icon";
-import type { PackageItem } from "@/content/pr-seo-geo";
+import type { PackageItem } from "@/content/subpage";
 import { cn } from "@/lib/utils";
 
-// The white card with a pink-to-lime bar on top, used for both the services
-// ("pricing-card" 108:65) and the cooperation models (108:182). Cards in a
-// row stretch to the same height.
+// The white card with a pink-to-lime bar on top ("pricing-card" in Figma).
+// Cards in a row stretch to the same height.
 export function PackageCard({ item, titleClassName }: { item: PackageItem; titleClassName: string }) {
   return (
     <li className="relative flex flex-col gap-6 overflow-hidden rounded-[20px] border border-hairline bg-white p-8">

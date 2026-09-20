@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { email, footer } from "@/content/pr-seo-geo";
+import { copyright, email, office, socials, type FooterContent } from "@/content/subpage";
 
-// Figma frame "velyqo-footer" (108:251), 1440×881. Its column set and the
-// giant slogan differ from the homepage footer, so it is its own component.
-export function PageFooter() {
+// Figma frame "velyqo-footer", 1440×881. Its column set and the giant slogan
+// differ from the homepage footer, so it is its own component. The address,
+// legal links and socials are the same on every subpage; the two link
+// columns and the slogan come from the page.
+export function PageFooter({ content }: { content: FooterContent }) {
   return (
     <footer className="overflow-hidden bg-mist">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-14 px-5 pt-16 md:px-10 lg:px-[5.5556vw] lg:pt-[72px] frame:px-20">
@@ -20,9 +22,9 @@ export function PageFooter() {
               <span className="font-outfit text-[20px] leading-[normal] font-extrabold text-obsidian">VELYQO</span>
             </p>
             <div className="flex flex-col gap-2 text-[13px]">
-              <h2 className="leading-[normal] font-bold text-obsidian">{footer.office.title}</h2>
+              <h2 className="leading-[normal] font-bold text-obsidian">{office.title}</h2>
               <address className="leading-[1.6] text-[#6b6b76] not-italic">
-                {footer.office.lines.map((line) => (
+                {office.lines.map((line) => (
                   <span key={line} className="block">
                     {line}
                   </span>
@@ -36,7 +38,7 @@ export function PageFooter() {
 
           <div aria-hidden="true" className="max-lg:hidden" />
 
-          {footer.columns.map((column) => (
+          {content.columns.map((column) => (
             <nav key={column.title} aria-label={column.title} className="flex flex-col gap-4">
               <h2 className="text-[14px] leading-[normal] font-bold text-obsidian">{column.title}</h2>
               <ul className="flex flex-col gap-2.5 text-[13px] leading-[normal] text-[#6b6b76]">
@@ -53,9 +55,9 @@ export function PageFooter() {
         <hr className="border-[#ddddde]" />
 
         <div className="flex flex-col gap-6 pb-10 md:flex-row md:items-center md:justify-between">
-          <p className="text-[12px] leading-[normal] text-[#8a8a95]">{footer.copyright}</p>
+          <p className="text-[12px] leading-[normal] text-[#8a8a95]">{copyright}</p>
           <ul className="flex items-center gap-3">
-            {footer.socials.map((social) => (
+            {socials.map((social) => (
               <li key={social.label}>
                 <a
                   href={social.href}
@@ -70,10 +72,10 @@ export function PageFooter() {
         </div>
 
         <p
-          aria-label={footer.slogan.join(" ")}
+          aria-label={content.slogan.join(" ")}
           className="font-outfit text-center text-[clamp(44px,10.2778vw,148px)] font-black text-[#dcdce2] uppercase"
         >
-          {footer.slogan.map((line) => (
+          {content.slogan.map((line) => (
             <span key={line} aria-hidden="true" className="block leading-[0.88]">
               {line}
             </span>

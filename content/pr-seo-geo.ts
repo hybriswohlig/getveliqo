@@ -2,6 +2,8 @@
 // "pr-seo-geo-subpage-separate" (108:4).
 // Links marked TODO point at pages or targets that don't exist yet.
 
+import { email, legalColumn, type FooterContent, type PackageItem } from "./subpage";
+
 export const anchors = {
   top: "#sichtbarkeit",
   services: "#leistungen",
@@ -52,15 +54,6 @@ export const intro = {
         "LLMs (Large Language Models) aggregieren Antworten aus strukturierten Erwähnungen im Web. Wir optimieren Ihr digitales Profil, sodass KIs wie ChatGPT Ihre Marke bei direkten Fragen als Erstempfehlung nennen.",
     },
   ],
-};
-
-export type PackageItem = {
-  eyebrow: string;
-  title: string;
-  // Only the pricing cards; rendered small and muted after the title
-  unit?: string;
-  heading: string;
-  description: string;
 };
 
 export const services = {
@@ -197,8 +190,6 @@ export const faq = {
   ],
 };
 
-export const email = "hello@velyqo.com";
-
 export const cta = {
   eyebrow: "BEREIT FÜR DEN DIGITALEN VORSPRUNG?",
   title: "Sichern Sie sich Ihre KI-Sichtbarkeit von morgen.",
@@ -207,11 +198,7 @@ export const cta = {
   note: "100% unverbindliches Erstgespräch",
 };
 
-export const footer = {
-  office: {
-    title: "München Office",
-    lines: ["Leopoldstraße 184", "80804 München", "Deutschland"],
-  },
+export const footer: FooterContent = {
   columns: [
     {
       title: "Sichtbarkeit",
@@ -233,23 +220,7 @@ export const footer = {
         { label: "Kontakt", href: anchors.contact },
       ],
     },
-    {
-      title: "Rechtliches",
-      links: [
-        { label: "Impressum", href: "/impressum" },
-        { label: "Datenschutz", href: "/datenschutz" },
-        { label: "Cookie-Einstellungen", href: "#" }, // TODO
-        { label: "AGB", href: "/agb" },
-      ],
-    },
-  ],
-  copyright: "© 2026 VELYQO. Alle Rechte vorbehalten.",
-  // TODO: profile URLs
-  socials: [
-    { label: "Instagram", icon: "/assets/pr-seo-geo/icons/instagram.svg", href: "#" },
-    { label: "LinkedIn", icon: "/assets/pr-seo-geo/icons/linkedin.svg", href: "#" },
-    { label: "Twitter", icon: "/assets/pr-seo-geo/icons/twitter.svg", href: "#" },
-    { label: "Dribbble", icon: "/assets/pr-seo-geo/icons/dribbble.svg", href: "#" },
+    legalColumn,
   ],
   slogan: ["AUTHORITY.", "TRUST.", "DOMINANCE."],
 };
