@@ -128,7 +128,8 @@
 
 @media (min-width: 1024px) {
   .scrollRange {
-    height: 300vh;
+    /* Room for the laptop to open and the scene to build up while pinned. */
+    height: 480vh;
   }
 
   .sticky {
