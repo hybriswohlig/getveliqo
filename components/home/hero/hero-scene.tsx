@@ -71,7 +71,7 @@ function LayerView({ layer }: { layer: Layer }) {
       style={boxStyle(layer.box)}
       data-layer={layer.id}
       data-anim={layer.id}
-      initial={{ ...entrance, opacity: 0 }}
+      initial={entrance}
     >
       {image}
     </motion.div>
@@ -140,12 +140,11 @@ function calloutSegments(n: number, at: number): AnimationSequence {
   ];
 }
 
+// The layers travel out of the laptop rather than fading in, so there is no
+// opacity track here: they are simply hidden behind the laptop until they clear
+// its screen.
 function enter(id: string, at: number, duration: number): AnimationSequence {
-  const selector = `[data-anim="${id}"]`;
-  return [
-    [selector, { x: "0%", y: "0%" }, { duration, at, ease: easeOut }],
-    [selector, { opacity: 1 }, { duration: duration * 0.45, at }],
-  ];
+  return [[`[data-anim="${id}"]`, { x: "0%", y: "0%", scale: 1 }, { duration, at, ease: easeOut }]];
 }
 
 // After the laptop has opened, the scene builds up in the order of the Figma

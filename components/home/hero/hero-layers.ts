@@ -119,14 +119,14 @@ export const layers: Layer[] = [
   contact("laptop-contact-shadow", [1173, 709, 440.187, 74.95], [439.072, 67.235], -1.01, 29, 0.8),
 ];
 
-// Where each entering layer starts, as translate % of its own box so the
-// offsets hold at every stage size. Derived from the animation-state frames
-// ("velyqo-hero-animation final"): the panels rise from behind the laptop
-// (mid-state offset −42/+187), the phone slides in from the right (+233),
-// the Instagram card slides out from behind the laptop (−243/+17).
+// Where each entering layer starts, as a translate in % of its own box, so the
+// offsets hold at every stage size. The panels and the Instagram card start at
+// full size behind the laptop lid (its top edge runs from y 375 at x 720 to
+// y 329 at x 1180 in frame units) and travel out of it, following the arrows in
+// the Figma animation frames. The phone keeps its entry from the right.
 export const entrances: Record<string, { x: string; y: string }> = {
-  google: { x: "-16.5%", y: "100%" },
-  chatgpt: { x: "-15.3%", y: "95%" },
+  google: { x: "5%", y: "93.5%" },
+  chatgpt: { x: "-30%", y: "130%" },
+  instagram: { x: "-120%", y: "100%" },
   phone: { x: "170%", y: "-1.8%" },
-  instagram: { x: "-152.8%", y: "5.1%" },
 };
