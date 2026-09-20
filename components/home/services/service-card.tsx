@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/arrow-right-icon";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +13,8 @@ export type Service = {
 
 // A 480px-tall image card. Cards with a description are shown expanded
 // (420px wide, title on top); the others are collapsed (279px, title below).
+// A card that links somewhere is clickable across its whole surface, image
+// included; the "mehr erfahren" row is then only the visible cue.
 export function ServiceCard({ service }: { service: Service }) {
   const expanded = Boolean(service.description);
   const number = <p className="text-[14px] leading-auto font-semibold opacity-60">{service.number}</p>;
@@ -20,7 +23,7 @@ export function ServiceCard({ service }: { service: Service }) {
   return (
     <li
       className={cn(
-        "relative flex h-[480px] shrink-0 snap-start flex-col justify-between overflow-hidden rounded-[16px] border border-white/[0.08] p-8 text-white",
+        "group relative flex h-[480px] shrink-0 snap-start flex-col justify-between overflow-hidden rounded-[16px] border border-white/[0.08] p-8 text-white",
         expanded ? "w-[min(420px,85vw)]" : "w-[279px]",
       )}
     >
@@ -33,6 +36,14 @@ export function ServiceCard({ service }: { service: Service }) {
       />
       {expanded && <div className="absolute inset-0 rounded-[16px] bg-ink/25" aria-hidden="true" />}
 
+      {service.link && (
+        <Link
+          href={service.link.href}
+          aria-label={`${service.title} – ${service.link.label}`}
+          className="absolute inset-0 z-10 rounded-[16px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
+        />
+      )}
+
       <div className="relative flex items-start justify-between gap-4">
         {expanded ? <div className="w-[260px]">{title}</div> : <span />}
         {number}
@@ -42,12 +53,12 @@ export function ServiceCard({ service }: { service: Service }) {
         <div className="relative flex flex-col gap-6">
           <p className="text-[14px] leading-[1.6] font-medium">{service.description}</p>
           {service.link && (
-            <a href={service.link.href} className="flex w-fit items-center gap-2">
-              <span className="flex size-7 items-center justify-center rounded-full bg-lime text-ink">
+            <p className="flex w-fit items-center gap-2">
+              <span className="flex size-7 items-center justify-center rounded-full bg-lime text-ink transition-transform group-hover:translate-x-0.5">
                 <ArrowRightIcon className="size-3.5" />
               </span>
               <span className="text-[14px] leading-auto font-bold">{service.link.label}</span>
-            </a>
+            </p>
           )}
         </div>
       ) : (

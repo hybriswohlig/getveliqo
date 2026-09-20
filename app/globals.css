@@ -11,10 +11,13 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-outfit: var(--font-outfit-family), var(--font-inter), sans-serif;
   --font-archivo: var(--font-archivo-narrow), var(--font-inter), sans-serif;
+  --font-geist: var(--font-geist-sans), var(--font-inter), sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Figma's "auto" line height for Inter; browsers round "normal" differently */
-  --leading-auto: 1.21;
+  /* Figma's "auto" line height per family; browsers round "normal" differently */
+  --leading-auto: 1.21; /* Inter */
+  --leading-geist: 1.3;
+  --leading-outfit: 1.26;
 
   /* Surfaces */
   --color-night: #0b0b0b; /* hero */
@@ -32,6 +35,7 @@
   /* Accents: the hero uses its own, slightly greener lime */
   --color-lime: #d6f634;
   --color-lime-hero: #c8ff18;
+  /* Homepage: hero/section glows. /webdesign: eyebrow labels above headings. */
   --color-glow-pink: #ff2a54;
   --color-glow-orange: #ff5e3a;
 
@@ -39,6 +43,16 @@
   --color-rule-dark: #262626;
   --color-rule-light: #e9ebef;
   --color-rule-footer: #cccccc;
+
+  /*
+   * The /webdesign subpage (frame 77:307) runs on its own, cooler palette.
+   * Only the values it repeats are tokens; its one-off greys stay inline.
+   */
+  --color-carbon: #0a0a0b; /* headings, dark surfaces */
+  --color-ash: #62626a; /* body copy */
+  --color-mist: #f8f8fa; /* tinted sections, icon tiles, footer */
+  --color-line: #ececef; /* hairlines and card borders */
+  --color-lime-web: #c5f82a;
 }
 
 html {

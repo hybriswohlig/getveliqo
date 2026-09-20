@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo_Narrow, Geist_Mono, Inter, Outfit } from "next/font/google";
+import { Archivo_Narrow, Geist, Geist_Mono, Inter, Outfit } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,7 +9,14 @@ const inter = Inter({
 
 const outfit = Outfit({
   variable: "--font-outfit-family",
-  weight: ["700", "900"],
+  weight: ["600", "700", "800", "900"],
+  subsets: ["latin"],
+});
+
+// Body face of the /webdesign subpage
+const geist = Geist({
+  variable: "--font-geist-sans",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -51,7 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="de"
-      className={`${inter.variable} ${outfit.variable} ${archivoNarrow.variable} ${geistMono.variable} antialiased`}
+      className={`${inter.variable} ${outfit.variable} ${archivoNarrow.variable} ${geist.variable} ${geistMono.variable} antialiased`}
     >
       <body>{children}</body>
     </html>

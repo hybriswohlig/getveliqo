@@ -63,7 +63,7 @@ export const services = {
       image: "/assets/services/card-02-webdesign.jpg",
       description:
         "Wir entwickeln digitale Markenwelten, die auffallen, verbinden und konvertieren - von der Strategie bis zur responsiven Website.",
-      link: { label: "mehr erfahren", href: anchors.contact }, // TODO: webdesign subpage
+      link: { label: "mehr erfahren", href: "/webdesign" },
     },
     {
       number: "03",
