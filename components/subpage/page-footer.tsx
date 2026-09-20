@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LogoMark } from "@/components/brand/logo-mark";
 import { copyright, email, office, socials, type FooterContent } from "@/content/subpage";
 
 // Figma frame "velyqo-footer", 1440×881. Its column set and the giant slogan
@@ -13,13 +14,8 @@ export function PageFooter({ content }: { content: FooterContent }) {
         <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-[240px_1fr_repeat(3,minmax(0,200px))] lg:gap-x-[60px]">
           <div className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
             <p className="flex items-center gap-2.5">
-              <span
-                aria-hidden="true"
-                className="font-outfit flex size-[30px] items-center justify-center rounded-[5px] bg-obsidian text-[17px] leading-[normal] font-black text-white"
-              >
-                V
-              </span>
-              <span className="font-outfit text-[20px] leading-[normal] font-extrabold text-obsidian">VELYQO</span>
+              <LogoMark tone="dark" size={36} className="size-9" />
+              <span className="text-[20px] leading-[normal] font-black text-graphite">VELYQO</span>
             </p>
             <div className="flex flex-col gap-2 text-[13px]">
               <h2 className="leading-[normal] font-bold text-obsidian">{office.title}</h2>
