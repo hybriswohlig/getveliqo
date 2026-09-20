@@ -1,17 +1,18 @@
 // Homepage copy and link targets, taken verbatim from the Figma frames.
 // Links marked TODO point at pages or profiles that don't exist yet.
 
+// Rooted at "/" so the header and footer links also work from subpages.
 export const anchors = {
-  services: "#services",
-  about: "#ueber-uns",
-  approach: "#one-voice",
-  contact: "#kontakt",
+  services: "/#services",
+  about: "/#ueber-uns",
+  approach: "/#one-voice",
+  contact: "/#kontakt",
 } as const;
 
 export const mainNav = [
   { label: "SERVICES", href: anchors.services },
   { label: "ÜBER UNS", href: anchors.about },
-  { label: "PORTFOLIO", href: "#portfolio" }, // TODO: portfolio subpage
+  { label: "PORTFOLIO", href: "/#portfolio" }, // TODO: portfolio subpage
   { label: "KONTAKT", href: anchors.contact },
 ];
 
