@@ -132,35 +132,57 @@ function Callout({
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
-function calloutSegments(n: number, at: number): AnimationSequence {
+// One step per Figma animation frame. Each gets the same slice of the scroll
+// range, with a short rest after it so the visitor sees the steps one by one.
+const STEP = 1;
+const REST = 0.25;
+const stepAt = (index: number) => index * (STEP + REST);
+
+// A callout draws itself: dot, connector, then the text (Figma "start 3" / "6"
+// / the last final frame).
+function callout(n: number, index: number): AnimationSequence {
+  const at = stepAt(index);
   return [
-    [`[data-anim="dot-${n}"]`, { scale: 1 }, { duration: 0.3, at, ease: easeOut }],
-    [`[data-anim="line-${n}"]`, { clipPath: "inset(0 0 0 0%)" }, { duration: 0.55, at: at + 0.1, ease: easeOut }],
-    [`[data-anim="label-${n}"]`, { opacity: 1, y: 0 }, { duration: 0.5, at: at + 0.35, ease: easeOut }],
+    [`[data-anim="dot-${n}"]`, { scale: 1 }, { duration: 0.25, at, ease: easeOut }],
+    [`[data-anim="line-${n}"]`, { clipPath: "inset(0 0 0 0%)" }, { duration: 0.45, at: at + 0.15, ease: easeOut }],
+    [`[data-anim="label-${n}"]`, { opacity: 1, y: 0 }, { duration: 0.4, at: at + 0.45, ease: easeOut }],
   ];
 }
 
 // The layers travel out of the laptop rather than fading in, so there is no
 // opacity track here: they are simply hidden behind the laptop until they clear
 // its screen.
-function enter(id: string, at: number, duration: number): AnimationSequence {
-  return [[`[data-anim="${id}"]`, { x: "0%", y: "0%", scale: 1 }, { duration, at, ease: easeOut }]];
+function enter(ids: string[], index: number): AnimationSequence {
+  const at = stepAt(index);
+  return ids.map((id) => [`[data-anim="${id}"]`, { x: "0%", y: "0%" }, { duration: STEP, at, ease: easeOut }]);
 }
 
-// After the laptop has opened, the scene builds up in the order of the Figma
-// animation-state frames. On desktop this timeline is scrubbed by scroll, so
-// each step flies in as the visitor scrolls; below that it plays on a timer.
+// The build-up, step by step, following the Figma frames "velyqo-hero-animation
+// start 3" through the last "final". The laptop opening (frames start 0–2) is
+// the video and runs before this timeline.
 const buildUp: AnimationSequence = [
-  ...calloutSegments(1, 0.35),
-  ...enter("google", 1.0, 1.1),
-  ...enter("chatgpt", 1.15, 1.1),
-  ...calloutSegments(2, 2.05),
-  ...enter("phone", 2.55, 0.95),
-  ...enter("instagram", 3.2, 0.85),
-  ...calloutSegments(3, 3.85),
+  ...callout(1, 0), // start 3: // 01 Webdesign
+  ...enter(["google", "chatgpt"], 1), // start 4–5: both panels rise together
+  ...callout(2, 2), // start 6: // 02 SEO, GEO & PR
+  ...enter(["phone"], 3), // start 7 → final 8: phone from the right
+  ...enter(["instagram"], 4), // final: the Instagram card
+  ...callout(3, 5), // final: // 03 E-Commerce
 ];
 
 const DESKTOP = "(min-width: 1024px)";
+
+// How the pinned scroll range is divided: the laptop opens over the first
+// stretch, the intro then hands over to the live layers, and the rest drives
+// the build-up.
+const VIDEO_PHASE = 0.32;
+const HANDOVER = 0.06;
+
+// Every frame of this one is a keyframe so it can be scrubbed; the smaller
+// file is the one that plays by itself below 1024px.
+const SCRUB_VIDEO = "/assets/home/hero/laptop-open-scrub.mp4";
+const PLAY_VIDEO = "/assets/home/hero/laptop-open.mp4";
+
+const clamp = (n: number) => Math.min(1, Math.max(0, n));
 
 export function HeroScene() {
   const [scope, animate] = useAnimate<HTMLDivElement>();
@@ -171,60 +193,69 @@ export function HeroScene() {
     if (reducedMotion) return;
     const video = videoRef.current;
     const scene = scope.current;
-    if (!video || !scene) return;
+    const intro = scene?.querySelector<HTMLElement>("[data-intro]");
+    if (!video || !scene || !intro) return;
 
     const scrubbed = window.matchMedia(DESKTOP).matches;
-    // Always paused to begin with: nothing animates while the video plays.
+    // Always paused to begin with: nothing animates on its own.
     const timeline = animate(buildUp, { autoplay: false });
+    video.src = scrubbed ? SCRUB_VIDEO : PLAY_VIDEO;
 
+    if (scrubbed) {
+      // Scroll drives everything: first the laptop opening, then the build-up.
+      const range = scene.closest("[data-scroll-range]") ?? undefined;
+      const stopScroll = scroll(
+        (progress: number) => {
+          const duration = video.duration || 3.75;
+          const opening = clamp(progress / VIDEO_PHASE) * duration;
+          if (Math.abs(video.currentTime - opening) > 0.02) video.currentTime = opening;
+          intro.style.opacity = String(1 - clamp((progress - VIDEO_PHASE) / HANDOVER));
+          const build = (progress - VIDEO_PHASE - HANDOVER) / (1 - VIDEO_PHASE - HANDOVER);
+          timeline.time = clamp(build) * timeline.duration;
+        },
+        { target: range as Element | undefined, offset: ["start start", "end end"] },
+      );
+      return () => {
+        stopScroll();
+        timeline.stop();
+      };
+    }
+
+    // Below 1024px the hero isn't pinned, so the video plays and the build-up
+    // follows it on a timer.
     let introDone = false;
-    const finishIntro = (duration: number) => {
+    const finishIntro = () => {
       if (introDone) return;
       introDone = true;
       video.pause();
-      animate("[data-intro]", { opacity: 0 }, { duration });
-      // On a timer, the build-up starts as soon as the intro is out of the way.
-      if (!scrubbed) timeline.play();
+      animate(intro, { opacity: 0 }, { duration: 0.5 });
+      // Nothing paces it here, so run the steps a bit quicker than on scroll.
+      timeline.speed = 1.6;
+      timeline.play();
     };
-
-    // Wait for the open-laptop layers before the video gives way to them.
     const ready = Promise.race([
       Promise.all([...scene.querySelectorAll("img")].map((img) => img.decode().catch(() => undefined))),
       new Promise((resolve) => setTimeout(resolve, 1500)),
     ]);
-    const onEnded = () => ready.then(() => finishIntro(0.5));
+    const onEnded = () => ready.then(finishIntro);
 
-    // If the video can't play (blocked autoplay, e.g. iOS low-power mode, or a
-    // failed download), go straight to the built-up scene.
-    const lastSource = video.querySelector("source:last-of-type");
+    // Playing before the source has loaded aborts the request, so wait for data.
+    const startPlayback = () => {
+      video.play().catch(onEnded);
+    };
     video.addEventListener("ended", onEnded);
-    lastSource?.addEventListener("error", onEnded);
-    video.play().catch(onEnded);
+    video.addEventListener("error", onEnded);
+    if (video.readyState >= 2) startPlayback();
+    else video.addEventListener("loadeddata", startPlayback, { once: true });
     const fallback = setTimeout(() => {
       if (video.currentTime === 0) onEnded();
-    }, 4000);
-
-    let stopScroll: VoidFunction | undefined;
-    if (scrubbed) {
-      const range = scene.closest("[data-scroll-range]") ?? undefined;
-      stopScroll = scroll(
-        (progress: number) => {
-          // Scrolling never runs alongside the video: it cuts the intro short.
-          if (!introDone) {
-            if (progress <= 0.001) return;
-            finishIntro(0.35);
-          }
-          timeline.time = progress * timeline.duration;
-        },
-        { target: range as Element | undefined, offset: ["start start", "end end"] },
-      );
-    }
+    }, 6000);
 
     return () => {
       video.removeEventListener("ended", onEnded);
-      lastSource?.removeEventListener("error", onEnded);
+      video.removeEventListener("error", onEnded);
+      video.removeEventListener("loadeddata", startPlayback);
       clearTimeout(fallback);
-      stopScroll?.();
       timeline.stop();
     };
   }, [animate, reducedMotion, scope]);
@@ -248,10 +279,7 @@ export function HeroScene() {
             sizes="(min-width: 1024px) 100vw, 146vw"
             preload
           />
-          <video ref={videoRef} className={styles.introVideo} muted playsInline preload="auto">
-            <source src="/assets/home/hero/laptop-open.webm" type="video/webm" />
-            <source src="/assets/home/hero/laptop-open.mp4" type="video/mp4" />
-          </video>
+          <video ref={videoRef} className={styles.introVideo} muted playsInline preload="auto" />
         </div>
       </div>
 
