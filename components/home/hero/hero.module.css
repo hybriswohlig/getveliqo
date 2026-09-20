@@ -260,6 +260,44 @@
   }
 }
 
+.scene {
+  display: contents;
+}
+
+/* The laptop-opening video and its poster sit on top of the static layers
+   until the video ends, then fade out to reveal them. */
+.intro {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Only the scene area comes from the video, so the grid lines and the
+     empty background around the copy stay live during the intro. */
+  mask-image:
+    linear-gradient(to right, transparent 8%, #000 14%),
+    linear-gradient(to bottom, transparent 17%, #000 30%);
+  mask-composite: intersect;
+}
+
+.introVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+
+  .scene [data-anim] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
 /* Absolutely positioned layers, placed with inline stage-unit styles. */
 .layer {
   position: absolute;

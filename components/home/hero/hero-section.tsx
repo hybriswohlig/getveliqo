@@ -1,7 +1,7 @@
 import { SiteHeader } from "@/components/layout/site-header";
 import { ArrowRightIcon } from "@/components/ui/arrow-right-icon";
 import { hero } from "@/content/home";
-import { HeroCallouts, HeroComposition } from "./hero-composition";
+import { HeroScene } from "./hero-scene";
 import styles from "./hero.module.css";
 
 export function HeroSection() {
@@ -37,8 +37,7 @@ export function HeroSection() {
           <p className={styles.stamp}>{hero.stamp}</p>
 
           <div className={styles.visual}>
-            <HeroComposition />
-            <HeroCallouts />
+            <HeroScene />
           </div>
         </div>
       </div>
