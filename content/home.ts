@@ -68,7 +68,7 @@ export const services = {
       image: "/assets/services/card-02-webdesign.jpg",
       description:
         "Wir entwickeln digitale Markenwelten, die auffallen, verbinden und konvertieren - von der Strategie bis zur responsiven Website.",
-      link: { label: "mehr erfahren", href: anchors.contact }, // TODO: webdesign subpage
+      link: { label: "mehr erfahren", href: "/webdesign" },
     },
     {
       number: "03",
@@ -78,7 +78,7 @@ export const services = {
       // TODO: copy not in Figma - placeholder text, please review
       description:
         "Wir bauen Online-Shops, die Besucher zu Kunden machen - von der Produktdarstellung bis zum reibungslosen Checkout.",
-      link: { label: "mehr erfahren", href: anchors.contact }, // TODO: ecommerce subpage
+      link: { label: "mehr erfahren", href: "/ecommerce" },
     },
   ],
 };

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { CtaSection } from "@/components/pr-seo-geo/cta-section";
-import { FaqSection } from "@/components/pr-seo-geo/faq-section";
-import { HeroSection } from "@/components/pr-seo-geo/hero-section";
-import { IntroSection } from "@/components/pr-seo-geo/intro-section";
-import { MetricsSection } from "@/components/pr-seo-geo/metrics-section";
-import { PageFooter } from "@/components/pr-seo-geo/page-footer";
-import { PageHeader } from "@/components/pr-seo-geo/page-header";
-import { PricingSection } from "@/components/pr-seo-geo/pricing-section";
-import { ProcessSection } from "@/components/pr-seo-geo/process-section";
-import { ServicesSection } from "@/components/pr-seo-geo/services-section";
+import { CtaSection } from "@/components/subpage/cta-section";
+import { FaqSection } from "@/components/subpage/faq-section";
+import { HeroSection } from "@/components/subpage/hero-section";
+import { IntroSection } from "@/components/subpage/intro-section";
+import { MetricsSection } from "@/components/subpage/metrics-section";
+import { PackagesSection } from "@/components/subpage/packages-section";
+import { PageFooter } from "@/components/subpage/page-footer";
+import { PageHeader } from "@/components/subpage/page-header";
+import { ProcessSection } from "@/components/subpage/process-section";
+import { cta, faq, footer, headerCta, hero, intro, method, metrics, nav, pricing, services } from "@/content/pr-seo-geo";
 
 const title = "PR, SEO & GEO — VELYQO";
 const description =
@@ -26,18 +26,26 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="bg-white font-geist text-obsidian">
-      <PageHeader />
+      <PageHeader nav={nav} cta={headerCta} />
       <main>
-        <HeroSection />
-        <IntroSection />
-        <ServicesSection />
-        <MetricsSection />
-        <ProcessSection />
-        <PricingSection />
-        <FaqSection />
-        <CtaSection />
+        <HeroSection
+          id="sichtbarkeit"
+          copy={hero}
+          image={{ src: "/assets/pr-seo-geo/hero-mockup.jpg", width: 1264, height: 848 }}
+          glow="/assets/shared/hero-glow.svg"
+          leftClassName="lg:basis-[560px]"
+          rightClassName="lg:basis-[680px]"
+          imageClassName="aspect-[640/440] rounded-xl lg:max-w-[640px]"
+        />
+        <IntroSection content={intro} />
+        <PackagesSection id="leistungen" {...services} />
+        <MetricsSection content={metrics} />
+        <ProcessSection id="prozess" content={method} />
+        <PackagesSection id="modelle" {...pricing} titleClassName="text-[38px]" />
+        <FaqSection content={faq} />
+        <CtaSection content={cta} />
       </main>
-      <PageFooter />
+      <PageFooter content={footer} />
     </div>
   );
 }
