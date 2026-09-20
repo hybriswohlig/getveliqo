@@ -169,7 +169,8 @@ const buildUp: AnimationSequence = [
   ...callout(3, 5), // final: // 03 E-Commerce
 ];
 
-const DESKTOP = "(min-width: 1024px)";
+// Matches the width at which the hero pins and the callouts appear (see CSS).
+const SCRUBBED = "(min-width: 1280px)";
 
 // How the pinned scroll range is divided: the laptop opens over the first
 // stretch, the intro then hands over to the live layers, and the rest drives
@@ -196,25 +197,35 @@ export function HeroScene() {
     const intro = scene?.querySelector<HTMLElement>("[data-intro]");
     if (!video || !scene || !intro) return;
 
-    const scrubbed = window.matchMedia(DESKTOP).matches;
+    const scrubbed = window.matchMedia(SCRUBBED).matches;
     // Always paused to begin with: nothing animates on its own.
     const timeline = animate(buildUp, { autoplay: false });
     video.src = scrubbed ? SCRUB_VIDEO : PLAY_VIDEO;
 
     if (scrubbed) {
       // Scroll drives everything: first the laptop opening, then the build-up.
-      const range = scene.closest("[data-scroll-range]") ?? undefined;
-      const stopScroll = scroll(
-        (progress: number) => {
-          const duration = video.duration || 3.75;
-          const opening = clamp(progress / VIDEO_PHASE) * duration;
-          if (Math.abs(video.currentTime - opening) > 0.02) video.currentTime = opening;
-          intro.style.opacity = String(1 - clamp((progress - VIDEO_PHASE) / HANDOVER));
-          const build = (progress - VIDEO_PHASE - HANDOVER) / (1 - VIDEO_PHASE - HANDOVER);
-          timeline.time = clamp(build) * timeline.duration;
-        },
-        { target: range as Element | undefined, offset: ["start start", "end end"] },
-      );
+      const range = scene.closest("[data-scroll-range]");
+      const apply = (progress: number) => {
+        const duration = video.duration || 3.75;
+        const opening = clamp(progress / VIDEO_PHASE) * duration;
+        if (Math.abs(video.currentTime - opening) > 0.02) video.currentTime = opening;
+        intro.style.opacity = String(1 - clamp((progress - VIDEO_PHASE) / HANDOVER));
+        const build = (progress - VIDEO_PHASE - HANDOVER) / (1 - VIDEO_PHASE - HANDOVER);
+        timeline.time = clamp(build) * timeline.duration;
+      };
+      const stopScroll = scroll(apply, {
+        target: range ?? undefined,
+        offset: ["start start", "end end"],
+      });
+      // A fresh timeline only holds the steps it has been scrubbed to. After a
+      // remount (fast refresh, route change) apply the current scroll position
+      // right away instead of waiting for the next scroll event — otherwise the
+      // steps that were already past would sit at their starting values.
+      if (range) {
+        const box = range.getBoundingClientRect();
+        const distance = box.height - window.innerHeight;
+        apply(distance > 0 ? clamp(-box.top / distance) : 0);
+      }
       return () => {
         stopScroll();
         timeline.stop();
