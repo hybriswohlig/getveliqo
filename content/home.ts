@@ -57,6 +57,10 @@ export const services = {
       number: "01",
       title: "PR, SEO & GEO",
       image: "/assets/services/card-01-pr-seo-geo.jpg",
+      // TODO: copy not in Figma - placeholder text, please review
+      description:
+        "Wir machen Ihre Marke sichtbar - in Suchmaschinen, in KI-Antworten und in den Medien, die Ihre Zielgruppe wirklich liest.",
+      link: { label: "mehr erfahren", href: anchors.contact }, // TODO: pr-seo-geo subpage
     },
     {
       number: "02",
@@ -71,6 +75,10 @@ export const services = {
       // Figma reads "ECommerce Make"; the hero labels the same service "E-Commerce".
       title: "E-Commerce",
       image: "/assets/services/card-03-ecommerce.jpg",
+      // TODO: copy not in Figma - placeholder text, please review
+      description:
+        "Wir bauen Online-Shops, die Besucher zu Kunden machen - von der Produktdarstellung bis zum reibungslosen Checkout.",
+      link: { label: "mehr erfahren", href: anchors.contact }, // TODO: ecommerce subpage
     },
   ],
 };
