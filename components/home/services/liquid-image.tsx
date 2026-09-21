@@ -2,161 +2,150 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { createFluid, type Fluid } from "./fluid";
 import styles from "./liquid-image.module.css";
 
-// How fast the lens catches up with the pointer, and how far the copy is
-// dragged behind it at most. The easing matches the liquid glass cursor, so
-// the two read as one thing: the lens pulls the colour along with it.
-const EASE = 0.16;
-const MAX_DRAG = 18;
-
-// The filter's noise is animated, which costs real work on every frame, so it
-// runs only while a card is actually being pointed at.
-let pointed = 0;
-
-function smearSvg() {
-  // getElementById is typed as HTMLElement, but this id belongs to the filter.
-  const filter = document.getElementById("liquid-smear") as SVGFilterElement | null;
-  return filter?.ownerSVGElement ?? null;
-}
-
-function setWaterRunning(running: boolean) {
-  const svg = smearSvg();
-  if (!svg) return;
-  pointed = Math.max(0, pointed + (running ? 1 : -1));
-  if (pointed > 0) svg.unpauseAnimations();
-  else svg.pauseAnimations();
-}
-
-// The still card image with a round lens over it that follows the pointer and
-// shows the same image displaced by moving noise.
+// The card's artwork, with a fluid simulation of it laid on top. Moving the
+// pointer pushes into the paint, which swirls, pulls into strands and mixes;
+// taking the pointer away lets it settle back into the picture it came from.
+//
+// The still <Image> stays in the markup underneath: it is what is shown
+// before the first hover, on touch, under reduced motion, and on anything
+// that cannot give us the render targets the solver needs.
 //
 // The pointer is tracked on the enclosing [data-smear-surface] (the whole
-// card) rather than on this element: the card stacks its tint overlay and its
-// text above the image, and those are siblings, so events there never reach
-// us.
+// card) rather than on this element, because the card stacks its tint overlay
+// and its text above the image as siblings, so events there never reach us.
 export function LiquidImage({ src, sizes }: { src: string; sizes: string }) {
   const wrap = useRef<HTMLDivElement>(null);
+  const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const el = wrap.current;
-    if (!el) return;
+    const cv = canvas.current;
+    if (!el || !cv) return;
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    smearSvg()?.pauseAnimations();
-
     const surface = el.closest<HTMLElement>("[data-smear-surface]") ?? el;
-    const target = { x: 0, y: 0 };
-    const eased = { x: 0, y: 0 };
+    const pointer = { x: 0.5, y: 0.5 };
+    let fluid: Fluid | null = null;
+    let unavailable = false;
     let frame: number | null = null;
-    let pointing = false;
+    let last = 0;
+    let held = false;
 
-    // The copy is laid out at the card's size, so the lens needs to know it.
-    const measure = () => {
-      const box = el.getBoundingClientRect();
-      el.style.setProperty("--w", `${box.width}px`);
-      el.style.setProperty("--h", `${box.height}px`);
+    const sizeCanvas = () => {
+      const rect = el.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = Math.max(1, Math.round(rect.width * dpr));
+      const height = Math.max(1, Math.round(rect.height * dpr));
+      if (cv.width === width && cv.height === height) return false;
+      cv.width = width;
+      cv.height = height;
+      return true;
     };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
 
-    const render = () => {
+    const stop = () => {
+      if (frame !== null) window.cancelAnimationFrame(frame);
       frame = null;
-      eased.x += (target.x - eased.x) * EASE;
-      eased.y += (target.y - eased.y) * EASE;
-
-      // Whatever distance the lens is still behind the pointer becomes the
-      // direction the colour is dragged in.
-      const dx = Math.max(-MAX_DRAG, Math.min(MAX_DRAG, (target.x - eased.x) * 0.9));
-      const dy = Math.max(-MAX_DRAG, Math.min(MAX_DRAG, (target.y - eased.y) * 0.9));
-
-      el.style.setProperty("--mx", `${eased.x.toFixed(2)}px`);
-      el.style.setProperty("--my", `${eased.y.toFixed(2)}px`);
-      el.style.setProperty("--dx", `${dx.toFixed(2)}px`);
-      el.style.setProperty("--dy", `${dy.toFixed(2)}px`);
-
-      if (Math.hypot(target.x - eased.x, target.y - eased.y) > 0.25) {
-        frame = window.requestAnimationFrame(render);
-      }
+      el.dataset.live = "false";
     };
 
-    const schedule = () => {
-      if (frame === null) frame = window.requestAnimationFrame(render);
+    const loop = (now: number) => {
+      frame = window.requestAnimationFrame(loop);
+      const dt = last ? now - last : 16;
+      last = now;
+      fluid?.step(dt, now);
+      // Once the paint is back to the artwork the canvas has nothing left to
+      // show, so it fades out and the loop stops until the next hover.
+      if (fluid?.settled()) stop();
+    };
+
+    const start = () => {
+      if (frame !== null) return false;
+      last = 0;
+      frame = window.requestAnimationFrame(loop);
+      return true;
+    };
+
+    // The solver needs the decoded artwork, which is the <img> next/image
+    // already put in the page, so nothing is downloaded twice.
+    const ensure = () => {
+      if (fluid || unavailable) return fluid;
+      const img = el.querySelector("img");
+      if (!img || !img.complete || !img.naturalWidth) return null;
+      sizeCanvas();
+      fluid = createFluid(cv, img);
+      if (!fluid) unavailable = true;
+      return fluid;
     };
 
     const track = (event: PointerEvent) => {
       if (event.pointerType === "touch") return;
-      const box = el.getBoundingClientRect();
-      target.x = event.clientX - box.left;
-      target.y = event.clientY - box.top;
+      const active = ensure();
+      if (!active) return;
 
-      // Start where the pointer entered instead of sliding the lens in from
-      // wherever it was left last time.
-      if (!pointing) {
-        pointing = true;
-        eased.x = target.x;
-        eased.y = target.y;
-        el.dataset.pointing = "true";
-        setWaterRunning(true);
+      const rect = el.getBoundingClientRect();
+      const x = (rect.width ? (event.clientX - rect.left) / rect.width : 0.5);
+      // The simulation's y runs the other way from the page's.
+      const y = 1 - (rect.height ? (event.clientY - rect.top) / rect.height : 0.5);
+
+      if (!held) {
+        held = true;
+        el.dataset.live = "true";
+        // Only wipe the tank when it is actually at rest; coming back to a
+        // card that is still settling should carry on from where it is.
+        if (start()) active.reset();
+        active.hold();
+        pointer.x = x;
+        pointer.y = y;
       }
-      schedule();
+
+      active.push(x, y, x - pointer.x, y - pointer.y);
+      pointer.x = x;
+      pointer.y = y;
     };
 
-    const clear = () => {
-      if (!pointing) return;
-      pointing = false;
-      el.dataset.pointing = "false";
-      setWaterRunning(false);
+    const leave = () => {
+      if (!held) return;
+      held = false;
+      fluid?.release();
     };
+
+    const lost = (event: Event) => {
+      event.preventDefault();
+      stop();
+      fluid = null;
+      unavailable = true;
+    };
+
+    const observer = new ResizeObserver(() => {
+      if (sizeCanvas()) fluid?.resize();
+    });
+    observer.observe(el);
 
     surface.addEventListener("pointermove", track);
-    surface.addEventListener("pointerleave", clear);
-    surface.addEventListener("pointercancel", clear);
+    surface.addEventListener("pointerleave", leave);
+    surface.addEventListener("pointercancel", leave);
+    cv.addEventListener("webglcontextlost", lost);
+
     return () => {
-      if (frame !== null) window.cancelAnimationFrame(frame);
+      stop();
       observer.disconnect();
-      clear();
       surface.removeEventListener("pointermove", track);
-      surface.removeEventListener("pointerleave", clear);
-      surface.removeEventListener("pointercancel", clear);
+      surface.removeEventListener("pointerleave", leave);
+      surface.removeEventListener("pointercancel", leave);
+      cv.removeEventListener("webglcontextlost", lost);
+      fluid?.destroy();
+      fluid = null;
     };
   }, []);
 
   return (
     <div ref={wrap} className={styles.wrap}>
       <Image src={src} alt="" fill sizes={sizes} className="object-cover" />
-      <div className={styles.lens} aria-hidden="true">
-        <div className={styles.inner}>
-          <Image src={src} alt="" fill sizes={sizes} className="object-cover" />
-        </div>
-      </div>
+      <canvas ref={canvas} className={styles.canvas} aria-hidden="true" />
     </div>
-  );
-}
-
-// One filter for every card. The noise field is animated on two cycles that
-// do not divide into each other, so it keeps churning without ever settling
-// into a loop the eye can follow: that is what makes the colour look like it
-// is mixing rather than sliding. Both run fast and wide on purpose — the
-// movement is meant to be plainly visible, not a hint.
-export function LiquidSmearFilter() {
-  return (
-    <svg width="0" height="0" aria-hidden="true" focusable="false" className="absolute">
-      <filter id="liquid-smear" x="-32%" y="-32%" width="164%" height="164%" colorInterpolationFilters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency="0.005 0.013" numOctaves={1} seed={7} result="noise">
-          <animate
-            attributeName="baseFrequency"
-            dur="5s"
-            values="0.005 0.013;0.014 0.005;0.006 0.016;0.011 0.009;0.005 0.013"
-            repeatCount="indefinite"
-          />
-        </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale={125} xChannelSelector="R" yChannelSelector="G">
-          <animate attributeName="scale" dur="3.5s" values="125;180;90;125" repeatCount="indefinite" />
-        </feDisplacementMap>
-      </filter>
-    </svg>
   );
 }

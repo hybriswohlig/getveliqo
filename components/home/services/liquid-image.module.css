@@ -1,75 +1,37 @@
 /*
- * The card image stays still. Over it sits a lens: a round patch that follows
- * the pointer and shows the same image again, run through a displacement
- * filter whose noise field is animated, so the colours inside keep moving and
- * mixing into each other like water. Take the pointer off and the lens fades
- * out, leaving the original image exactly as it was.
- *
- * Only the patch is filtered, not the whole card, which keeps the animated
- * turbulence affordable.
+ * The card keeps its still image. On top of it sits a canvas running a fluid
+ * simulation that starts out as that same image, so switching between the two
+ * is invisible: it fades in when the pointer arrives and out once the
+ * simulation has settled back to the artwork it started from.
  */
 
 .wrap {
   position: absolute;
   inset: 0;
-  --r: 155px;
-  --mx: 50%;
-  --my: 50%;
-  --dx: 0px;
-  --dy: 0px;
-  --w: 420px;
-  --h: 480px;
 }
 
-.lens {
+.canvas {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: calc(var(--r) * 2);
-  height: calc(var(--r) * 2);
-  transform: translate3d(calc(var(--mx) - var(--r)), calc(var(--my) - var(--r)), 0);
-  filter: url(#liquid-smear);
-  /* Soft all the way out, so the moving water has no rim against the still
-     image underneath. */
-  --mask: radial-gradient(closest-side, #000 0%, #000 26%, rgb(0 0 0 / 0.58) 56%, transparent 100%);
-  -webkit-mask-image: var(--mask);
-  mask-image: var(--mask);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  transition: opacity 460ms ease-out;
-  will-change: transform, opacity;
+  transition: opacity 280ms ease-out;
 }
 
-.wrap[data-pointing="true"] .lens {
+.wrap[data-live="true"] .canvas {
   opacity: 1;
 }
 
-/* The copy is laid out at the card's own size and pushed back by the lens
-   offset, so it lines up with the still image underneath. --dx/--dy add the
-   pull from the pointer's movement, which is what drags the colour along. */
-.inner {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: var(--w);
-  height: var(--h);
-  transform: translate3d(
-    calc(var(--r) - var(--mx) + var(--dx)),
-    calc(var(--r) - var(--my) + var(--dy)),
-    0
-  );
-}
-
-/* No pointer, no water. */
+/* No pointer to push the paint around, no simulation. */
 @media (hover: none), (pointer: coarse) {
-  .lens {
+  .canvas {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lens {
+  .canvas {
     display: none;
   }
 }

@@ -1,7 +1,6 @@
 import { LogoMark } from "@/components/brand/logo-mark";
 import { Glow } from "@/components/ui/glow";
 import { services } from "@/content/home";
-import { LiquidSmearFilter } from "./liquid-image";
 import { ServiceCard } from "./service-card";
 
 // Figma frame "velyqo-services" (21:61), 1440×1000.
@@ -13,7 +12,6 @@ export function ServicesSection() {
       aria-labelledby="services-title"
       className="relative overflow-hidden bg-ink"
     >
-      <LiquidSmearFilter />
       <div className="relative mx-auto max-w-[1440px] frame:min-h-[1000px]">
         <Glow x={100} y={150} width={600} height={500} color="var(--color-glow-pink)" opacity={0.0706} blur={60} />
         <Glow x={800} y={300} width={600} height={600} color="var(--color-lime)" opacity={0.0588} blur={70} />
