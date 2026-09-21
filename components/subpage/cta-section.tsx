@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CtaContent } from "@/content/subpage";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 import { Section } from "./section";
 
@@ -41,7 +42,7 @@ export function CtaSection({
         />
         <div aria-hidden="true" className={cn("absolute inset-0 -z-10 rounded-3xl", overlayClassName)} />
 
-        <div className="flex flex-col gap-5 lg:w-[540px] lg:shrink">
+        <Reveal className="flex flex-col gap-5 lg:w-[540px] lg:shrink">
           <p className="text-[11px] leading-[normal] font-bold text-volt uppercase">{content.eyebrow}</p>
           <h2
             id="kontakt-title"
@@ -50,9 +51,9 @@ export function CtaSection({
             {content.title}
           </h2>
           <p className="text-[14px] leading-[1.55] text-[#a9a9b2]">{content.lead}</p>
-        </div>
+        </Reveal>
 
-        <div className={cn("flex items-center lg:h-full", productImage && "lg:pr-[200px]")}>
+        <Reveal delay={0.1} className={cn("flex items-center lg:h-full", productImage && "lg:pr-[200px]")}>
           <div className="flex flex-col items-start gap-3 lg:items-center lg:pr-12">
             <a
               href={content.button.href}
@@ -66,7 +67,7 @@ export function CtaSection({
               {content.note}
             </p>
           </div>
-        </div>
+        </Reveal>
 
         {/* Fills the card's right end, the full height of the card */}
         {productImage ? (

@@ -36,8 +36,8 @@ export function PackagesSection({
         titleClassName="text-[clamp(30px,3.0556vw,44px)]"
       />
       <ul className="grid gap-6 md:grid-cols-3">
-        {items.map((item) => (
-          <PackageCard key={item.eyebrow} item={item} titleClassName={titleClassName} />
+        {items.map((item, index) => (
+          <PackageCard key={item.heading} item={item} titleClassName={titleClassName} index={index} />
         ))}
       </ul>
     </Section>

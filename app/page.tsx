@@ -4,12 +4,10 @@ import { IntroSection } from "@/components/home/intro-section";
 import { LiquidGlassCursor } from "@/components/home/liquid-glass-cursor";
 import { ServicesSection } from "@/components/home/services/services-section";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { RevealFallback } from "@/components/ui/reveal";
 
 export default function Home() {
   return (
     <>
-      <RevealFallback />
       <main>
         <HeroSection />
         <LiquidGlassCursor />

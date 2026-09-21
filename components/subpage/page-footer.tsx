@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Reveal } from "@/components/ui/reveal";
 import { copyright, email, office, socials, type FooterContent } from "@/content/subpage";
 
 // Figma frame "velyqo-footer", 1440×881. Its column set and the giant slogan
@@ -11,7 +12,7 @@ export function PageFooter({ content }: { content: FooterContent }) {
     <footer className="overflow-hidden bg-mist">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-14 px-5 pt-16 md:px-10 lg:px-[5.5556vw] lg:pt-[72px] frame:px-20">
         <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-[240px_1fr_repeat(3,minmax(0,200px))] lg:gap-x-[60px]">
-          <div className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
+          <Reveal className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
             <p className="flex items-center gap-2.5">
               <span
                 aria-hidden="true"
@@ -34,21 +35,23 @@ export function PageFooter({ content }: { content: FooterContent }) {
             <a href={`mailto:${email}`} className="text-[13px] leading-[normal] font-semibold text-obsidian">
               {email}
             </a>
-          </div>
+          </Reveal>
 
           <div aria-hidden="true" className="max-lg:hidden" />
 
-          {content.columns.map((column) => (
-            <nav key={column.title} aria-label={column.title} className="flex flex-col gap-4">
-              <h2 className="text-[14px] leading-[normal] font-bold text-obsidian">{column.title}</h2>
-              <ul className="flex flex-col gap-2.5 text-[13px] leading-[normal] text-[#6b6b76]">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    <Link href={link.href}>{link.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+          {content.columns.map((column, index) => (
+            <Reveal key={column.title} delay={(index + 1) * 0.07}>
+              <nav aria-label={column.title} className="flex flex-col gap-4">
+                <h2 className="text-[14px] leading-[normal] font-bold text-obsidian">{column.title}</h2>
+                <ul className="flex flex-col gap-2.5 text-[13px] leading-[normal] text-[#6b6b76]">
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      <Link href={link.href}>{link.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </Reveal>
           ))}
         </div>
 

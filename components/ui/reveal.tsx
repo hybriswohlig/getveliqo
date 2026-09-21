@@ -44,15 +44,3 @@ export function Reveal({ children, delay = 0, distance = 28, as = "div", ...rest
     </Tag>
   );
 }
-
-// Without scripting nothing can ever reveal the text, so it must not start
-// hidden. Rendered once per page.
-export function RevealFallback() {
-  return (
-    <noscript>
-      <style>
-        {"[data-reveal]{opacity:1!important;transform:none!important}"}
-      </style>
-    </noscript>
-  );
-}

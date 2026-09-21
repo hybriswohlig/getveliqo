@@ -1,12 +1,25 @@
 import { ArrowRightIcon } from "@/components/ui/arrow-right-icon";
+import { Reveal } from "@/components/ui/reveal";
 import type { PackageItem } from "@/content/subpage";
 import { cn } from "@/lib/utils";
 
 // The white card with a pink-to-lime bar on top ("pricing-card" in Figma).
 // Cards in a row stretch to the same height.
-export function PackageCard({ item, titleClassName }: { item: PackageItem; titleClassName: string }) {
+export function PackageCard({
+  item,
+  titleClassName,
+  index = 0,
+}: {
+  item: PackageItem;
+  titleClassName: string;
+  index?: number;
+}) {
   return (
-    <li className="relative flex flex-col gap-6 overflow-hidden rounded-[20px] border border-hairline bg-white p-8">
+    <Reveal
+      as="li"
+      delay={index * 0.08}
+      className="relative flex flex-col gap-6 overflow-hidden rounded-[20px] border border-hairline bg-white p-8"
+    >
       <span
         aria-hidden="true"
         className="absolute inset-x-[-1px] top-[-1px] h-2 bg-gradient-to-r from-[#ff8faa] to-[#e8f5a0]"
@@ -33,6 +46,6 @@ export function PackageCard({ item, titleClassName }: { item: PackageItem; title
       >
         <ArrowRightIcon className="size-4" />
       </span>
-    </li>
+    </Reveal>
   );
 }

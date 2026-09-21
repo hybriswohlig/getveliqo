@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { CheckList } from "@/components/subpage/check-list";
 import { Section } from "@/components/subpage/section";
+import { Reveal } from "@/components/ui/reveal";
 import { flagship } from "@/content/webdesign";
 
 // Figma frame "flagship-section" (77:105): the headline package with its
@@ -13,7 +14,7 @@ export function FlagshipSection() {
       className="border-y border-hairline bg-white"
       innerClassName="flex flex-col gap-12 py-16 lg:flex-row lg:items-center lg:gap-20 lg:py-20"
     >
-      <div className="flex flex-col gap-8 lg:flex-1">
+      <Reveal className="flex flex-col gap-8 lg:flex-1">
         <div className="flex flex-col gap-3">
           <p className="text-[13px] leading-[normal] font-bold text-signal uppercase">{flagship.eyebrow}</p>
           <h2
@@ -40,9 +41,9 @@ export function FlagshipSection() {
             <span className="text-[13px] whitespace-nowrap text-smoke">{flagship.priceNote}</span>
           </p>
         </div>
-      </div>
+      </Reveal>
 
-      <div className="flex items-center gap-4 lg:w-[620px] lg:shrink-0">
+      <Reveal delay={0.1} className="flex items-center gap-4 lg:w-[620px] lg:shrink-0">
         <Image
           src={flagship.image}
           alt=""
@@ -59,7 +60,7 @@ export function FlagshipSection() {
             {flagship.slogan}
           </span>
         </p>
-      </div>
+      </Reveal>
     </Section>
   );
 }

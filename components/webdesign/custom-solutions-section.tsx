@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Section } from "@/components/subpage/section";
+import { Reveal } from "@/components/ui/reveal";
 import { solutions } from "@/content/webdesign";
 
 // Figma frame "custom-solutions-section" (77:152): two columns of bullets,
@@ -14,8 +15,8 @@ export function CustomSolutionsSection() {
       <h2 id="solutions-title" className="sr-only">
         Individuelle Lösungen und Post-Launch Betreuung
       </h2>
-      {solutions.map((solution) => (
-        <div key={solution.title} className="flex flex-col gap-5">
+      {solutions.map((solution, index) => (
+        <Reveal key={solution.title} delay={index * 0.08} className="flex flex-col gap-5">
           <h3 className="font-outfit text-[22px] leading-[normal] font-bold text-obsidian">{solution.title}</h3>
           <p className="text-[14px] leading-[1.6] text-smoke">{solution.lead}</p>
           <ul className="flex flex-col gap-3">
@@ -42,7 +43,7 @@ export function CustomSolutionsSection() {
               </p>
             </div>
           ) : null}
-        </div>
+        </Reveal>
       ))}
     </Section>
   );
