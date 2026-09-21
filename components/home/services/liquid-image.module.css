@@ -1,0 +1,67 @@
+/*
+ * The card image stays still. A second copy of it, pushed around by an SVG
+ * displacement filter, shows through a soft circle that follows the pointer,
+ * so the colours run where the visitor points.
+ *
+ * The circle moves with mask-position (a fixed-size gradient), not by
+ * rebuilding the gradient every frame, and the copy is dragged a few pixels
+ * along the pointer's direction, which is what reads as the paint smearing.
+ */
+
+.wrap {
+  position: absolute;
+  inset: 0;
+  --r: 135px;
+  --mx: 50%;
+  --my: 50%;
+  --dx: 0px;
+  --dy: 0px;
+}
+
+.smear {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 420ms ease-out;
+  --mask: radial-gradient(
+    closest-side,
+    #000 0%,
+    #000 30%,
+    rgb(0 0 0 / 0.6) 58%,
+    transparent 100%
+  );
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: calc(var(--r) * 2) calc(var(--r) * 2);
+  mask-size: calc(var(--r) * 2) calc(var(--r) * 2);
+  -webkit-mask-position: calc(var(--mx) - var(--r)) calc(var(--my) - var(--r));
+  mask-position: calc(var(--mx) - var(--r)) calc(var(--my) - var(--r));
+  will-change: mask-position, opacity;
+}
+
+.wrap[data-pointing="true"] .smear {
+  opacity: 1;
+}
+
+/* The drag is what the eye reads as paint being pulled along; the slight
+   scale keeps the image edges out of the mask while it is offset. */
+.smear img {
+  filter: url(#liquid-smear);
+  transform: translate3d(var(--dx), var(--dy), 0) scale(1.06);
+  will-change: transform;
+}
+
+/* No pointer, no smear. */
+@media (hover: none), (pointer: coarse) {
+  .smear {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smear {
+    display: none;
+  }
+}
