@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ArrowCircle } from "@/components/ui/arrow-circle";
 import { ButtonLink } from "@/components/ui/button";
 import { Glow } from "@/components/ui/glow";
+import { Reveal } from "@/components/ui/reveal";
 import { Tag } from "@/components/ui/tag";
 import { intro } from "@/content/home";
 
@@ -32,40 +33,44 @@ export function IntroSection() {
                 className="absolute top-[-100px] left-[-50px] size-[260px] max-w-none"
               />
             </div>
-            <h2
-              id="ueber-uns-title"
-              className="flex flex-col gap-3 text-[clamp(44px,5.5556vw,80px)] leading-[1.05] font-black"
-            >
-              <span>{headline.top}</span>
-              <span className="flex items-center gap-[0.25em]">
-                <span>{headline.before}</span>
-                <ArrowCircle className="size-[0.9em] border-graphite" iconClassName="size-[0.4em]" />
-                <span>{headline.after}</span>
-              </span>
-            </h2>
-            <ul className="flex flex-wrap gap-x-8 gap-y-3">
-              {intro.indicators.map((label) => (
-                <li key={label} className="flex items-center gap-2">
-                  <span className="size-2 rounded-full border-[1.5px] border-graphite bg-lime" aria-hidden="true" />
-                  <span className="text-[12px] leading-auto font-bold text-steel">{label}</span>
-                </li>
-              ))}
-            </ul>
+            <Reveal>
+              <h2
+                id="ueber-uns-title"
+                className="flex flex-col gap-3 text-[clamp(44px,5.5556vw,80px)] leading-[1.05] font-black"
+              >
+                <span>{headline.top}</span>
+                <span className="flex items-center gap-[0.25em]">
+                  <span>{headline.before}</span>
+                  <ArrowCircle className="size-[0.9em] border-graphite" iconClassName="size-[0.4em]" />
+                  <span>{headline.after}</span>
+                </span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <ul className="flex flex-wrap gap-x-8 gap-y-3">
+                {intro.indicators.map((label) => (
+                  <li key={label} className="flex items-center gap-2">
+                    <span className="size-2 rounded-full border-[1.5px] border-graphite bg-lime" aria-hidden="true" />
+                    <span className="text-[12px] leading-auto font-bold text-steel">{label}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </div>
 
           <div className="flex flex-col gap-9 lg:w-[42.1875%] lg:pt-[120px]">
-            <div className="flex flex-col gap-6 leading-[1.6]">
+            <Reveal className="flex flex-col gap-6 leading-[1.6]">
               <p className="text-[16px] font-medium">{intro.lead}</p>
               <p className="text-[15px] text-steel">{intro.body}</p>
-            </div>
-            <div className="flex flex-wrap gap-4">
+            </Reveal>
+            <Reveal delay={0.1} className="flex flex-wrap gap-4">
               <ButtonLink href={intro.primary.href} variant="dark">
                 {intro.primary.label}
               </ButtonLink>
               <ButtonLink href={intro.secondary.href} variant="outline">
                 {intro.secondary.label}
               </ButtonLink>
-            </div>
+            </Reveal>
             <hr className="-mb-px border-rule-light" />
             <Tag tone="light">{intro.tag}</Tag>
           </div>

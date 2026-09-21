@@ -137,3 +137,16 @@ body {
     display: none;
   }
 }
+
+/* Scroll reveals (components/ui/reveal.tsx) start hidden, and that hidden
+   state is already in the server HTML. Anyone who has asked for less motion
+   gets the text outright: handled here rather than in the component, because
+   the hook that reports the preference only answers after the first render,
+   by which point the element has already been hidden and nothing would come
+   along to reveal it. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

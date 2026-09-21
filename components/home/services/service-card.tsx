@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "@/components/ui/arrow-right-icon";
+import { Reveal } from "@/components/ui/reveal";
 import { LiquidImage } from "./liquid-image";
 
 export type Service = {
@@ -22,9 +23,11 @@ const FULL = "min(420px,85vw)";
 // Safari is slow at re-laying out and re-rasterising on every frame, so the
 // only layout property animated is the card's own width (its children have
 // fixed sizes); everything else moves with transform/opacity.
-export function ServiceCard({ service }: { service: Service }) {
+export function ServiceCard({ service, index = 0 }: { service: Service; index?: number }) {
   return (
-    <li
+    <Reveal
+      as="li"
+      delay={index * 0.09}
       data-smear-surface=""
       className={[
         "group/card relative isolate h-[480px] w-[min(326px,85vw)] shrink-0 snap-start transform-gpu overflow-hidden rounded-[16px] border border-white/[0.08] text-white [contain:layout_paint]",
@@ -58,6 +61,6 @@ export function ServiceCard({ service }: { service: Service }) {
           </a>
         </div>
       </div>
-    </li>
+    </Reveal>
   );
 }

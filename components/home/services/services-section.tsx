@@ -1,5 +1,6 @@
 import { LogoMark } from "@/components/brand/logo-mark";
 import { Glow } from "@/components/ui/glow";
+import { Reveal } from "@/components/ui/reveal";
 import { services } from "@/content/home";
 import { ServiceCard } from "./service-card";
 
@@ -26,8 +27,10 @@ export function ServicesSection() {
             size={120}
             className="absolute right-20 bottom-[41px] size-[120px] opacity-[0.12] max-lg:hidden"
           />
-          <p className="text-[14px] leading-auto font-bold text-white/70">{services.eyebrow}</p>
-          <div className="flex items-center gap-4 lg:gap-6">
+          <Reveal>
+            <p className="text-[14px] leading-auto font-bold text-white/70">{services.eyebrow}</p>
+          </Reveal>
+          <Reveal delay={0.08} className="flex items-center gap-4 lg:gap-6">
             <LogoMark tone="dark" size={64} className="size-10 opacity-90 lg:size-16" />
             <h2
               id="services-title"
@@ -35,18 +38,18 @@ export function ServicesSection() {
             >
               {services.title}
             </h2>
-          </div>
+          </Reveal>
         </div>
 
         <ul className="group/list relative flex snap-x snap-mandatory items-center gap-6 overflow-x-auto scroll-px-5 px-5 pb-16 md:scroll-px-10 md:px-10 lg:scroll-px-[5.5556vw] lg:px-[5.5556vw] xl:justify-center xl:overflow-visible xl:px-0 frame:justify-start frame:pr-[230px] frame:pl-[213px]">
-          {services.items.map((service) => (
-            <ServiceCard key={service.number} service={service} />
+          {services.items.map((service, index) => (
+            <ServiceCard key={service.number} service={service} index={index} />
           ))}
         </ul>
 
-        <p className="relative px-5 pb-20 text-center text-[16px] leading-auto font-medium text-white/70">
-          {services.note}
-        </p>
+        <Reveal className="relative px-5 pb-20">
+          <p className="text-center text-[16px] leading-auto font-medium text-white/70">{services.note}</p>
+        </Reveal>
       </div>
     </section>
   );
