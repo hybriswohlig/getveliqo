@@ -139,22 +139,22 @@ export function LiquidImage({ src, sizes }: { src: string; sizes: string }) {
 // One filter for every card. The noise field is animated on two cycles that
 // do not divide into each other, so it keeps churning without ever settling
 // into a loop the eye can follow: that is what makes the colour look like it
-// is mixing rather than sliding.
+// is mixing rather than sliding. Both run fast and wide on purpose — the
+// movement is meant to be plainly visible, not a hint.
 export function LiquidSmearFilter() {
   return (
     <svg width="0" height="0" aria-hidden="true" focusable="false" className="absolute">
-      <filter id="liquid-smear" x="-25%" y="-25%" width="150%" height="150%" colorInterpolationFilters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency="0.006 0.013" numOctaves={2} seed={7} result="noise">
+      <filter id="liquid-smear" x="-32%" y="-32%" width="164%" height="164%" colorInterpolationFilters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.005 0.013" numOctaves={1} seed={7} result="noise">
           <animate
             attributeName="baseFrequency"
-            dur="17s"
-            values="0.006 0.013;0.011 0.007;0.007 0.012;0.006 0.013"
+            dur="5s"
+            values="0.005 0.013;0.014 0.005;0.006 0.016;0.011 0.009;0.005 0.013"
             repeatCount="indefinite"
           />
         </feTurbulence>
-        <feGaussianBlur in="noise" stdDeviation="5" result="soft" />
-        <feDisplacementMap in="SourceGraphic" in2="soft" scale={75} xChannelSelector="R" yChannelSelector="G">
-          <animate attributeName="scale" dur="11s" values="75;96;68;75" repeatCount="indefinite" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale={125} xChannelSelector="R" yChannelSelector="G">
+          <animate attributeName="scale" dur="3.5s" values="125;180;90;125" repeatCount="indefinite" />
         </feDisplacementMap>
       </filter>
     </svg>
