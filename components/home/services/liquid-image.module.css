@@ -1,11 +1,12 @@
 /*
- * The card image stays still. A second copy of it, pushed around by an SVG
- * displacement filter, shows through a soft circle that follows the pointer,
- * so the colours run where the visitor points.
+ * The card image stays still. Over it sits a lens: a round patch that follows
+ * the pointer and shows the same image again, run through a displacement
+ * filter whose noise field is animated, so the colours inside keep moving and
+ * mixing into each other like water. Take the pointer off and the lens fades
+ * out, leaving the original image exactly as it was.
  *
- * The circle moves with mask-position (a fixed-size gradient), not by
- * rebuilding the gradient every frame, and the copy is dragged a few pixels
- * along the pointer's direction, which is what reads as the paint smearing.
+ * Only the patch is filtered, not the whole card, which keeps the animated
+ * turbulence affordable.
  */
 
 .wrap {
@@ -16,101 +17,59 @@
   --my: 50%;
   --dx: 0px;
   --dy: 0px;
+  --w: 420px;
+  --h: 480px;
 }
 
-.smear {
+.lens {
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 420ms ease-out;
-  --mask: radial-gradient(
-    closest-side,
-    #000 0%,
-    #000 30%,
-    rgb(0 0 0 / 0.6) 58%,
-    transparent 100%
-  );
+  left: 0;
+  top: 0;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  transform: translate3d(calc(var(--mx) - var(--r)), calc(var(--my) - var(--r)), 0);
+  filter: url(#liquid-smear);
+  /* Soft all the way out, so the moving water has no rim against the still
+     image underneath. */
+  --mask: radial-gradient(closest-side, #000 0%, #000 26%, rgb(0 0 0 / 0.58) 56%, transparent 100%);
   -webkit-mask-image: var(--mask);
   mask-image: var(--mask);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: calc(var(--r) * 2) calc(var(--r) * 2);
-  mask-size: calc(var(--r) * 2) calc(var(--r) * 2);
-  -webkit-mask-position: calc(var(--mx) - var(--r)) calc(var(--my) - var(--r));
-  mask-position: calc(var(--mx) - var(--r)) calc(var(--my) - var(--r));
-  will-change: mask-position, opacity;
+  opacity: 0;
+  transition: opacity 460ms ease-out;
+  will-change: transform, opacity;
 }
 
-.wrap[data-pointing="true"] .smear {
+.wrap[data-pointing="true"] .lens {
   opacity: 1;
 }
 
-/* The drag is what the eye reads as paint being pulled along; the slight
-   scale keeps the image edges out of the mask while it is offset. */
-/* The paint keeps moving on its own while the pointer is on the card: the
-   copy drifts and the layer holding it turns, on two different cycles so the
-   motion never lines up into an obvious loop. The animations sit on wrappers
-   rather than on the filtered image itself, so the displaced copy is
-   rasterised once and only the finished layer is moved around. They stay
-   paused until the card is pointed at. */
-.flow {
+/* The copy is laid out at the card's own size and pushed back by the lens
+   offset, so it lines up with the still image underneath. --dx/--dy add the
+   pull from the pointer's movement, which is what drags the colour along. */
+.inner {
   position: absolute;
-  inset: 0;
-  animation: liquidTurn 10s ease-in-out -4.5s infinite alternate;
-  animation-play-state: paused;
-  will-change: transform;
+  left: 0;
+  top: 0;
+  width: var(--w);
+  height: var(--h);
+  transform: translate3d(
+    calc(var(--r) - var(--mx) + var(--dx)),
+    calc(var(--r) - var(--my) + var(--dy)),
+    0
+  );
 }
 
-.drift {
-  position: absolute;
-  inset: 0;
-  /* The pull from the pointer, kept in `translate` so it composes with the
-     drift keyframes instead of overwriting them. */
-  translate: var(--dx) var(--dy);
-  animation: liquidDrift 6.5s ease-in-out -2.8s infinite alternate;
-  animation-play-state: paused;
-  will-change: transform;
-}
-
-.smear img {
-  filter: url(#liquid-smear);
-  /* Slightly oversized so the image edges stay out of the mask while the
-     layers above move it. */
-  scale: 1.1;
-}
-
-.wrap[data-pointing="true"] .flow,
-.wrap[data-pointing="true"] .drift {
-  animation-play-state: running;
-}
-
-@keyframes liquidTurn {
-  from {
-    transform: rotate(-2deg);
-  }
-  to {
-    transform: rotate(2deg);
-  }
-}
-
-@keyframes liquidDrift {
-  from {
-    transform: translate3d(-15px, 9px, 0);
-  }
-  to {
-    transform: translate3d(15px, -11px, 0);
-  }
-}
-
-/* No pointer, no smear. */
+/* No pointer, no water. */
 @media (hover: none), (pointer: coarse) {
-  .smear {
+  .lens {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .smear {
+  .lens {
     display: none;
   }
 }
