@@ -93,7 +93,11 @@ export function LiquidImage({ src, sizes }: { src: string; sizes: string }) {
     <div ref={wrap} className={styles.wrap}>
       <Image src={src} alt="" fill sizes={sizes} className="object-cover" />
       <div className={styles.smear} aria-hidden="true">
-        <Image src={src} alt="" fill sizes={sizes} className="object-cover" />
+        <div className={styles.flow}>
+          <div className={styles.drift}>
+            <Image src={src} alt="" fill sizes={sizes} className="object-cover" />
+          </div>
+        </div>
       </div>
     </div>
   );
