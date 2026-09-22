@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowCircle } from "@/components/ui/arrow-circle";
 import { Glow } from "@/components/ui/glow";
+import { Reveal } from "@/components/ui/reveal";
 import { Tag } from "@/components/ui/tag";
 import { communication } from "@/content/home";
 
@@ -32,22 +33,24 @@ export function CommunicationSection() {
 
 
         <div className="relative flex flex-col items-center gap-12 px-5 pt-[clamp(96px,11.9444vw,172px)] pb-[60px] md:px-10 lg:gap-20 lg:px-[5.5556vw] frame:px-20">
-          <h2
-            id="one-voice-title"
-            className="flex w-full flex-col items-center gap-2 text-center font-outfit text-[clamp(28px,5vw,72px)] leading-[1.1] font-black tracking-[-0.03em] text-white max-lg:hyphens-auto"
-          >
-            <span>{headline.top}</span>
-            <span className="flex items-center justify-center gap-[0.2778em]">
-              <span>{headline.before}</span>
-              <ArrowCircle className="size-[0.8889em] border-lime text-lime" iconClassName="size-[0.3333em]" />
-              <span className="text-lime">{headline.accent}</span>
-            </span>
-            <span>{headline.bottom}</span>
-          </h2>
+          <Reveal className="w-full">
+            <h2
+              id="one-voice-title"
+              className="flex w-full flex-col items-center gap-2 text-center font-outfit text-[clamp(28px,5vw,72px)] leading-[1.1] font-black tracking-[-0.03em] text-white max-lg:hyphens-auto"
+            >
+              <span>{headline.top}</span>
+              <span className="flex items-center justify-center gap-[0.2778em]">
+                <span>{headline.before}</span>
+                <ArrowCircle className="size-[0.8889em] border-lime text-lime" iconClassName="size-[0.3333em]" />
+                <span className="text-lime">{headline.accent}</span>
+              </span>
+              <span>{headline.bottom}</span>
+            </h2>
+          </Reveal>
 
           <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:gap-20">
             {/* Fills the "3D graphic composition" slot of the Figma frame (600×380). */}
-            <div className="w-full lg:w-auto lg:flex-1">
+            <Reveal className="w-full lg:w-auto lg:flex-1">
               <Image
                 src="/assets/home/communication/laptop-dashboard.png"
                 alt="Laptop mit einem Dashboard, das Website-Traffic, Leads, Conversions und Umsatz zeigt"
@@ -56,18 +59,21 @@ export function CommunicationSection() {
                 sizes="(min-width: 1024px) 600px, 100vw"
                 className="h-auto w-full"
               />
-            </div>
-            <div className="flex w-full flex-col gap-6 text-[16px] leading-[1.6] text-white/70 lg:w-auto lg:flex-1">
+            </Reveal>
+            <Reveal
+              delay={0.1}
+              className="flex w-full flex-col gap-6 text-[16px] leading-[1.6] text-white/70 lg:w-auto lg:flex-1"
+            >
               {paragraphs.map((text) => (
                 <p key={text.slice(0, 24)}>{text}</p>
               ))}
-            </div>
+            </Reveal>
           </div>
         </div>
 
-        <div className="relative px-5 pt-5 pb-10 md:px-10 lg:px-[5.5556vw] frame:px-20">
+        <Reveal className="relative px-5 pt-5 pb-10 md:px-10 lg:px-[5.5556vw] frame:px-20">
           <Tag tone="dark">{tag}</Tag>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

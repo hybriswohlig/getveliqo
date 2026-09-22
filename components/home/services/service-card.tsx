@@ -1,5 +1,6 @@
-import Image from "next/image";
 import { ArrowRightIcon } from "@/components/ui/arrow-right-icon";
+import { Reveal } from "@/components/ui/reveal";
+import { LiquidImage } from "./liquid-image";
 
 export type Service = {
   number: string;
@@ -22,9 +23,12 @@ const FULL = "min(420px,85vw)";
 // Safari is slow at re-laying out and re-rasterising on every frame, so the
 // only layout property animated is the card's own width (its children have
 // fixed sizes); everything else moves with transform/opacity.
-export function ServiceCard({ service }: { service: Service }) {
+export function ServiceCard({ service, index = 0 }: { service: Service; index?: number }) {
   return (
-    <li
+    <Reveal
+      as="li"
+      delay={index * 0.09}
+      data-smear-surface=""
       className={[
         "group/card relative isolate h-[480px] w-[min(326px,85vw)] shrink-0 snap-start transform-gpu overflow-hidden rounded-[16px] border border-white/[0.08] text-white [contain:layout_paint]",
         "transition-[width] duration-500 ease-out motion-reduce:transition-none",
@@ -34,7 +38,7 @@ export function ServiceCard({ service }: { service: Service }) {
       ].join(" ")}
     >
       <div className="absolute inset-y-0 left-1/2 -translate-x-1/2" style={{ width: FULL }} aria-hidden="true">
-        <Image src={service.image} alt="" fill sizes="420px" className="object-cover" />
+        <LiquidImage src={service.image} sizes="420px" />
         <div className="absolute inset-0 bg-ink/25 opacity-0 transition-opacity duration-500 group-hover/card:opacity-100 group-focus-within/card:opacity-100 motion-reduce:transition-none [@media(hover:none)]:opacity-100" />
       </div>
 
@@ -57,6 +61,6 @@ export function ServiceCard({ service }: { service: Service }) {
           </a>
         </div>
       </div>
-    </li>
+    </Reveal>
   );
 }

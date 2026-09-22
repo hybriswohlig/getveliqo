@@ -59,7 +59,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="de"
       className={`${inter.variable} ${outfit.variable} ${geist.variable} ${archivoNarrow.variable} ${geistMono.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        {/* The scroll reveals in components/ui/reveal.tsx ship their hidden
+            state in the server HTML, so without scripting nothing would ever
+            hand the text over. Here rather than per page, so it covers every
+            route. */}
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }

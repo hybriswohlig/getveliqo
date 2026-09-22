@@ -1,5 +1,6 @@
 import { PackageCard } from "@/components/subpage/package-card";
 import { Section } from "@/components/subpage/section";
+import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/subpage/section-heading";
 import { retention } from "@/content/ecommerce";
 
@@ -19,17 +20,17 @@ export function RetentionSection() {
         titleClassName="text-[clamp(30px,3.0556vw,44px)]"
       />
       <ul className="grid gap-6 md:grid-cols-2">
-        {retention.cards.map((card) => (
-          <PackageCard key={card.eyebrow} item={card} titleClassName="text-[38px]" />
+        {retention.cards.map((card, index) => (
+          <PackageCard key={card.heading} item={card} titleClassName="text-[38px]" index={index} />
         ))}
       </ul>
       <ul className="grid gap-6 md:grid-cols-3">
-        {retention.features.map((feature) => (
-          <li key={feature.eyebrow} className="flex flex-col gap-3 rounded-xl bg-mist p-6">
+        {retention.features.map((feature, index) => (
+          <Reveal as="li" key={feature.eyebrow} delay={index * 0.08} className="flex flex-col gap-3 rounded-xl bg-mist p-6">
             <p className="text-[13px] leading-[normal] font-bold text-signal">{feature.eyebrow}</p>
             <h3 className="font-outfit text-[22px] leading-[normal] font-extrabold text-obsidian">{feature.title}</h3>
             <p className="text-[14px] leading-[1.5] text-smoke">{feature.description}</p>
-          </li>
+          </Reveal>
         ))}
       </ul>
     </Section>

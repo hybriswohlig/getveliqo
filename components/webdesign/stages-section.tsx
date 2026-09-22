@@ -1,5 +1,6 @@
 import { Section } from "@/components/subpage/section";
 import { stages } from "@/content/webdesign";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 // Figma frame "section-process" (77:191): a headline column and five numbered
@@ -12,7 +13,7 @@ export function StagesSection() {
       className="border-b border-hairline bg-white"
       innerClassName="flex flex-col py-16 lg:flex-row lg:py-20"
     >
-      <div className="flex flex-col gap-3 pb-10 lg:w-[280px] lg:shrink-0 lg:pb-0">
+      <Reveal className="flex flex-col gap-3 pb-10 lg:w-[280px] lg:shrink-0 lg:pb-0">
         <p className="text-[11px] leading-[normal] font-bold whitespace-nowrap text-signal uppercase">
           {stages.eyebrow}
         </p>
@@ -22,11 +23,13 @@ export function StagesSection() {
         >
           {stages.title}
         </h2>
-      </div>
+      </Reveal>
       <ol className="flex flex-col lg:flex-1 lg:flex-row">
-        {stages.steps.map((step) => (
-          <li
+        {stages.steps.map((step, index) => (
+          <Reveal
+            as="li"
             key={step.number}
+            delay={index * 0.06}
             className="flex flex-col gap-4 border-t border-hairline py-8 lg:flex-1 lg:border-t-0 lg:border-l lg:px-6 lg:py-0"
           >
             <div className="flex flex-col gap-4">
@@ -42,7 +45,7 @@ export function StagesSection() {
               <h3 className="font-outfit text-[15px] leading-[normal] font-bold text-obsidian">{step.title}</h3>
               <p className="text-[13px] leading-[1.55] text-smoke">{step.description}</p>
             </div>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </Section>

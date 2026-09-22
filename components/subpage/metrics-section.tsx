@@ -1,4 +1,5 @@
 import type { MetricsContent } from "@/content/subpage";
+import { Reveal } from "@/components/ui/reveal";
 import { CheckList } from "./check-list";
 import { Section } from "./section";
 
@@ -12,7 +13,7 @@ export function MetricsSection({ id, content }: { id?: string; content: MetricsC
       className="border-y border-hairline bg-white"
       innerClassName="flex flex-col gap-12 py-16 lg:flex-row lg:items-center lg:gap-20 lg:py-20"
     >
-      <div className="flex flex-col gap-8 lg:flex-1">
+      <Reveal className="flex flex-col gap-8 lg:flex-1">
         <div className="flex flex-col gap-3">
           <p className="text-[13px] leading-[normal] font-bold text-signal uppercase">{content.eyebrow}</p>
           <h2
@@ -24,9 +25,9 @@ export function MetricsSection({ id, content }: { id?: string; content: MetricsC
           <p className="text-[15px] leading-[1.6] text-smoke">{content.lead}</p>
         </div>
         <CheckList items={content.checklist} />
-      </div>
+      </Reveal>
 
-      <div className="flex flex-col gap-10 lg:w-[620px] lg:shrink-0">
+      <Reveal delay={0.1} className="flex flex-col gap-10 lg:w-[620px] lg:shrink-0">
         <ul className="grid gap-8 sm:grid-cols-2">
           {content.stats.map((stat) => (
             <li key={stat.label} className="flex flex-col gap-2 leading-[normal]">
@@ -42,7 +43,7 @@ export function MetricsSection({ id, content }: { id?: string; content: MetricsC
           <p className="text-[13px] leading-[normal] font-bold text-signal">{content.trend.eyebrow}</p>
           <p className="text-[14px] leading-[1.5] text-smoke">{content.trend.text}</p>
         </div>
-      </div>
+      </Reveal>
     </Section>
   );
 }
