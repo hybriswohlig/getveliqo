@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="bg-white font-geist text-obsidian">
-      <PageHeader nav={nav} cta={headerCta} wordmarkClassName="font-sans text-graphite" />
+      <PageHeader nav={nav} cta={headerCta} />
       <main>
         <HeroSection
           id="showcase"

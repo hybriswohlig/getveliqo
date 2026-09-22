@@ -2,7 +2,7 @@
 // "pr-seo-geo-subpage-separate" (108:4).
 // Links marked TODO point at pages or targets that don't exist yet.
 
-import { email, legalColumn, type FooterContent, type PackageItem } from "./subpage";
+import { inquiryHref, legalColumn, withLink, withOfferLinks, type FooterContent } from "./subpage";
 
 export const anchors = {
   top: "#sichtbarkeit",
@@ -19,7 +19,10 @@ export const nav = [
   { label: "Prozess", href: anchors.process },
 ];
 
-export const headerCta = { label: "Sichtbarkeit anfragen", href: anchors.contact };
+export const headerCta = {
+  label: "Sichtbarkeit anfragen",
+  href: anchors.contact,
+};
 
 export const hero = {
   eyebrow: "DIE ZUKUNFT DER SICHTBARKEIT",
@@ -33,7 +36,7 @@ export const hero = {
 export const intro = {
   eyebrow: "INTEGRIERTE STRATEGIE",
   title: "Der dreidimensionale Trichter Ihrer Omnipräsenz.",
-  lead: "Wer heute nur klassisches Suchmaschinenmarketing betreibt, verliert bis zu 40% der potenziellen Kunden an KI-Modelle. Eine isolierte PR-Kampagne ohne strukturierte SEO-Nachbereitung verpufft. Wir verweben alle drei Kanäle zu einem unschlagbaren System für nachhaltige Marktführerschaft.",
+  lead: "Wer heute nur klassisches Suchmaschinenmarketing betreibt, riskiert, potenzielle Kunden an KI-Assistenten zu verlieren. Eine isolierte PR-Kampagne ohne strukturierte SEO-Nachbereitung verpufft. Wir verweben alle drei Kanäle zu einem System, das Ihre Sichtbarkeit nachhaltig aufbaut.",
   benefits: [
     {
       icon: "/assets/pr-seo-geo/icons/newspaper.svg",
@@ -45,13 +48,13 @@ export const intro = {
       icon: "/assets/pr-seo-geo/icons/search.svg",
       title: "2. Capture Intent (SEO)",
       description:
-        "Suchende Nutzer wollen konkrete Antworten auf drängende Fragestellungen. Durch präzise Intent-Optimierung und hochwertige, fachlich fundierte Inhalte dominieren wir die relevantesten Google-Suchergebnisse dauerhaft.",
+        "Suchende Nutzer wollen konkrete Antworten auf drängende Fragestellungen. Durch präzise Intent-Optimierung und hochwertige, fachlich fundierte Inhalte bauen wir Ihre Sichtbarkeit in den relevantesten Google-Suchergebnissen Schritt für Schritt aus.",
     },
     {
       icon: "/assets/pr-seo-geo/icons/brain-circuit.svg",
       title: "3. Generative Visibility (GEO)",
       description:
-        "LLMs (Large Language Models) aggregieren Antworten aus strukturierten Erwähnungen im Web. Wir optimieren Ihr digitales Profil, sodass KIs wie ChatGPT Ihre Marke bei direkten Fragen als Erstempfehlung nennen.",
+        "LLMs (Large Language Models) aggregieren Antworten aus strukturierten Erwähnungen im Web. Wir optimieren Ihr digitales Profil, damit KIs wie ChatGPT Ihre Marke bei passenden Fragen besser finden und nennen können.",
     },
   ],
 };
@@ -59,56 +62,60 @@ export const intro = {
 export const services = {
   eyebrow: "LEISTUNGSSPEKTRUM",
   title: "Ganzheitliche Lösungen für anspruchsvolle B2B-Marken.",
-  items: [
-    {
-      eyebrow: "MEDIENARBEIT",
-      title: "PR & Authority",
-      heading: "Konzeptionelle Pressearbeit",
-      description:
-        "Platzierung in Leitmedien (Handelsblatt, FAZ, etc.) sowie gezielter B2B-Fachpresse zur Etablierung vertrauenswürdiger Referenzquellen für Mensch und Algorithmus.",
-    },
-    {
-      eyebrow: "SUCHMASCHINEN",
-      title: "SEO & Content",
-      heading: "Intent-Driven Search",
-      description:
-        "Strukturierte Erfassung und Beantwortung kaufrelevanter Suchanfragen. Aufbau skalierbarer Info-Hubs und technische Optimierung auf exzellente Core Web Vitals.",
-    },
-    {
-      eyebrow: "GENERATIVE KI",
-      title: "GEO & LLM-Prep",
-      heading: "Generative Engine Opt.",
-      description:
-        "Strukturierung digitaler Entitäten und optimierter Zitate, um nachweislich die Nennungshäufigkeit Ihrer Marke in KI-generierten Such-Ergebnissen zu maximieren.",
-    },
-  ] satisfies PackageItem[],
+  items: withLink(
+    [
+      {
+        eyebrow: "MEDIENARBEIT",
+        title: "PR & Authority",
+        heading: "Konzeptionelle Pressearbeit",
+        description:
+          "Ansprache von Wirtschaftsmedien und gezielter B2B-Fachpresse mit dem Ziel, vertrauenswürdige Referenzquellen für Mensch und Algorithmus aufzubauen.",
+      },
+      {
+        eyebrow: "SUCHMASCHINEN",
+        title: "SEO & Content",
+        heading: "Intent-Driven Search",
+        description:
+          "Strukturierte Erfassung und Beantwortung kaufrelevanter Suchanfragen. Aufbau skalierbarer Info-Hubs und technische Optimierung für gute Core Web Vitals.",
+      },
+      {
+        eyebrow: "GENERATIVE KI",
+        title: "GEO & LLM-Prep",
+        heading: "Generative Engine Opt.",
+        description:
+          "Strukturierung digitaler Entitäten und optimierter Zitate, mit dem Ziel, die Nennungshäufigkeit Ihrer Marke in KI-generierten Such-Ergebnissen zu erhöhen.",
+      },
+    ],
+    anchors.pricing,
+    "Zu den Kooperationsmodellen",
+  ),
 };
 
 export const metrics = {
-  eyebrow: "EVALUIERBARE ERGEBNISSE",
-  title: "Wir messen Sichtbarkeit in echten, harten B2B-Metriken.",
-  lead: "Keine schwammigen Prognosen oder unbestimmte Klicks. Unsere GEO- und SEO-Systeme speisen sich aus klaren Datenströmen, die wir in regelmäßigen Audits transparent aufbereiten.",
+  eyebrow: "MESSBARKEIT",
+  title: "Wir machen Sichtbarkeit messbar.",
+  lead: "Wir arbeiten mit klaren Kennzahlen statt vagen Prognosen und bereiten sie in regelmäßigen Audits transparent auf.",
   checklist: [
-    "Share of Voice (SoV) in den Top 4 KI-Sprachmodellen",
+    "Share of Voice (SoV) in führenden KI-Sprachmodellen",
     "Sichtbarkeits-Index für high-intent B2B-Suchanfragen",
-    "Referenz-Zitate und Verlinkungen von autoritativen News-Portalen",
-    "Performance-Steigerung der Direct-Search Conversions",
+    "Referenz-Zitate und Verlinkungen von News-Portalen",
+    "Entwicklung der Direct-Search Conversions",
   ],
   stats: [
     {
-      value: ">32%",
-      label: "GEO Brand Share",
-      description: "Durchschnittlicher Anstieg der Erwähnungen in KI-Zusammenfassungen binnen 6 Monaten.",
+      value: "3",
+      label: "Kanäle. Ein System.",
+      description: "Wirtschaftsmedien, Suchmaschinen und KI-Antworten, aufeinander abgestimmt.",
     },
     {
-      value: "Top 3",
-      label: "Fachmedien-Platzierung",
-      description: "Fokussierte Medienstrategie für Branchenportale und Leitmedien als Quellensignal.",
+      value: "5",
+      label: "Schritte im Fahrplan",
+      description: "Vom Audit bis zur regelmäßigen LLM-Prüfung, transparent und nachvollziehbar.",
     },
   ],
   trend: {
     eyebrow: "AKTUELLER MARKTREND",
-    text: "Laut jüngsten Erhebungen nutzen bereits über 45% der Fach-Entscheider im DACH-Raum direkt ChatGPT oder Perplexity zur ersten Sondierung neuer Software- und Service-Anbieter.",
+    text: "Immer mehr Fach-Entscheider beginnen die Suche nach neuen Software- und Service-Anbietern nicht mehr nur bei Google, sondern fragen direkt KI-Assistenten wie ChatGPT oder Perplexity.",
   },
 };
 
@@ -116,8 +123,16 @@ export const method = {
   eyebrow: "UNSER METHODENPROZESS",
   title: "Fahrplan zur holistischen Omnipräsenz.",
   steps: [
-    { number: "01", title: "1. Audit & Index", description: "Status-Quo-Analyse aller PR-, SEO- und KI-Referenzen." },
-    { number: "02", title: "2. Entity Tuning", description: "Aufbereitung der digitalen Profile Ihrer Unternehmensmarke." },
+    {
+      number: "01",
+      title: "1. Audit & Index",
+      description: "Status-Quo-Analyse aller PR-, SEO- und KI-Referenzen.",
+    },
+    {
+      number: "02",
+      title: "2. Entity Tuning",
+      description: "Aufbereitung der digitalen Profile Ihrer Unternehmensmarke.",
+    },
     {
       number: "03",
       title: "3. PR Placement",
@@ -128,14 +143,18 @@ export const method = {
       title: "4. Semantic SEO",
       description: "Erstellung exzellenter Fachinhalte für exakte Suchanfragen.",
     },
-    { number: "05", title: "5. LLM Audit", description: "Regelmäßige Prüfung der Empfehlungshäufigkeit in KIs." },
+    {
+      number: "05",
+      title: "5. LLM Audit",
+      description: "Regelmäßige Prüfung der Empfehlungshäufigkeit in KIs.",
+    },
   ],
 };
 
 export const pricing = {
   eyebrow: "MODELLE DER KOOPERATION",
   title: "Strukturierte B2B-Sichtbarkeitspakete.",
-  items: [
+  items: withOfferLinks("PR, SEO & GEO", [
     {
       eyebrow: "START",
       title: "3.800 €",
@@ -150,7 +169,7 @@ export const pricing = {
       unit: "/ mtl.",
       heading: "Authority & Search System",
       description:
-        "Unser meistgefragtes Modell. Verknüpft fortlaufendes GEO-Monitoring mit gezielten PR-Platzierungen in relevanten B2B-Fachmedien sowie ganzheitlichem Search Engine Content.",
+        "Verknüpft fortlaufendes GEO-Monitoring mit gezielten PR-Platzierungen in relevanten B2B-Fachmedien sowie ganzheitlichem Search Engine Content.",
     },
     {
       eyebrow: "ENTERPRISE",
@@ -159,7 +178,7 @@ export const pricing = {
       description:
         "Maßgeschneidertes High-End-Modell für Marktführer. Beinhaltet exklusive Medienkampagnen, internationale SEO-Strukturen und direkte entity-basierte Optimierung für globale LLMs.",
     },
-  ] satisfies PackageItem[],
+  ]),
 };
 
 export const faq = {
@@ -175,17 +194,17 @@ export const faq = {
     {
       question: "Warum ist klassische PR ein wichtiger Rankingfaktor für KIs?",
       answer:
-        "Generative KIs speisen ihr Weltwissen aus verlässlichen Quellen im Netz. Ein Artikel im Handelsblatt oder eine Fachveröffentlichung wird von KI-Scrapern extrem hoch gewichtet. Ohne diese vertrauenswürdigen Drittsignale kann GEO langfristig nicht erfolgreich sein.",
+        "Generative KIs speisen ihr Weltwissen aus verlässlichen Quellen im Netz. Beiträge in etablierten Wirtschaftsmedien und Fachveröffentlichungen gelten als vertrauenswürdige Drittsignale. Ohne solche Signale wird GEO auf Dauer schwer.",
     },
     {
       question: "Wie lässt sich der Erfolg von GEO-Kampagnen überhaupt messen?",
       answer:
-        "Wir nutzen spezialisierte Crawling-Systeme und LLM-Scraper, die vordefinierte Prompt-Zyklen für Ihre Kern-B2B-Keywords simulieren. Daraus erheben wir wöchentlich Ihren exakten SoV (Share of Voice) im Vergleich zu Ihren Hauptwettbewerbern.",
+        "Wir simulieren mit vordefinierten Prompt-Zyklen für Ihre Kern-B2B-Keywords, wie KI-Systeme Ihre Marke nennen, und erheben daraus regelmäßig Ihren Share of Voice (SoV) im Vergleich zu Ihren Hauptwettbewerbern.",
     },
     {
       question: "Kooperiert VELYQO auch mit Inhouse-Marketingteams?",
       answer:
-        "Ja, sehr häufig. Wir fungieren entweder als spezialisierte Full-Service-Boutique oder arbeiten nahtlos mit Ihrem bestehenden PR- oder SEO-Inhouse-Team zusammen, um das GEO-Wissen und die technischen Entity-Optimierungen einzubringen.",
+        "Ja. Wir fungieren entweder als spezialisierte Full-Service-Boutique oder arbeiten nahtlos mit Ihrem bestehenden PR- oder SEO-Inhouse-Team zusammen, um das GEO-Wissen und die technischen Entity-Optimierungen einzubringen.",
     },
   ],
 };
@@ -194,7 +213,13 @@ export const cta = {
   eyebrow: "BEREIT FÜR DEN DIGITALEN VORSPRUNG?",
   title: "Sichern Sie sich Ihre KI-Sichtbarkeit von morgen.",
   lead: "Lassen Sie uns in einem unverbindlichen Fachgespräch analysieren, wo Ihre Marke im Index generativer KI-Systeme aktuell steht und wie wir Sie optimal positionieren.",
-  button: { label: "Sichtbarkeits-Audit buchen", href: `mailto:${email}` },
+  button: {
+    label: "Sichtbarkeits-Audit buchen",
+    href: inquiryHref(
+      "Anfrage PR, SEO & GEO: Sichtbarkeits-Audit",
+      "ich möchte gerne ein unverbindliches Erstgespräch zum Thema PR, SEO & GEO (Sichtbarkeits-Audit) vereinbaren.",
+    ),
+  },
   note: "100% unverbindliches Erstgespräch",
 };
 
@@ -215,8 +240,6 @@ export const footer: FooterContent = {
       links: [
         { label: "Über uns", href: "/#ueber-uns" },
         { label: "Prozess", href: anchors.process },
-        { label: "Showcase", href: "/#portfolio" }, // TODO: portfolio subpage
-        { label: "Karriere", href: "#" }, // TODO
         { label: "Kontakt", href: anchors.contact },
       ],
     },

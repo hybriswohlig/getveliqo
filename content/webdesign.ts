@@ -3,14 +3,14 @@
 // Links marked TODO point at pages or targets that don't exist yet.
 
 import {
-  email,
+  inquiryHref,
   legalColumn,
+  withOfferLinks,
   type CtaContent,
   type FooterContent,
   type HeroCopy,
   type IntroContent,
   type Link,
-  type PackageItem,
   type ProcessContent,
 } from "./subpage";
 
@@ -23,18 +23,21 @@ export const anchors = {
 } as const;
 
 export const nav = [
-  { label: "Showcase", href: anchors.top, current: true },
+  { label: "Webdesign", href: anchors.top, current: true },
   { label: "Leistungen", href: anchors.services },
   { label: "Pakete", href: anchors.pricing },
   { label: "Prozess", href: anchors.process },
 ];
 
-export const headerCta: Link = { label: "Projekt anfragen", href: anchors.contact };
+export const headerCta: Link = {
+  label: "Projekt anfragen",
+  href: anchors.contact,
+};
 
 export const hero: HeroCopy = {
   eyebrow: "DIGITAL ATELIER",
   title: ["IHR DIGITALER", "AUFTRITT."],
-  lead: "Wir konzipieren und entwickeln erstklassige Webauftritte, die Ihre Markenidentität perfekt transportieren, Besucher fesseln und messbare Ergebnisse erzielen.",
+  lead: "Wir konzipieren und entwickeln erstklassige Webauftritte, die Ihre Markenidentität klar transportieren, Besucher überzeugen und auf Ihre messbaren Ziele einzahlen.",
   primary: { label: "Pakete ansehen", href: anchors.pricing },
   secondary: { label: "Kostenloses Erstgespräch", href: anchors.contact },
   slogan: "WEBSITES THAT MOVE BRANDS",
@@ -61,7 +64,7 @@ export const intro: IntroContent = {
       icon: "/assets/webdesign/icons/zap.svg",
       title: "Optimierte Performance",
       description:
-        "Schnelle Ladezeiten, exzellente mobile Usability und saubere technische Optimierung garantieren beste Conversion-Rates und SEO-Rankings.",
+        "Schnelle Ladezeiten, gute mobile Usability und saubere technische Optimierung legen die Grundlage für starke Conversion-Rates und SEO-Rankings.",
     },
   ],
 };
@@ -69,7 +72,7 @@ export const intro: IntroContent = {
 export const pricing = {
   eyebrow: "PREISGESTALTUNG",
   title: "Unsere Webdesign-Pakete im Überblick.",
-  items: [
+  items: withOfferLinks("Webdesign", [
     {
       eyebrow: "CHECK",
       title: "890 €",
@@ -91,7 +94,7 @@ export const pricing = {
       description:
         "Kernbotschaft, Tonalität, Farb- und Schriftsystem sowie 3 Kern-Seiten. Ideal für ein konsistentes digitales Fundament.",
     },
-  ] satisfies PackageItem[],
+  ]),
 };
 
 export const flagship = {
@@ -105,9 +108,15 @@ export const flagship = {
     "Technische Umsetzung (z. B. Webflow, Shopify, WordPress)",
     "Integrierte SEO- und GEO-Optimierung",
     "Bis zu 8 Seiten, professionell betextet",
-    "6 Wochen garantierte Projektlaufzeit",
+    "Projektlaufzeit von ca. 6 Wochen",
   ],
-  button: { label: "Jetzt anfragen", href: anchors.contact } satisfies Link,
+  button: {
+    label: "Jetzt anfragen",
+    href: inquiryHref(
+      "Anfrage Webdesign: Flagship-Paket",
+      "ich interessiere mich für das Flagship-Paket „Ihre neue Website - von Strategie bis Launch“ (6.900 € zzgl. MwSt.). Bitte melden Sie sich bei mir.",
+    ),
+  } satisfies Link,
   price: "6.900 €",
   priceNote: "Website Komplettpreis (zzgl. MwSt.)",
   image: "/assets/webdesign/laptop-mockup.jpg",
@@ -129,7 +138,13 @@ export const solutions = [
       "Conversion-Optimierung & Tracking",
     ],
     offer: {
-      button: { label: "Mehr erfahren", href: anchors.contact } satisfies Link,
+      button: {
+        label: "Mehr erfahren",
+        href: inquiryHref(
+          "Anfrage Webdesign: Service-Paket",
+          "ich interessiere mich für das Service-Paket zur Post-Launch Betreuung (890 €/Monat zzgl. MwSt.). Bitte melden Sie sich bei mir.",
+        ),
+      } satisfies Link,
       price: "890 €/Monat",
       note: "Service-Paket (zzgl. MwSt.)",
     },
@@ -186,15 +201,26 @@ export const stages = {
       description:
         "Nach intensiven Tests geht Ihre Website live. Wir begleiten Sie beim Go-Live und sichern den Post-Launch-Erfolg.",
     },
-  ] as { number: string; title: string; description: string; accent?: boolean }[],
+  ] as {
+    number: string;
+    title: string;
+    description: string;
+    accent?: boolean;
+  }[],
 };
 
 export const cta: CtaContent = {
   eyebrow: "STARTEN WIR IHR PROJEKT",
   title: "Bereit für den nächsten digitalen Meilenstein?",
   lead: "Lassen Sie uns in einem unverbindlichen Erstgespräch über Ihre Anforderungen sprechen und das passende Konzept für Sie entwickeln.",
-  button: { label: "Projekt anfragen", href: `mailto:${email}` },
-  note: "100% unverbindlich · Antwort in 24h",
+  button: {
+    label: "Projekt anfragen",
+    href: inquiryHref(
+      "Anfrage Webdesign: Projekt",
+      "ich möchte gerne ein unverbindliches Erstgespräch zu meinem Webdesign-Projekt vereinbaren.",
+    ),
+  },
+  note: "100% unverbindlich · Wir melden uns zeitnah",
 };
 
 export const footer: FooterContent = {
@@ -212,10 +238,8 @@ export const footer: FooterContent = {
     {
       title: "Unternehmen",
       links: [
-        { label: "Showcase", href: "/#portfolio" }, // TODO: portfolio subpage
         { label: "Über uns", href: "/#ueber-uns" },
         { label: "Prozess", href: anchors.process },
-        { label: "Karriere", href: "#" }, // TODO
         { label: "Kontakt", href: anchors.contact },
       ],
     },

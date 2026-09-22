@@ -1,26 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
-import { logoMark, type Link as NavLink } from "@/content/subpage";
-import { cn } from "@/lib/utils";
+import { LogoMark } from "@/components/brand/logo-mark";
+import type { Link as NavLink } from "@/content/subpage";
 
 // Figma frame "header", 1440×70. Below 1024px the links move to a scrollable
 // second row, so the page stays navigable without any script.
-export function PageHeader({
-  nav,
-  cta,
-  wordmarkClassName = "font-outfit text-obsidian",
-}: {
-  nav: (NavLink & { current?: boolean })[];
-  cta: NavLink;
-  // The Webdesign frame sets the wordmark in Inter, the others in Outfit
-  wordmarkClassName?: string;
-}) {
+export function PageHeader({ nav, cta }: { nav: (NavLink & { current?: boolean })[]; cta: NavLink }) {
   return (
     <header className="border-b border-hairline bg-white">
       <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-x-3 px-5 py-3 md:px-10 lg:h-[69px] lg:flex-nowrap lg:px-[5.5556vw] lg:py-0 frame:px-20">
         <Link href="/" className="flex items-center gap-2.5" aria-label="VELYQO – Startseite">
-          <Image src={logoMark} alt="" width={44} height={44} className="size-11 rounded-[10px] object-contain" />
-          <span className={cn("text-[22px] font-black", wordmarkClassName, "leading-[normal]")}>VELYQO</span>
+          <LogoMark tone="dark" size={44} className="size-11" />
+          <span className="text-[22px] leading-[normal] font-black text-graphite">VELYQO</span>
         </Link>
 
         <nav

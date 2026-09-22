@@ -1,11 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
+import { LogoMark } from "@/components/brand/logo-mark";
 import { Reveal } from "@/components/ui/reveal";
-import { copyright, email, office, socials, type FooterContent } from "@/content/subpage";
+import { copyright, email, office, type FooterContent } from "@/content/subpage";
 
 // Figma frame "velyqo-footer", 1440×881. Its column set and the giant slogan
-// differ from the homepage footer, so it is its own component. The address,
-// legal links and socials are the same on every subpage; the two link
+// differ from the homepage footer, so it is its own component. The address
+// and legal links are the same on every subpage; the two link
 // columns and the slogan come from the page.
 export function PageFooter({ content }: { content: FooterContent }) {
   return (
@@ -14,13 +14,8 @@ export function PageFooter({ content }: { content: FooterContent }) {
         <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-[240px_1fr_repeat(3,minmax(0,200px))] lg:gap-x-[60px]">
           <Reveal className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
             <p className="flex items-center gap-2.5">
-              <span
-                aria-hidden="true"
-                className="font-outfit flex size-[30px] items-center justify-center rounded-[5px] bg-obsidian text-[17px] leading-[normal] font-black text-white"
-              >
-                V
-              </span>
-              <span className="font-outfit text-[20px] leading-[normal] font-extrabold text-obsidian">VELYQO</span>
+              <LogoMark tone="dark" size={36} className="size-9" />
+              <span className="text-[20px] leading-[normal] font-black text-graphite">VELYQO</span>
             </p>
             <div className="flex flex-col gap-2 text-[13px]">
               <h2 className="leading-[normal] font-bold text-obsidian">{office.title}</h2>
@@ -59,19 +54,6 @@ export function PageFooter({ content }: { content: FooterContent }) {
 
         <div className="flex flex-col gap-6 pb-10 md:flex-row md:items-center md:justify-between">
           <p className="text-[12px] leading-[normal] text-[#8a8a95]">{copyright}</p>
-          <ul className="flex items-center gap-3">
-            {socials.map((social) => (
-              <li key={social.label}>
-                <a
-                  href={social.href}
-                  aria-label={social.label}
-                  className="flex size-9 items-center justify-center rounded-full border border-[#e2e2e8] bg-white"
-                >
-                  <Image src={social.icon} alt="" width={16} height={16} unoptimized />
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
 
         <p

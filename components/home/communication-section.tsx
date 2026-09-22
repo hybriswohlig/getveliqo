@@ -31,16 +31,6 @@ export function CommunicationSection() {
         <Glow x={100} y={150} width={600} height={500} color="var(--color-glow-pink)" opacity={0.102} blur={60} />
         <Glow x={800} y={300} width={600} height={600} color="var(--color-lime)" opacity={0.0784} blur={70} />
 
-        <div className="absolute top-[400px] left-[28px] hidden flex-col items-center gap-5 lg:flex">
-          <span className="h-[60px] w-px bg-white/15" />
-          {/* TODO: LinkedIn profile URL */}
-          <a href="#" className="flex h-[42px] w-[11px] items-center justify-center">
-            <span className="-rotate-90 text-[9px] leading-auto font-semibold whitespace-nowrap text-white/25 uppercase">
-              LinkedIn
-            </span>
-          </a>
-          <span className="h-[60px] w-px bg-white/15" />
-        </div>
 
         <div className="relative flex flex-col items-center gap-12 px-5 pt-[clamp(96px,11.9444vw,172px)] pb-[60px] md:px-10 lg:gap-20 lg:px-[5.5556vw] frame:px-20">
           <Reveal className="w-full">

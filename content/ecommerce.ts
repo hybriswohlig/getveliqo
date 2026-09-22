@@ -3,8 +3,10 @@
 // Links marked TODO point at pages or targets that don't exist yet.
 
 import {
-  email,
+  inquiryHref,
   legalColumn,
+  withLink,
+  withOfferLinks,
   type CtaContent,
   type FaqContent,
   type FooterContent,
@@ -12,7 +14,6 @@ import {
   type IntroContent,
   type Link,
   type MetricsContent,
-  type PackageItem,
   type ProcessContent,
 } from "./subpage";
 
@@ -32,14 +33,17 @@ export const nav = [
   { label: "Fahrplan", href: anchors.process },
 ];
 
-export const headerCta: Link = { label: "Shop-Audit anfragen", href: anchors.contact };
+export const headerCta: Link = {
+  label: "Shop-Audit anfragen",
+  href: anchors.contact,
+};
 
 export const hero: HeroCopy = {
   eyebrow: "ALLES AUS EINER HAND",
   title: ["SETUP. DESIGNS. ", "SCALING. MATTER."],
   lead: "Ein erfolgreicher Onlineshop ist kein Zufall, sondern das Zusammenspiel aus perfekter UX, nahtlosen Prozessen und präzisem Performance-Marketing. Wir konzipieren, bauen und skalieren Ihre digitale Verkaufsplattform – ob Shopify, maßgeschneiderte Headless-Systeme oder Amazon FBA Integration.",
   primary: { label: "E-Commerce-Check buchen", href: anchors.contact },
-  secondary: { label: "Unsere Cases sehen", href: "/#portfolio" }, // TODO: portfolio subpage
+  secondary: { label: "Fahrplan ansehen", href: anchors.process },
   slogan: "ULTIMATE CONVERSION ARCHITECTURE",
 };
 
@@ -52,19 +56,19 @@ export const intro: IntroContent = {
       icon: "/assets/ecommerce/icons/strategy.svg",
       title: "1. Strategie & UX-Design",
       description:
-        "Jeder Klick zählt. Wir entwerfen mobile-first Storefronts mit psychologischer Nutzerführung und optimalen Informationsarchitekturen, die Besucher nachweislich fesseln.",
+        "Jeder Klick zählt. Wir entwerfen mobile-first Storefronts mit psychologischer Nutzerführung und optimalen Informationsarchitekturen, die Besucher überzeugen.",
     },
     {
       icon: "/assets/ecommerce/icons/launch.svg",
       title: "2. Tech-Setup & Checkout",
       description:
-        "Frictionless Commerce. Wir integrieren robuste Bezahlmethoden, Versanddienstleister und ERP-Systeme, um einen fehlerfreien und hochautomatisierten Workflow zu garantieren.",
+        "Frictionless Commerce. Wir integrieren robuste Bezahlmethoden, Versanddienstleister und ERP-Systeme, um einen möglichst fehlerfreien und automatisierten Workflow aufzubauen.",
     },
     {
       icon: "/assets/ecommerce/icons/scaling.svg",
       title: "3. Paid Media & CRO",
       description:
-        "Gezielte Skalierung. Mit Omnichannel Performance-Marketing (Meta, Google, TikTok) und datengetriebenem A/B-Testing maximieren wir Ihren Customer Lifetime Value nachhaltig.",
+        "Gezielte Skalierung. Mit Omnichannel Performance-Marketing (Meta, Google, TikTok) und datengetriebenem A/B-Testing arbeiten wir gezielt daran, Ihren Customer Lifetime Value nachhaltig zu steigern.",
     },
   ],
 };
@@ -72,56 +76,60 @@ export const intro: IntroContent = {
 export const services = {
   eyebrow: "UNSER LEISTUNGSSPEKTRUM",
   title: "Ganzheitliche E-Commerce-Moderne.",
-  items: [
-    {
-      eyebrow: "STORE-FRONT & CODE",
-      title: "Shopdesign & Build",
-      heading: "Plattformunabhängige Builds",
-      description:
-        "Wir konzipieren und entwickeln performante Storefronts auf Shopify, WooCommerce oder maßgeschneiderten Headless Frameworks. Perfekt auf Ihre Markenidentität angepasst.",
-    },
-    {
-      eyebrow: "OPERATIONS & FLOW",
-      title: "Checkout & Logistik",
-      heading: "Frictionless Fulfillment",
-      description:
-        "Integration von globalen Bezahlungs-Gateways (Stripe, Klarna) und vollautomatisierte Anbindung an 3PL Logistik-Partner zur fehlerfreien Bestellabwicklung.",
-    },
-    {
-      eyebrow: "TRAFFIC & ROAS",
-      title: "Ads & Skalierung",
-      heading: "Data-Driven Growth",
-      description:
-        "Ausspielung hocheffizienter Performance-Marketing-Kampagnen zur Neukundengewinnung, gekoppelt mit kontinuierlichem Conversion-Optimierungs-Testing (CRO).",
-    },
-  ] satisfies PackageItem[],
+  items: withLink(
+    [
+      {
+        eyebrow: "STORE-FRONT & CODE",
+        title: "Shopdesign & Build",
+        heading: "Plattformunabhängige Builds",
+        description:
+          "Wir konzipieren und entwickeln performante Storefronts auf Shopify, WooCommerce oder maßgeschneiderten Headless Frameworks. Perfekt auf Ihre Markenidentität angepasst.",
+      },
+      {
+        eyebrow: "OPERATIONS & FLOW",
+        title: "Checkout & Logistik",
+        heading: "Frictionless Fulfillment",
+        description:
+          "Integration von globalen Bezahlungs-Gateways (Stripe, Klarna) und vollautomatisierte Anbindung an 3PL Logistik-Partner zur fehlerfreien Bestellabwicklung.",
+      },
+      {
+        eyebrow: "TRAFFIC & ROAS",
+        title: "Ads & Skalierung",
+        heading: "Data-Driven Growth",
+        description:
+          "Ausspielung hocheffizienter Performance-Marketing-Kampagnen zur Neukundengewinnung, gekoppelt mit kontinuierlichem Conversion-Optimierungs-Testing (CRO).",
+      },
+    ],
+    anchors.pricing,
+    "Zu den Kooperationsmodellen",
+  ),
 };
 
 export const metrics: MetricsContent = {
-  eyebrow: "EVALUIERBARE ERGEBNISSE",
+  eyebrow: "MESSBARKEIT",
   title: "Shop-Metriken, die das Unternehmenswachstum treiben.",
   lead: "Wir versprechen keine oberflächlichen kosmetischen Anpassungen. Unsere Optimierung setzt an messbaren Hebeln wie Conversion-Rate, Abbruchrate im Warenkorb und Kundenwert an.",
   checklist: [
-    "Signifikante Steigerung des durchschnittlichen Bestellwerts (AOV)",
-    "Vollständig integriertes Server-Side Tracking für fehlerfreie Attribution",
+    "Fokus auf den durchschnittlichen Bestellwert (AOV)",
+    "Server-Side Tracking für saubere Attribution",
     "Automatisierte Bestands- und Logistik-Synchronisierung",
-    "Optimierte, blitzschnelle Ladezeiten (Core Web Vitals exzellent)",
+    "Schnelle Ladezeiten und gute Core Web Vitals",
   ],
   stats: [
     {
-      value: ">42%",
-      label: "CR-Uplift im Checkout",
-      description: "Durchschnittlicher Anstieg der Kauf-Conversion durch gezielte Checkout-Optimierungen.",
+      value: "3",
+      label: "Werbekanäle",
+      description: "Meta, Google und TikTok: Performance-Marketing aus einer Hand.",
     },
     {
-      value: "3.1x",
-      label: "Durchschnitts-ROAS",
-      description: "Erzielter Return on Ad Spend bei von uns skalierten Neukunden-Kampagnen.",
+      value: "5",
+      label: "Phasen zum Shop",
+      description: "Vom System-Audit bis zum laufenden Scaling, transparent geplant.",
     },
   ],
   trend: {
     eyebrow: "AKTUELLER E-COMMERCE TREND",
-    text: "Mobilgeräte machen mittlerweile über 78% des gesamten Traffics im Konsumentenbereich aus. Ein nicht absolut mobil-optimierter Checkout verliert im Schnitt fast die Hälfte seiner potenziellen Umsätze.",
+    text: "Ein Großteil des Traffics im Konsumentenbereich kommt inzwischen von Mobilgeräten. Ein nicht konsequent mobil-optimierter Checkout verschenkt daher einen erheblichen Teil seiner potenziellen Umsätze.",
   },
 };
 
@@ -160,7 +168,7 @@ export const method: ProcessContent = {
 export const retention = {
   eyebrow: "NACHHALTIGE VERKAUFSDYNAMIK",
   title: "Vom einmaligen Setup zur laufenden Verkaufssteigerung.",
-  cards: [
+  cards: withOfferLinks("E-Commerce", [
     {
       eyebrow: "EINMALIG",
       // Figma has the entity "&amp;" typed literally here; it is a plain ampersand
@@ -178,7 +186,7 @@ export const retention = {
       description:
         "Nach dem Launch übernehmen wir die laufende Betreuung: kontinuierliche Optimierung der Produktseiten, gezielte Werbekampagnen, Conversion-Testing und Performance-Monitoring, um Ihre Verkäufe nachhaltig zu steigern.",
     },
-  ] satisfies PackageItem[],
+  ]),
   features: [
     {
       eyebrow: "PRODUKTSEITEN",
@@ -204,7 +212,7 @@ export const retention = {
 export const pricing = {
   eyebrow: "KOOPERATIONSMODELLE",
   title: "Skalierbare E-Commerce-Pakete.",
-  items: [
+  items: withOfferLinks("E-Commerce", [
     {
       eyebrow: "LAUNCH",
       title: "ab 4.500 €",
@@ -228,7 +236,7 @@ export const pricing = {
       description:
         "Maßgeschneiderte High-End-Architektur. Komplexe Anbindungen an Warenwirtschaftssysteme (SAPs/Dynamics), multi-nationale Shop-Setups und eigene Headless-Storefronts für maximale Ladezeiten.",
     },
-  ] satisfies PackageItem[],
+  ]),
 };
 
 export const faq: FaqContent = {
@@ -239,12 +247,12 @@ export const faq: FaqContent = {
     {
       question: "Warum empfehlen Sie Shopify für den Start und die Skalierung?",
       answer:
-        "Shopify bietet die stabilste Cloud-Infrastruktur mit herausragender Checkout-Performance. Die native Integration führender Zahlungs-Gateways, vollautomatische Updates sowie die einfache Pflege für Ihr Inhouse-Team machen es im B2C- und D2C-Bereich zur unangefochtenen Nummer Eins für lückenloses Wachstum.",
+        "Shopify bietet eine sehr stabile Cloud-Infrastruktur mit starker Checkout-Performance. Die native Integration führender Zahlungs-Gateways, automatische Updates sowie die einfache Pflege für Ihr Inhouse-Team machen es im B2C- und D2C-Bereich zu einer bewährten Wahl für den Start und das Wachstum.",
     },
     {
       question: "Bieten Sie auch komplett maßgeschneiderte Headless-Systeme an?",
       answer:
-        "Ja, absolut. Für sehr große Sortimente oder extreme Design-Ansprüche entwickeln wir Headless-Architekturen. Hierbei trennen wir die visuelle Storefront (z. B. auf Next.js) komplett von dem dahinterliegenden E-Commerce-Kern, um unschlagbare Ladezeiten und grenzenlose Gestaltungsfreiheit zu erreichen.",
+        "Ja, absolut. Für sehr große Sortimente oder extreme Design-Ansprüche entwickeln wir Headless-Architekturen. Hierbei trennen wir die visuelle Storefront (z. B. auf Next.js) komplett von dem dahinterliegenden E-Commerce-Kern, um sehr gute Ladezeiten und große Gestaltungsfreiheit zu erreichen.",
     },
     {
       question: "Wie stellen Sie sicher, dass unser Marketing-Tracking korrekt ist?",
@@ -259,12 +267,17 @@ export const faq: FaqContent = {
   ],
 };
 
-// The frame reuses the PR/SEO/GEO button label
 export const cta: CtaContent = {
   eyebrow: "BEREIT FÜR DEN DIGITALEN DURCHBRUCH?",
   title: "Bauen Sie die E-Commerce-Plattform Ihrer Zukunft.",
   lead: "Lassen Sie uns in einem unverbindlichen Fachgespräch analysieren, wo die conversion-stärksten Hebel in Ihrem aktuellen Onlineshop-Modell liegen und wie wir diese freisetzen.",
-  button: { label: "Sichtbarkeits-Audit buchen", href: `mailto:${email}` },
+  button: {
+    label: "Shop-Audit anfragen",
+    href: inquiryHref(
+      "Anfrage E-Commerce: Shop-Audit",
+      "ich möchte gerne ein unverbindliches Erstgespräch zu meinem Onlineshop (Shop-Audit) vereinbaren.",
+    ),
+  },
   note: "100% unverbindliches Erstgespräch",
 };
 
@@ -286,8 +299,6 @@ export const footer: FooterContent = {
       links: [
         { label: "Über uns", href: "/#ueber-uns" },
         { label: "Prozess", href: anchors.process },
-        { label: "Showcase", href: "/#portfolio" }, // TODO: portfolio subpage
-        { label: "Karriere", href: "#" }, // TODO
         { label: "Kontakt", href: anchors.contact },
       ],
     },
