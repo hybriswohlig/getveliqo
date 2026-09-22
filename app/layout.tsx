@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo_Narrow, Geist, Geist_Mono, Inter, Outfit } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -60,6 +61,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${outfit.variable} ${geist.variable} ${archivoNarrow.variable} ${geistMono.variable} antialiased`}
     >
       <body>
+        {/* Privacy-friendly analytics by Plausible, site-wide. */}
+        <Script strategy="afterInteractive" src="https://plausible.io/js/pa-KkbKH2qoedaGdG_fyP4H0.js" />
+        <Script id="plausible-init" strategy="afterInteractive">
+          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()`}
+        </Script>
+
         {/* The scroll reveals in components/ui/reveal.tsx ship their hidden
             state in the server HTML, so without scripting nothing would ever
             hand the text over. Here rather than per page, so it covers every
